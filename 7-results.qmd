@@ -1,0 +1,128 @@
+---
+format: 
+  html:
+    toc: true
+    toc-depth: 5
+prefer-html: true
+title: "Summary"
+engine: r
+---
+
+```{r, echo = FALSE, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(quarto)
+
+data <- read.csv("data/2025_annualreportdata.csv")
+year <- unique(data$Year)
+
+summary <- read.csv("data/results-summary-2025.csv")
+
+
+```
+
+## `r year` Field Work {.unnumbered}
+
+In `r year`, field observers completed 1,627 of 1,193 (97%) planned surveys throughout all or portions of BCRs `r summary$bcr` using the IMBCR design (@tbl-planned-completed, @fig-extent). Two surveys were completed above the funded sample effort in two strata. Reasons surveys were not completed are summarized in <a href="#sec-reasons">Table 2</a>.
+
+Observers conducted 13,455 point counts within the 1,193 surveyed sampling units between `r summary$first` and `r summary$last`, `r year`. They detected 165,395 individual birds representing 327 species.
+
+### Notes about the results {.unnumbered}
+
+#### Scope of what's included here {.unnumbered}
+
+Please note that not every stratum or superstratum is summarized in this report. We include details of specific strata or superstrata for which our partners are most interested. However, results from all strata and all biologically meaningful superstrata can be found on the [Rocky Mountain Avian Data Center 2.0](https://apps.birdconservancy.org/rmadc/) (RMADC). This online database contains species counts, density, occupancy, and population trend results per stratum, and also interactive maps showing approximate survey locations and detections. Instructions for using the RMADC are included in Appendix A of this report.  
+
+#### Species names {.unnumbered}
+
+Unless otherwise specified, all bird species names listed in this report are from the 65th supplement to the American Ornithological Society's Checklist of North American Birds (Chesser et al., 2024).  
+
+#### Number of species with estimates {.unnumbered}
+
+The way we present density and occupancy estimates in the final report has changed from years prior to 2018. In the past, if a species had been detected in a stratum in a previous year, but was not detected in the current year, we did not provide density or occupancy estimates for that species in that stratum. We now include estimates for these species. In these cases, the estimate for a given year is zero or very close to zero. We consider these to be legitimate estimates of zero occupancy or density because the species occurs in the area of interest, but was not detected in a particular year.
+
+This change means that the number of species with density or occupancy estimates for a given stratum or superstratum in a given year is not comparable to the number of species with estimates for that stratum or superstratum and year in reports prior to 2018. The number of species in the current report will include species with zero, or near zero estimates, if that species has been detected in previous years, whereas reports before 2018 will not. Therefore, there may be more species with estimates for a given stratum in a final report for 2018 and later.
+
+## Survey effort {.unnumbered}
+
+### Planned and completed strata
+
+```{r planned-completed, echo = F, message = F, warning = FALSE}
+#| column: page-right
+#| label: tbl-planned-completed
+#| tbl-cap: "Planned and completed surveys by strata, 2024"
+
+library(tidyverse)
+library(DT)
+library(gt)
+
+plan.comp.strata <- read.csv("data/planned-completed-strata-2024.csv")
+
+plan.comp.strata <- plan.comp.strata %>%
+  select(LongStratum, PlannedGrids, CompletedGrids, percent.completed, State, bcr, Partner, area)
+
+plan.comp.strata %>% gt() %>%
+  cols_label(
+    State = "State",
+    bcr = "BCR",
+    LongStratum = "Stratum",
+    Partner = "Partner",
+    PlannedGrids = "Planned",
+    CompletedGrids = "Completed",
+    percent.completed = "% Completed",
+    area ~ "Area, {{km^2}}"
+  ) %>%
+  fmt_percent(percent.completed, decimals = 0) %>%
+  fmt_number(area, decimal = 0) %>%
+    cols_merge(
+    columns = c(CompletedGrids, percent.completed),
+    pattern = "{1}<< ({2})>>"
+  ) %>%
+  cols_align(
+    align = "center",
+    columns = everything()
+  ) %>%
+  cols_align(
+    align = "left",
+    columns = LongStratum
+  ) %>%
+  cols_width(
+    LongStratum ~ px(250)
+  ) %>%
+  opt_interactive(
+    use_compact_mode = TRUE,
+    page_size_default = 10,
+   # use_text_wrapping = FALSE
+  ) %>%
+  opt_row_striping()
+
+```
+
+::: column-screen-inset-right
+BCR = Bird Conservancy of the Rockies; DoD = Department of Defense; GBBO = Great Basin Bird Observatory; IBO = Intermountain Bird Observatory; KBO = Klamath Bird Observatory; UDWR = Utah Division of Wildlife Resources; WYNDD = Wyoming Natural Diversity Database.
+:::
+
+<br> <br> <br>
+
+### Surveys not completed {.unnumbered}
+
+```{r, echo = F, message = F}
+#| label: tbl-reasons
+#| tbl-cap: "Reasons planned surveys were not completed, 2024."
+
+reasons <- read.csv("data/reasons-surveys-not-completed-2024.csv")
+
+datatable(reasons, 
+          options = list(pageLength = 10,
+                         autoWidth = FALSE,
+                         dom = 'tip',
+                         columnDefs = list(list(className = 'dt-left', 
+                                                targets = c(0,2)), 
+                                           list(className = 'dt-center', 
+                                                targets = 1))),
+          rownames = FALSE,
+          colnames = c("Stratum", "Number not completed", "Reason")) %>%
+          # caption = "Table x. Reasons surveys not completed, 2024.") %>%
+  formatStyle(0:2, fontSize = '12px')
+
+
+```
