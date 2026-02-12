@@ -1,0 +1,109 @@
+stratum,LongStratum,PlannedGrids,CompletedGrids,percent.completed,Year,Partner,State,bcr,area
+CA-BCR9-CC,CA-BCR9-CC: Bureau of Land Management - Carson City District,3,3,1,2025,MTM,CA,9,118
+CA-BCR9-CD,CA-BCR9-CD: Bureau of Land Management - California Desert District,3,3,1,2025,MTM,CA,9,1039
+CA-BCR9-CN,CA-BCR9-CN: Bureau of Land Management - Central California District,4,4,1,2025,MTM,CA,9,2668
+CA-BCR9-NC,CA-BCR9-NC: Bureau of Land Management - Northern California District,4,4,1,2025,MTM,CA,9,5468
+CO-BCR16-CR,CO-BCR16-CR: Bureau of Land Management - Colorado River Valley,6,6,1,2025,BCR,CO,16,1982
+CO-BCR16-GJ,CO-BCR16-GJ: Bureau of Land Management - Grand Junction,10,10,1,2025,BCR,CO,16,5019
+CO-BCR16-GU,CO-BCR16-GU: Bureau of Land Management - Gunnison,7,7,1,2025,BCR,CO,16,2451
+CO-BCR16-RG,CO-BCR16-RG: Bureau of Land Management - Royal Gorge,7,7,1,2025,BCR,CO,16,2296
+CO-BCR16-SL,CO-BCR16-SL: Bureau of Land Management - San Luis Valley,7,7,1,2025,BCR,CO,16,1865
+CO-BCR16-TR,CO-BCR16-TR: Bureau of Land Management - Tres Rios,7,7,1,2025,BCR,CO,16,2463
+CO-BCR16-UN,CO-BCR16-UN: Bureau of Land Management - Uncompahgre,7,7,1,2025,BCR,CO,16,3379
+ID-BCR9-BU,ID-BCR9-BU: Bureau of Land Management - Burley Field Office,4,4,1,2025,IBO,ID,9,3334
+ID-BCR9-JA,ID-BCR9-JA: Bureau of Land Management - Jarbidge Field Office,4,4,1,2025,IBO,ID,9,5386
+ID-BCR9-OW,ID-BCR9-OW: Bureau of Land Management - Owyhee Field Office,4,4,1,2025,IBO,ID,9,5066
+MT-BCR17-BL,MT-BCR17-BL: Bureau of Land Management,9,9,1,2025,IBO,MT,17,25013
+ND-BCR17-BM,ND-BCR17-BM: Bureau of Land Management,5,5,1,2025,BCR,ND,17,165
+NV-BCR9-BM,NV-BCR9-BM: Bureau of Land Management - Battle Mountain District,15,15,1,2025,MTM,NV,9,35811
+NV-BCR9-CC,NV-BCR9-CC: Bureau of Land Management - Carson City District,8,8,1,2025,MTM,NV,9,19269
+NV-BCR9-EK,"NV-BCR9-EK: Bureau of Land Management - Elko, Twin Falls, and Boise Districts",14,14,1,2025,MTM,NV,9,30072
+NV-BCR9-EY,NV-BCR9-EY: Bureau of Land Management - Ely District,15,15,1,2025,MTM,NV,9,45375
+NV-BCR9-NC,NV-BCR9-NC: Bureau of Land Management - Northern California District,4,4,1,2025,MTM,NV,9,5566
+NV-BCR9-SN,NV-BCR9-SN: Bureau of Land Management - Southern Nevada District,3,3,1,2025,MTM,NV,9,659
+NV-BCR9-WI,NV-BCR9-WI: Bureau of Land Management - Winnemucca District,15,15,1,2025,MTM,NV,9,33881
+SD-BCR17-BM,SD-BCR17-BM: Bureau of Land Management,6,6,1,2025,BCR,SD,17,831
+UT-BCR16-GS,UT-BCR16-GS: Bureau of Land Management - Grand Staircase-Escalante National Monument,6,6,1,2025,IBO,UT,16,7564
+UT-BCR16-KA,UT-BCR16-KA: Bureau of Land Management - Kanab Field Office,4,4,1,2025,IBO,UT,16,2267
+UT-BCR16-MN,UT-BCR16-MN: Bureau of Land Management - Monticello Field Office,6,6,1,2025,IBO,UT,16,7321
+UT-BCR16-MO,UT-BCR16-MO: Bureau of Land Management - Moab Field Office,5,5,1,2025,BCR,UT,16,7725
+UT-BCR16-PR,UT-BCR16-PR: Bureau of Land Management - Price Field Office,7,7,1,2025,IBO,UT,16,10216
+WY-BCR10-CO,WY-BCR10-CO: Bureau of Land Management - Cody Field Office,2,2,1,2025,BCR,WY,10,4704
+WY-BCR10-KE,WY-BCR10-KE: Bureau of Land Management - Kemmerer Field Office,4,4,1,2025,BCR,WY,10,5733
+WY-BCR10-LA,WY-BCR10-LA: Bureau of Land Management - Lander Field Office,2,2,1,2025,BCR,WY,10,9829
+WY-BCR10-PI,WY-BCR10-PI: Bureau of Land Management - Pinedale Field Office,2,2,1,2025,BCR,WY,10,3687
+WY-BCR10-RA,WY-BCR10-RA: Bureau of Land Management - Rawlins Field Office,2,2,1,2025,BCR,WY,10,13954
+WY-BCR10-RO,WY-BCR10-RO: Bureau of Land Management - Rock Springs Field Office,2,2,1,2025,BCR,WY,10,15152
+WY-BCR10-WO,WY-BCR10-WO: Bureau of Land Management - Worland Field Office,2,2,1,2025,BCR,WY,10,8467
+WY-BCR16-BL,WY-BCR16-BL: Bureau of Land Management,2,2,1,2025,BCR,WY,16,647
+WY-BCR17-NE,WY-BCR17-NE: Bureau of Land Management - Newcastle Field Office,2,2,1,2025,BCR,WY,17,1025
+WY-BCR18-BL,WY-BCR18-BL: Bureau of Land Management,2,2,1,2025,BCR,WY,18,171
+CO-BCR18-DO,CO-BCR18-DO: Department of Defense,2,2,1,2025,BCR,CO,18,1647
+UT-BCR9-AP,UT-BCR9-AP: Department of Defense - APG Impact Area,6,6,1,2025,DOD,UT,9,70
+UT-BCR9-DD,UT-BCR9-DD: Department of Defense - Other Lands,5,4,0.8,2025,DOD,UT,9,1986
+UT-BCR9-MU,UT-BCR9-MU: Department of Defense - Mudflats,2,2,1,2025,DOD,UT,9,1162
+UT-BCR9-TS,UT-BCR9-TS: Department of Defense - Target S Impact Area,6,6,1,2025,DOD,UT,9,128
+UT-BCR9-UR,UT-BCR9-UR: Department of Defense - UTG Impact Area,5,5,1,2025,DOD,UT,9,126
+UT-BCR9-UT,UT-BCR9-UT: Department of Defense - UTTR Impact Areas,2,2,1,2025,DOD,UT,9,522
+WY-BCR18-DO,WY-BCR18-DO: Department of Defense,2,2,1,2025,BCR,WY,18,23
+CO-BCR16-NC,CO-BCR16-NC: National Park Service - Northern Colorado Plateau Network,2,2,1,2025,BCR,CO,16,807
+CO-BCR16-RM,CO-BCR16-RM: National Park Service - Rocky Mountain Network,2,2,1,2025,BCR,CO,16,1644
+CO-BCR16-SC,CO-BCR16-SC: National Park Service - Southern Colorado Plateau Network,2,2,1,2025,BCR,CO,16,214
+ND-BCR17-KR,ND-BCR17-KR: Knife River Indian Villages National Historic Site,5,5,1,2025,BCR,ND,17,5
+NE-BCR18-AF,NE-BCR18-AF: Agate Fossil Beds National Monument,4,4,1,2025,BCR,NE,18,12
+NE-BCR18-SB,NE-BCR18-SB: Scotts Bluff National Monument,4,4,1,2025,BCR,NE,18,13
+SD-BCR17-BN,SD-BCR17-BN: Badlands National Park - North Unit,6,6,1,2025,BCR,SD,17,399
+SD-BCR17-JC,SD-BCR17-JC: Jewel Cave National Monument,4,4,1,2025,BCR,SD,17,5
+SD-BCR17-MR,SD-BCR17-MR: Mount Rushmore National Monument,6,6,1,2025,BCR,SD,17,6
+SD-BCR17-WC,SD-BCR17-WC: Wind Cave National Park,6,6,1,2025,BCR,SD,17,136
+WY-BCR10-BH,WY-BCR10-BH: Bighorn Canyon National Recreation Area,2,2,1,2025,BCR,WY,10,57
+WY-BCR10-GR,WY-BCR10-GR: Grand Teton National Park,2,2,1,2025,BCR,WY,10,856
+WY-BCR10-YE,WY-BCR10-YE: Yellowstone National Park,2,2,1,2025,BCR,WY,10,7592
+CO-BCR10-AO,CO-BCR10-AO: All Other Lands,5,5,1,2025,BCR,CO,10,5060
+CO-BCR16-AO,CO-BCR16-AO: All Other Lands,19,19,1,2025,BCR,CO,16,51214
+KS-BCR18-AO,KS-BCR18-AO: All Other Lands,11,11,1,2025,BCR,KS,18,34794
+KS-BCR18-PL,KS-BCR18-PL: Playas,5,5,1,2025,BCR,KS,18,370
+KS-BCR19-AO,KS-BCR19-AO: All Other Lands,11,11,1,2025,BCR,KS,19,98649
+MT-BCR10-ON,MT-BCR10-ON: All Other Lands,2,2,1,2025,IBO,MT,10,75417
+MT-BCR11-AO,MT-BCR11-AO: All Other Lands,2,2,1,2025,IBO,MT,11,62631
+MT-BCR17-AO,MT-BCR17-AO: All Other Lands,2,2,1,2025,IBO,MT,17,102779
+NM-BCR18-AO,NM-BCR18-AO: All Other Lands,5,5,1,2025,BCR,NM,18,65011
+ND-BCR17-AT,ND-BCR17-AT: All Other Lands,4,4,1,2025,BCR,ND,17,50236
+NE-BCR17-ON,NE-BCR17-ON: All Other Lands,2,2,1,2025,BCR,NE,17,4553
+NE-BCR18-ON,NE-BCR18-ON: All Other Lands,2,2,1,2025,BCR,ND,18,34896
+OK-BCR18-AO,OK-BCR18-AO: All Other Lands,4,4,1,2025,BCR,OK,18,10556
+OK-BCR18-PL,OK-BCR18-PL: Playas,2,2,1,2025,BCR,OK,18,105
+OK-BCR18-RV,OK-BCR18-RV: Rivers,2,2,1,2025,BCR,OK,18,533
+OK-BCR19-AO,OK-BCR19-AO: All Other Lands,8,8,1,2025,BCR,OK,19,68616
+OK-BCR19-PL,OK-BCR19-PL: Playas,2,2,1,2025,BCR,OK,19,14
+OK-BCR19-RV,OK-BCR19-RV: Rivers,2,2,1,2025,BCR,OK,19,6531
+SD-BCR17-AT,SD-BCR17-AT: All Other Lands,12,12,1,2025,BCR,SD,17,92764
+TX-BCR18-AO,TX-BCR18-AO: All Other Lands,5,5,1,2025,BCR,TX,18,98186
+TX-BCR19-AO,TX-BCR19-AO: All Other Lands,5,5,1,2025,BCR,TX,19,84131
+UT-BCR10-AO,UT-BCR10-AO: All Other Lands,5,2,0.4,2025,UDWR,UT,10,1968
+UT-BCR16-AO,UT-BCR16-AO: All Other Lands,39,41,1.051282051,2025,UDWR,UT,16,48838
+UT-BCR33-AO,UT-BCR33-AO: All Other Lands,13,13,1,2025,UDWR,UT,33,65
+UT-BCR9-AO,UT-BCR9-AO: All Other Lands,36,35,0.972222222,2025,UDWR,UT,9,34636
+WY-BCR10-AO,WY-BCR10-AO: All Other Lands,7,7,1,2025,BCR,WY,10,52161
+WY-BCR16-AO,WY-BCR16-AO: All Other Lands,4,4,1,2025,BCR,WY,16,5438
+WY-BCR17-AO,WY-BCR17-AO: All Other Lands,7,7,1,2025,BCR,WY,17,52186
+WY-BCR18-AO,WY-BCR18-AO: All Other Lands,4,4,1,2025,BCR,WY,18,12064
+WY-BCR10-WR,WY-BCR10-WR: Wind River Reservation,2,2,1,2025,BCR,WY,10,7819
+AZ-BCR34-CF,AZ-BCR34-CF: Coconino National Forest,7,7,1,2025,BCR,AZ,34,7426
+CO-BCR16-AR,CO-BCR16-AR: Arapaho and Roosevelt National Forests,34,34,1,2025,BCR,CO,16,6932
+CO-BCR16-GM,CO-BCR16-GM: Grand Mesa; Uncompahgre and Gunnison National Forests,10,10,1,2025,BCR,CO,16,13630
+CO-BCR16-PS,CO-BCR16-PS: Pike and San Isabel National Forests,10,10,1,2025,BCR,CO,16,10950
+CO-BCR16-SA,CO-BCR16-SA: San Juan National Forest,16,15,0.9375,2025,BCR,CO,16,8794
+CO-BCR18-CO,CO-BCR18-CO: Comanche National Grassland,4,4,1,2025,BCR,CO,18,4836
+CO-BCR18-PG,CO-BCR18-PG: Pawnee National Grassland - Public Lands,8,8,1,2025,BCR,CO,18,810
+ID-BCR10-PA,ID-BCR10-PA: Payette National Forest,10,10,1,2025,IBO,ID,10,9857
+ID-BCR9-CU,ID-BCR9-CU: Curlew National Grassland,4,4,1,2025,IBO,ID,9,300
+KS-BCR18-CM,KS-BCR18-CM: Cimarron National Grassland,3,3,1,2025,BCR,KS,18,430
+ND-BCR17-MG,ND-BCR17-MG: Little Missouri National Grassland,2,2,1,2025,BCR,ND,17,4133
+ND-BCR17-RG,ND-BCR17-RG: Cedar River National Grassland,2,2,1,2025,BCR,ND,17,20
+NM-BCR16-CF,NM-BCR16-CF: Carson National Forest,6,6,1,2025,BCR,NM,16,6459
+NM-BCR16-SF,NM-BCR16-SF: Santa Fe National Forest,6,6,1,2025,BCR,NM,16,6784
+NM-CIBOL-CB,NM-CIBOL-CB: Cibola National Forest,6,6,1,2025,BCR,NM,16,8475
+SD-BCR17-RG,SD-BCR17-RG: Grand River National Grassland,3,3,1,2025,BCR,SD,17,613
+WY-BCR10-BI,WY-BCR10-BI: Bighorn National Forest,10,10,1,2025,WYNDD,WY,10,4712
+WY-BCR17-TB,WY-BCR17-TB: Thunder Basin National Grassland,5,5,1,2025,BCR,WY,17,4520
