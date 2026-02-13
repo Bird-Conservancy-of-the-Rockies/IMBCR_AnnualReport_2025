@@ -4,7 +4,7 @@ project:
 
 book:
   title: "Integrated Monitoring in Bird Conservation Regions"
-  date: "1/6/2026"
+  date: "2/26/2026"
   sidebar:
     title: "2025 IMBCR Field Season Report"
     logo: figures/BCR-logo.png
@@ -29,9 +29,9 @@ book:
         - 14-co.qmd
         - 15-ks.qmd
         - 16-mt.qmd
-        - 17-nd.qmd
-        - 18-ne.qmd
-        - 19-nm.qmd
+        - 17-ne.qmd
+        - 18-nm.qmd
+        - 19-nd.qmd
         - 20-ok.qmd
         - 21-sd.qmd
         - 22-tx.qmd

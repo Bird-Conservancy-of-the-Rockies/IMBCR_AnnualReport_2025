@@ -9,7 +9,9 @@ Arizona Game and Fish Department. 2012. Arizona’s State Wildlife Action Plan: 
 
 Baron, J. S., Julius, S. H., West, J. M., Joyce, L. A., Blate, G., Peterson, C. H., … Griffith, B. 2008. Some guidelines for helping natural resources adapt to climate change. International Human Dimensions Programme on Global Environmental Change Update, 2:46–52.
 
-Bernath-Plaisted,J. S., J. M. Timmer, J. Reese, Q. S. Latif, L. Rossi, C. E. Latimer, I. Abernethy, S. L. Bullock, J. D. Carlisle, M. Dressen, R. L. Healey, M. McLaren, C. Meny, R. E. Newton, A. Shaw, M. C. Smith, R. A. Sparks, Z. P. Wallace, C. White, T. B. Ryder. 2025. Monitoring at management scales: Multi-scale trend estimates for bird populations in the western United States. Ecosphere, https://esajournals.onlinelibrary.wiley.com/doi/10.1002/ecs2.70431
+Bernath-Plaisted, J. S., J. M. Timmer, J. Reese, Q. S. Latif, L. Rossi, C. E. Latimer, I. Abernethy, S. L. Bullock, J. D. Carlisle, M. Dressen, R. L. Healey, M. McLaren, C. Meny, R. E. Newton, A. Shaw, M. C. Smith, R. A. Sparks, Z. P. Wallace, C. White, T. B. Ryder. 2025. Monitoring at management scales: Multi-scale trend estimates for bird populations in the western United States. Ecosphere, https://esajournals.onlinelibrary.wiley.com/doi/10.1002/ecs2.70431
+
+Bernath-Plaisted, J. S., M. D. Correll, S. G. somershoe,...T. VerCauteren. 2023. Review of conservation challenges and possible solutions for grassland birds of the North American Great Plains. Rangeland Ecology & Management 90:165-185.
 
 Blakesley, J. A., & Hanni, D. J. 2009. Monitoring Colorado’s Birds, 2008 (No. Tech. Rep. M-MCB08-01.). Technical Report M-MCB08-01. Rocky Mountain Bird Observatory, Brighton, Colorado, USA.
 
@@ -95,7 +97,7 @@ Opdam, P., & Wascher, D. 2004. Climate change meets habitat fragmentation: linki
 
 Partners in Flight. 2017. Avian Conservation Assessment Database, version 2017. Retrieved March 7, 2018, from http://pif.birdconservancy.org/ACAD
 
-Pavlacky, D. C., Lukacs, P. M., Blakesley, J. A., Skorkowsky, R. C., Klute, D. S., Hahn, B. A., … Hanni, D. J. 2017. A statistically rigorous sampling design to integrate avian monitoring and management within Bird Conservation Regions. PLoS ONE, 12. https://doi.org/10.1371/journal.pone.0185924
+Pavlacky, D. C., Lukacs, P. M., Blakesley, J. A., … Hanni, D. J. 2017. A statistically rigorous sampling design to integrate avian monitoring and management within Bird Conservation Regions. PLoS ONE, 12. https://doi.org/10.1371/journal.pone.0185924
 
 Pavlacky Jr., D. C., Blakesley, J. A., White, G. C., Hanni, D. J., & Lukacs, P. M. 2012. Hierarchical multi-scale occupancy estimation for monitoring wildlife populations. Journal of Wildlife Management, 76:154–162.
 
@@ -110,6 +112,8 @@ Pollock, K. H., Nichols, J. D., Simons, T. R., Farnsworth, G. L., Bailey, L. L.,
 R Core Team 2023. *R: A Language and Environment for Statistical Computing*. R Foundation for Statistical Computing, Vienna, Austria. <https://www.R-project.org/>.
 
 Rich, T. D., Beardmore, C. J., Berlanga, H., Blancher, P. J., Bradstreet, M. S. W., Butcher, G. S., … Will, T. C. 2004. Partners in Flight North American landbird conservation plan. Ithaca, New York, USA: Cornell Lab of Ornithology.
+
+Rosenberg, K. V., A. M. Dokter, P. J. Blancher,...P. P. Marra. 2019. Decline of North American avifauna. Science 366:120-124. 
 
 Rosenstock, S. S., Anderson, D. R., Giesen, K. M., Leukering, T., & Carter, M. F. 2002. Landbird counting techniques: current practices and an alternative. Auk, 119:46–53.
 

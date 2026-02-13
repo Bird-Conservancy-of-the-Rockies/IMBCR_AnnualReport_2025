@@ -1,0 +1,4137 @@
+---
+format: 
+  html:
+    toc: true
+    toc-depth: 4
+---
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+
+library(tidyverse)
+library(xfun) # numbers_to_words function
+library(lubridate)
+
+
+year <- 2025
+
+data <- read.csv(paste0("data/", year, "_annualreportdata.csv"))
+
+  data$FirstVisit <- as_date(data$FirstVisit)
+  data$FirstVisit <- paste(month(data[,"FirstVisit"], 
+                           label = TRUE, abbr = FALSE), 
+                           day(data[,"FirstVisit"]), 
+                           sep = " ")
+  data$LastVisit <- as_date(data$LastVisit)
+  data$LastVisit <- paste(month(data[,"LastVisit"], 
+                          label = TRUE, abbr = FALSE), 
+                          day(data[,"LastVisit"]), 
+                          sep = " ")
+
+```
+
+# U.S. Forest Service 
+
+## Region 1  
+
+### Region 1 National Forests 
+ 
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+# This script should not need to be updated year to year!
+
+# USFS-Region 1 National Forests in Montana is a special value from the heddlr_loop.qmd file
+x <- which(data$stratum == "USFS-Region 1 National Forests in Montana")
+
+name <- data[x, "name"]
+compilation <- ifelse(data[x, "Strata"] > 1, "compiling and jointly", "compiling and")
+n.strata <- if (data[x, "Strata"] <= 10) {numbers_to_words(data[x, "Strata"])
+  } else data[x, "Strata"]
+stratum_plural <- ifelse(data[x, "Strata"] > 1, "strata", "stratum")
+completed.grids <- (data[x, "CompletedGrids"])
+planned.grids <- (data[x, "PlannedGrids"])
+percent.completed <- round((completed.grids/planned.grids)*100)
+
+transect.clause <- if (planned.grids == completed.grids & planned.grids > 2) {
+  paste("all")
+  } else if (planned.grids == completed.grids & planned.grids == 2) {paste("both")
+  } else {paste((completed.grids), 
+             "of", 
+             (planned.grids),
+             sep = " ")}
+
+year <- data[x, "Year"]
+completed.points <- data[x, "CompletedPoints"]
+first.visit <- data[x, "FirstVisit"]
+last.visit <- data[x, "LastVisit"]
+n.species <- data[x, "nBirdSpecies"]
+n.priority <- data[x, "nPriority"]
+n.density <- data[x, "DensitySpeciesCount"]
+n.density.priority <- data[x, "DensityPrioritySpecies"]
+n.density.robust <- data[x, "DensityRobustCV"]
+n.occupancy <- data[x, "OccupancySpeciesCount"]
+n.occupancy.priority <- data[x, "OccupancyPrioritySpecies"]
+n.occupancy.robust <- data[x, "OccupancyRobustCV"]
+type <- if (data[x, "is_superstratum"]) {"Superstratum"} else {"Stratum"}
+super_stratum <- if (data[x, "is_superstratum"]) {data[x, "stratum"]} else {data[x, "LongStratum"]}
+
+p1 <- str_glue("We obtained results for {name} by {compilation} analyzing data from {n.strata} {stratum_plural}.")
+
+p2 <- str_glue("Field technicians completed {transect.clause} planned surveys ({percent.completed}%) in {year}. Technicians conducted {completed.points} point counts within the {completed.grids} surveyed grid cells between {first.visit} and {last.visit}. They detected {n.species} bird species, including {n.priority} priority species.")
+
+p3 <- str_glue("Bird Conservancy estimated densities (birds per square kilometer) for {n.density} species that were detected in any year during which surveys were conducted, {n.density.priority} of which are priority species. The data yielded robust density estimates (CV < 50%) for {n.density.robust} species.")
+
+p4 <- str_glue("Bird Conservancy estimated the proportion of occupied plots throughout {name} for {n.occupancy} species that were detected in any year during which surveys were conducted, {n.occupancy.priority} of which are priority species. The data yielded robust occupancy estimates (CV < 50%) for {n.occupancy.robust} species.")
+
+p5 <- str_glue("To view a map of approximate survey locations, species counts, and density, occupancy, & trend estimates within {name} across all years of the project, visit the [RMADC](https://app.bcr.eco/rmadc/).")
+
+head <- paste("####", name, sep = " ")
+
+```
+
+`r head`
+
+`r p1`
+
+`r p2`
+
+`r p3`
+
+`r p4`
+
+::: {.callout-note appearance="minimal"}
+## View results on the Rocky Mountain Avian Data Center
+`r p5`  
+
+On the Explore the Data tab, select **`r super_stratum`** from the **`r type`** drop-down filter.
+:::
+
+
+
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+# This script should not need to be updated year to year!
+
+# Beaverhead-Deerlodge National Forest is a special value from the heddlr_loop.qmd file
+x <- which(data$stratum == "Beaverhead-Deerlodge National Forest")
+
+name <- data[x, "name"]
+compilation <- ifelse(data[x, "Strata"] > 1, "compiling and jointly", "compiling and")
+n.strata <- if (data[x, "Strata"] <= 10) {numbers_to_words(data[x, "Strata"])
+  } else data[x, "Strata"]
+stratum_plural <- ifelse(data[x, "Strata"] > 1, "strata", "stratum")
+completed.grids <- (data[x, "CompletedGrids"])
+planned.grids <- (data[x, "PlannedGrids"])
+percent.completed <- round((completed.grids/planned.grids)*100)
+
+transect.clause <- if (planned.grids == completed.grids & planned.grids > 2) {
+  paste("all")
+  } else if (planned.grids == completed.grids & planned.grids == 2) {paste("both")
+  } else {paste((completed.grids), 
+             "of", 
+             (planned.grids),
+             sep = " ")}
+
+year <- data[x, "Year"]
+completed.points <- data[x, "CompletedPoints"]
+first.visit <- data[x, "FirstVisit"]
+last.visit <- data[x, "LastVisit"]
+n.species <- data[x, "nBirdSpecies"]
+n.priority <- data[x, "nPriority"]
+n.density <- data[x, "DensitySpeciesCount"]
+n.density.priority <- data[x, "DensityPrioritySpecies"]
+n.density.robust <- data[x, "DensityRobustCV"]
+n.occupancy <- data[x, "OccupancySpeciesCount"]
+n.occupancy.priority <- data[x, "OccupancyPrioritySpecies"]
+n.occupancy.robust <- data[x, "OccupancyRobustCV"]
+type <- if (data[x, "is_superstratum"]) {"Superstratum"} else {"Stratum"}
+super_stratum <- if (data[x, "is_superstratum"]) {data[x, "stratum"]} else {data[x, "LongStratum"]}
+
+p1 <- str_glue("We obtained results for {name} by {compilation} analyzing data from {n.strata} {stratum_plural}.")
+
+p2 <- str_glue("Field technicians completed {transect.clause} planned surveys ({percent.completed}%) in {year}. Technicians conducted {completed.points} point counts within the {completed.grids} surveyed grid cells between {first.visit} and {last.visit}. They detected {n.species} bird species, including {n.priority} priority species.")
+
+p3 <- str_glue("Bird Conservancy estimated densities (birds per square kilometer) for {n.density} species that were detected in any year during which surveys were conducted, {n.density.priority} of which are priority species. The data yielded robust density estimates (CV < 50%) for {n.density.robust} species.")
+
+p4 <- str_glue("Bird Conservancy estimated the proportion of occupied plots throughout {name} for {n.occupancy} species that were detected in any year during which surveys were conducted, {n.occupancy.priority} of which are priority species. The data yielded robust occupancy estimates (CV < 50%) for {n.occupancy.robust} species.")
+
+p5 <- str_glue("To view a map of approximate survey locations, species counts, and density, occupancy, & trend estimates within {name} across all years of the project, visit the [RMADC](https://app.bcr.eco/rmadc/).")
+
+head <- paste("####", name, sep = " ")
+
+```
+
+`r head`
+
+`r p1`
+
+`r p2`
+
+`r p3`
+
+`r p4`
+
+::: {.callout-note appearance="minimal"}
+## View results on the Rocky Mountain Avian Data Center
+`r p5`  
+
+On the Explore the Data tab, select **`r super_stratum`** from the **`r type`** drop-down filter.
+:::
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+# This script should not need to be updated year to year!
+
+# Bitterroot National Forest in Montana is a special value from the heddlr_loop.qmd file
+x <- which(data$stratum == "Bitterroot National Forest in Montana")
+
+name <- data[x, "name"]
+compilation <- ifelse(data[x, "Strata"] > 1, "compiling and jointly", "compiling and")
+n.strata <- if (data[x, "Strata"] <= 10) {numbers_to_words(data[x, "Strata"])
+  } else data[x, "Strata"]
+stratum_plural <- ifelse(data[x, "Strata"] > 1, "strata", "stratum")
+completed.grids <- (data[x, "CompletedGrids"])
+planned.grids <- (data[x, "PlannedGrids"])
+percent.completed <- round((completed.grids/planned.grids)*100)
+
+transect.clause <- if (planned.grids == completed.grids & planned.grids > 2) {
+  paste("all")
+  } else if (planned.grids == completed.grids & planned.grids == 2) {paste("both")
+  } else {paste((completed.grids), 
+             "of", 
+             (planned.grids),
+             sep = " ")}
+
+year <- data[x, "Year"]
+completed.points <- data[x, "CompletedPoints"]
+first.visit <- data[x, "FirstVisit"]
+last.visit <- data[x, "LastVisit"]
+n.species <- data[x, "nBirdSpecies"]
+n.priority <- data[x, "nPriority"]
+n.density <- data[x, "DensitySpeciesCount"]
+n.density.priority <- data[x, "DensityPrioritySpecies"]
+n.density.robust <- data[x, "DensityRobustCV"]
+n.occupancy <- data[x, "OccupancySpeciesCount"]
+n.occupancy.priority <- data[x, "OccupancyPrioritySpecies"]
+n.occupancy.robust <- data[x, "OccupancyRobustCV"]
+type <- if (data[x, "is_superstratum"]) {"Superstratum"} else {"Stratum"}
+super_stratum <- if (data[x, "is_superstratum"]) {data[x, "stratum"]} else {data[x, "LongStratum"]}
+
+p1 <- str_glue("We obtained results for {name} by {compilation} analyzing data from {n.strata} {stratum_plural}.")
+
+p2 <- str_glue("Field technicians completed {transect.clause} planned surveys ({percent.completed}%) in {year}. Technicians conducted {completed.points} point counts within the {completed.grids} surveyed grid cells between {first.visit} and {last.visit}. They detected {n.species} bird species, including {n.priority} priority species.")
+
+p3 <- str_glue("Bird Conservancy estimated densities (birds per square kilometer) for {n.density} species that were detected in any year during which surveys were conducted, {n.density.priority} of which are priority species. The data yielded robust density estimates (CV < 50%) for {n.density.robust} species.")
+
+p4 <- str_glue("Bird Conservancy estimated the proportion of occupied plots throughout {name} for {n.occupancy} species that were detected in any year during which surveys were conducted, {n.occupancy.priority} of which are priority species. The data yielded robust occupancy estimates (CV < 50%) for {n.occupancy.robust} species.")
+
+p5 <- str_glue("To view a map of approximate survey locations, species counts, and density, occupancy, & trend estimates within {name} across all years of the project, visit the [RMADC](https://app.bcr.eco/rmadc/).")
+
+head <- paste("####", name, sep = " ")
+
+```
+
+`r head`
+
+`r p1`
+
+`r p2`
+
+`r p3`
+
+`r p4`
+
+::: {.callout-note appearance="minimal"}
+## View results on the Rocky Mountain Avian Data Center
+`r p5`  
+
+On the Explore the Data tab, select **`r super_stratum`** from the **`r type`** drop-down filter.
+:::
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+# This script should not need to be updated year to year!
+
+# Custer National Forest is a special value from the heddlr_loop.qmd file
+x <- which(data$stratum == "Custer National Forest")
+
+name <- data[x, "name"]
+compilation <- ifelse(data[x, "Strata"] > 1, "compiling and jointly", "compiling and")
+n.strata <- if (data[x, "Strata"] <= 10) {numbers_to_words(data[x, "Strata"])
+  } else data[x, "Strata"]
+stratum_plural <- ifelse(data[x, "Strata"] > 1, "strata", "stratum")
+completed.grids <- (data[x, "CompletedGrids"])
+planned.grids <- (data[x, "PlannedGrids"])
+percent.completed <- round((completed.grids/planned.grids)*100)
+
+transect.clause <- if (planned.grids == completed.grids & planned.grids > 2) {
+  paste("all")
+  } else if (planned.grids == completed.grids & planned.grids == 2) {paste("both")
+  } else {paste((completed.grids), 
+             "of", 
+             (planned.grids),
+             sep = " ")}
+
+year <- data[x, "Year"]
+completed.points <- data[x, "CompletedPoints"]
+first.visit <- data[x, "FirstVisit"]
+last.visit <- data[x, "LastVisit"]
+n.species <- data[x, "nBirdSpecies"]
+n.priority <- data[x, "nPriority"]
+n.density <- data[x, "DensitySpeciesCount"]
+n.density.priority <- data[x, "DensityPrioritySpecies"]
+n.density.robust <- data[x, "DensityRobustCV"]
+n.occupancy <- data[x, "OccupancySpeciesCount"]
+n.occupancy.priority <- data[x, "OccupancyPrioritySpecies"]
+n.occupancy.robust <- data[x, "OccupancyRobustCV"]
+type <- if (data[x, "is_superstratum"]) {"Superstratum"} else {"Stratum"}
+super_stratum <- if (data[x, "is_superstratum"]) {data[x, "stratum"]} else {data[x, "LongStratum"]}
+
+p1 <- str_glue("We obtained results for {name} by {compilation} analyzing data from {n.strata} {stratum_plural}.")
+
+p2 <- str_glue("Field technicians completed {transect.clause} planned surveys ({percent.completed}%) in {year}. Technicians conducted {completed.points} point counts within the {completed.grids} surveyed grid cells between {first.visit} and {last.visit}. They detected {n.species} bird species, including {n.priority} priority species.")
+
+p3 <- str_glue("Bird Conservancy estimated densities (birds per square kilometer) for {n.density} species that were detected in any year during which surveys were conducted, {n.density.priority} of which are priority species. The data yielded robust density estimates (CV < 50%) for {n.density.robust} species.")
+
+p4 <- str_glue("Bird Conservancy estimated the proportion of occupied plots throughout {name} for {n.occupancy} species that were detected in any year during which surveys were conducted, {n.occupancy.priority} of which are priority species. The data yielded robust occupancy estimates (CV < 50%) for {n.occupancy.robust} species.")
+
+p5 <- str_glue("To view a map of approximate survey locations, species counts, and density, occupancy, & trend estimates within {name} across all years of the project, visit the [RMADC](https://app.bcr.eco/rmadc/).")
+
+head <- paste("####", name, sep = " ")
+
+```
+
+`r head`
+
+`r p1`
+
+`r p2`
+
+`r p3`
+
+`r p4`
+
+::: {.callout-note appearance="minimal"}
+## View results on the Rocky Mountain Avian Data Center
+`r p5`  
+
+On the Explore the Data tab, select **`r super_stratum`** from the **`r type`** drop-down filter.
+:::
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+# This script should not need to be updated year to year!
+
+# Flathead National Forest is a special value from the heddlr_loop.qmd file
+x <- which(data$stratum == "Flathead National Forest")
+
+name <- data[x, "name"]
+compilation <- ifelse(data[x, "Strata"] > 1, "compiling and jointly", "compiling and")
+n.strata <- if (data[x, "Strata"] <= 10) {numbers_to_words(data[x, "Strata"])
+  } else data[x, "Strata"]
+stratum_plural <- ifelse(data[x, "Strata"] > 1, "strata", "stratum")
+completed.grids <- (data[x, "CompletedGrids"])
+planned.grids <- (data[x, "PlannedGrids"])
+percent.completed <- round((completed.grids/planned.grids)*100)
+
+transect.clause <- if (planned.grids == completed.grids & planned.grids > 2) {
+  paste("all")
+  } else if (planned.grids == completed.grids & planned.grids == 2) {paste("both")
+  } else {paste((completed.grids), 
+             "of", 
+             (planned.grids),
+             sep = " ")}
+
+year <- data[x, "Year"]
+completed.points <- data[x, "CompletedPoints"]
+first.visit <- data[x, "FirstVisit"]
+last.visit <- data[x, "LastVisit"]
+n.species <- data[x, "nBirdSpecies"]
+n.priority <- data[x, "nPriority"]
+n.density <- data[x, "DensitySpeciesCount"]
+n.density.priority <- data[x, "DensityPrioritySpecies"]
+n.density.robust <- data[x, "DensityRobustCV"]
+n.occupancy <- data[x, "OccupancySpeciesCount"]
+n.occupancy.priority <- data[x, "OccupancyPrioritySpecies"]
+n.occupancy.robust <- data[x, "OccupancyRobustCV"]
+type <- if (data[x, "is_superstratum"]) {"Superstratum"} else {"Stratum"}
+super_stratum <- if (data[x, "is_superstratum"]) {data[x, "stratum"]} else {data[x, "LongStratum"]}
+
+p1 <- str_glue("We obtained results for {name} by {compilation} analyzing data from {n.strata} {stratum_plural}.")
+
+p2 <- str_glue("Field technicians completed {transect.clause} planned surveys ({percent.completed}%) in {year}. Technicians conducted {completed.points} point counts within the {completed.grids} surveyed grid cells between {first.visit} and {last.visit}. They detected {n.species} bird species, including {n.priority} priority species.")
+
+p3 <- str_glue("Bird Conservancy estimated densities (birds per square kilometer) for {n.density} species that were detected in any year during which surveys were conducted, {n.density.priority} of which are priority species. The data yielded robust density estimates (CV < 50%) for {n.density.robust} species.")
+
+p4 <- str_glue("Bird Conservancy estimated the proportion of occupied plots throughout {name} for {n.occupancy} species that were detected in any year during which surveys were conducted, {n.occupancy.priority} of which are priority species. The data yielded robust occupancy estimates (CV < 50%) for {n.occupancy.robust} species.")
+
+p5 <- str_glue("To view a map of approximate survey locations, species counts, and density, occupancy, & trend estimates within {name} across all years of the project, visit the [RMADC](https://app.bcr.eco/rmadc/).")
+
+head <- paste("####", name, sep = " ")
+
+```
+
+`r head`
+
+`r p1`
+
+`r p2`
+
+`r p3`
+
+`r p4`
+
+::: {.callout-note appearance="minimal"}
+## View results on the Rocky Mountain Avian Data Center
+`r p5`  
+
+On the Explore the Data tab, select **`r super_stratum`** from the **`r type`** drop-down filter.
+:::
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+# This script should not need to be updated year to year!
+
+# Gallatin National Forest is a special value from the heddlr_loop.qmd file
+x <- which(data$stratum == "Gallatin National Forest")
+
+name <- data[x, "name"]
+compilation <- ifelse(data[x, "Strata"] > 1, "compiling and jointly", "compiling and")
+n.strata <- if (data[x, "Strata"] <= 10) {numbers_to_words(data[x, "Strata"])
+  } else data[x, "Strata"]
+stratum_plural <- ifelse(data[x, "Strata"] > 1, "strata", "stratum")
+completed.grids <- (data[x, "CompletedGrids"])
+planned.grids <- (data[x, "PlannedGrids"])
+percent.completed <- round((completed.grids/planned.grids)*100)
+
+transect.clause <- if (planned.grids == completed.grids & planned.grids > 2) {
+  paste("all")
+  } else if (planned.grids == completed.grids & planned.grids == 2) {paste("both")
+  } else {paste((completed.grids), 
+             "of", 
+             (planned.grids),
+             sep = " ")}
+
+year <- data[x, "Year"]
+completed.points <- data[x, "CompletedPoints"]
+first.visit <- data[x, "FirstVisit"]
+last.visit <- data[x, "LastVisit"]
+n.species <- data[x, "nBirdSpecies"]
+n.priority <- data[x, "nPriority"]
+n.density <- data[x, "DensitySpeciesCount"]
+n.density.priority <- data[x, "DensityPrioritySpecies"]
+n.density.robust <- data[x, "DensityRobustCV"]
+n.occupancy <- data[x, "OccupancySpeciesCount"]
+n.occupancy.priority <- data[x, "OccupancyPrioritySpecies"]
+n.occupancy.robust <- data[x, "OccupancyRobustCV"]
+type <- if (data[x, "is_superstratum"]) {"Superstratum"} else {"Stratum"}
+super_stratum <- if (data[x, "is_superstratum"]) {data[x, "stratum"]} else {data[x, "LongStratum"]}
+
+p1 <- str_glue("We obtained results for {name} by {compilation} analyzing data from {n.strata} {stratum_plural}.")
+
+p2 <- str_glue("Field technicians completed {transect.clause} planned surveys ({percent.completed}%) in {year}. Technicians conducted {completed.points} point counts within the {completed.grids} surveyed grid cells between {first.visit} and {last.visit}. They detected {n.species} bird species, including {n.priority} priority species.")
+
+p3 <- str_glue("Bird Conservancy estimated densities (birds per square kilometer) for {n.density} species that were detected in any year during which surveys were conducted, {n.density.priority} of which are priority species. The data yielded robust density estimates (CV < 50%) for {n.density.robust} species.")
+
+p4 <- str_glue("Bird Conservancy estimated the proportion of occupied plots throughout {name} for {n.occupancy} species that were detected in any year during which surveys were conducted, {n.occupancy.priority} of which are priority species. The data yielded robust occupancy estimates (CV < 50%) for {n.occupancy.robust} species.")
+
+p5 <- str_glue("To view a map of approximate survey locations, species counts, and density, occupancy, & trend estimates within {name} across all years of the project, visit the [RMADC](https://app.bcr.eco/rmadc/).")
+
+head <- paste("####", name, sep = " ")
+
+```
+
+`r head`
+
+`r p1`
+
+`r p2`
+
+`r p3`
+
+`r p4`
+
+::: {.callout-note appearance="minimal"}
+## View results on the Rocky Mountain Avian Data Center
+`r p5`  
+
+On the Explore the Data tab, select **`r super_stratum`** from the **`r type`** drop-down filter.
+:::
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+# This script should not need to be updated year to year!
+
+# Helena National Forest is a special value from the heddlr_loop.qmd file
+x <- which(data$stratum == "Helena National Forest")
+
+name <- data[x, "name"]
+compilation <- ifelse(data[x, "Strata"] > 1, "compiling and jointly", "compiling and")
+n.strata <- if (data[x, "Strata"] <= 10) {numbers_to_words(data[x, "Strata"])
+  } else data[x, "Strata"]
+stratum_plural <- ifelse(data[x, "Strata"] > 1, "strata", "stratum")
+completed.grids <- (data[x, "CompletedGrids"])
+planned.grids <- (data[x, "PlannedGrids"])
+percent.completed <- round((completed.grids/planned.grids)*100)
+
+transect.clause <- if (planned.grids == completed.grids & planned.grids > 2) {
+  paste("all")
+  } else if (planned.grids == completed.grids & planned.grids == 2) {paste("both")
+  } else {paste((completed.grids), 
+             "of", 
+             (planned.grids),
+             sep = " ")}
+
+year <- data[x, "Year"]
+completed.points <- data[x, "CompletedPoints"]
+first.visit <- data[x, "FirstVisit"]
+last.visit <- data[x, "LastVisit"]
+n.species <- data[x, "nBirdSpecies"]
+n.priority <- data[x, "nPriority"]
+n.density <- data[x, "DensitySpeciesCount"]
+n.density.priority <- data[x, "DensityPrioritySpecies"]
+n.density.robust <- data[x, "DensityRobustCV"]
+n.occupancy <- data[x, "OccupancySpeciesCount"]
+n.occupancy.priority <- data[x, "OccupancyPrioritySpecies"]
+n.occupancy.robust <- data[x, "OccupancyRobustCV"]
+type <- if (data[x, "is_superstratum"]) {"Superstratum"} else {"Stratum"}
+super_stratum <- if (data[x, "is_superstratum"]) {data[x, "stratum"]} else {data[x, "LongStratum"]}
+
+p1 <- str_glue("We obtained results for {name} by {compilation} analyzing data from {n.strata} {stratum_plural}.")
+
+p2 <- str_glue("Field technicians completed {transect.clause} planned surveys ({percent.completed}%) in {year}. Technicians conducted {completed.points} point counts within the {completed.grids} surveyed grid cells between {first.visit} and {last.visit}. They detected {n.species} bird species, including {n.priority} priority species.")
+
+p3 <- str_glue("Bird Conservancy estimated densities (birds per square kilometer) for {n.density} species that were detected in any year during which surveys were conducted, {n.density.priority} of which are priority species. The data yielded robust density estimates (CV < 50%) for {n.density.robust} species.")
+
+p4 <- str_glue("Bird Conservancy estimated the proportion of occupied plots throughout {name} for {n.occupancy} species that were detected in any year during which surveys were conducted, {n.occupancy.priority} of which are priority species. The data yielded robust occupancy estimates (CV < 50%) for {n.occupancy.robust} species.")
+
+p5 <- str_glue("To view a map of approximate survey locations, species counts, and density, occupancy, & trend estimates within {name} across all years of the project, visit the [RMADC](https://app.bcr.eco/rmadc/).")
+
+head <- paste("####", name, sep = " ")
+
+```
+
+`r head`
+
+`r p1`
+
+`r p2`
+
+`r p3`
+
+`r p4`
+
+::: {.callout-note appearance="minimal"}
+## View results on the Rocky Mountain Avian Data Center
+`r p5`  
+
+On the Explore the Data tab, select **`r super_stratum`** from the **`r type`** drop-down filter.
+:::
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+# This script should not need to be updated year to year!
+
+# Kootenai National Forest in Montana is a special value from the heddlr_loop.qmd file
+x <- which(data$stratum == "Kootenai National Forest in Montana")
+
+name <- data[x, "name"]
+compilation <- ifelse(data[x, "Strata"] > 1, "compiling and jointly", "compiling and")
+n.strata <- if (data[x, "Strata"] <= 10) {numbers_to_words(data[x, "Strata"])
+  } else data[x, "Strata"]
+stratum_plural <- ifelse(data[x, "Strata"] > 1, "strata", "stratum")
+completed.grids <- (data[x, "CompletedGrids"])
+planned.grids <- (data[x, "PlannedGrids"])
+percent.completed <- round((completed.grids/planned.grids)*100)
+
+transect.clause <- if (planned.grids == completed.grids & planned.grids > 2) {
+  paste("all")
+  } else if (planned.grids == completed.grids & planned.grids == 2) {paste("both")
+  } else {paste((completed.grids), 
+             "of", 
+             (planned.grids),
+             sep = " ")}
+
+year <- data[x, "Year"]
+completed.points <- data[x, "CompletedPoints"]
+first.visit <- data[x, "FirstVisit"]
+last.visit <- data[x, "LastVisit"]
+n.species <- data[x, "nBirdSpecies"]
+n.priority <- data[x, "nPriority"]
+n.density <- data[x, "DensitySpeciesCount"]
+n.density.priority <- data[x, "DensityPrioritySpecies"]
+n.density.robust <- data[x, "DensityRobustCV"]
+n.occupancy <- data[x, "OccupancySpeciesCount"]
+n.occupancy.priority <- data[x, "OccupancyPrioritySpecies"]
+n.occupancy.robust <- data[x, "OccupancyRobustCV"]
+type <- if (data[x, "is_superstratum"]) {"Superstratum"} else {"Stratum"}
+super_stratum <- if (data[x, "is_superstratum"]) {data[x, "stratum"]} else {data[x, "LongStratum"]}
+
+p1 <- str_glue("We obtained results for {name} by {compilation} analyzing data from {n.strata} {stratum_plural}.")
+
+p2 <- str_glue("Field technicians completed {transect.clause} planned surveys ({percent.completed}%) in {year}. Technicians conducted {completed.points} point counts within the {completed.grids} surveyed grid cells between {first.visit} and {last.visit}. They detected {n.species} bird species, including {n.priority} priority species.")
+
+p3 <- str_glue("Bird Conservancy estimated densities (birds per square kilometer) for {n.density} species that were detected in any year during which surveys were conducted, {n.density.priority} of which are priority species. The data yielded robust density estimates (CV < 50%) for {n.density.robust} species.")
+
+p4 <- str_glue("Bird Conservancy estimated the proportion of occupied plots throughout {name} for {n.occupancy} species that were detected in any year during which surveys were conducted, {n.occupancy.priority} of which are priority species. The data yielded robust occupancy estimates (CV < 50%) for {n.occupancy.robust} species.")
+
+p5 <- str_glue("To view a map of approximate survey locations, species counts, and density, occupancy, & trend estimates within {name} across all years of the project, visit the [RMADC](https://app.bcr.eco/rmadc/).")
+
+head <- paste("####", name, sep = " ")
+
+```
+
+`r head`
+
+`r p1`
+
+`r p2`
+
+`r p3`
+
+`r p4`
+
+::: {.callout-note appearance="minimal"}
+## View results on the Rocky Mountain Avian Data Center
+`r p5`  
+
+On the Explore the Data tab, select **`r super_stratum`** from the **`r type`** drop-down filter.
+:::
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+# This script should not need to be updated year to year!
+
+# Lewis and Clark National Forest is a special value from the heddlr_loop.qmd file
+x <- which(data$stratum == "Lewis and Clark National Forest")
+
+name <- data[x, "name"]
+compilation <- ifelse(data[x, "Strata"] > 1, "compiling and jointly", "compiling and")
+n.strata <- if (data[x, "Strata"] <= 10) {numbers_to_words(data[x, "Strata"])
+  } else data[x, "Strata"]
+stratum_plural <- ifelse(data[x, "Strata"] > 1, "strata", "stratum")
+completed.grids <- (data[x, "CompletedGrids"])
+planned.grids <- (data[x, "PlannedGrids"])
+percent.completed <- round((completed.grids/planned.grids)*100)
+
+transect.clause <- if (planned.grids == completed.grids & planned.grids > 2) {
+  paste("all")
+  } else if (planned.grids == completed.grids & planned.grids == 2) {paste("both")
+  } else {paste((completed.grids), 
+             "of", 
+             (planned.grids),
+             sep = " ")}
+
+year <- data[x, "Year"]
+completed.points <- data[x, "CompletedPoints"]
+first.visit <- data[x, "FirstVisit"]
+last.visit <- data[x, "LastVisit"]
+n.species <- data[x, "nBirdSpecies"]
+n.priority <- data[x, "nPriority"]
+n.density <- data[x, "DensitySpeciesCount"]
+n.density.priority <- data[x, "DensityPrioritySpecies"]
+n.density.robust <- data[x, "DensityRobustCV"]
+n.occupancy <- data[x, "OccupancySpeciesCount"]
+n.occupancy.priority <- data[x, "OccupancyPrioritySpecies"]
+n.occupancy.robust <- data[x, "OccupancyRobustCV"]
+type <- if (data[x, "is_superstratum"]) {"Superstratum"} else {"Stratum"}
+super_stratum <- if (data[x, "is_superstratum"]) {data[x, "stratum"]} else {data[x, "LongStratum"]}
+
+p1 <- str_glue("We obtained results for {name} by {compilation} analyzing data from {n.strata} {stratum_plural}.")
+
+p2 <- str_glue("Field technicians completed {transect.clause} planned surveys ({percent.completed}%) in {year}. Technicians conducted {completed.points} point counts within the {completed.grids} surveyed grid cells between {first.visit} and {last.visit}. They detected {n.species} bird species, including {n.priority} priority species.")
+
+p3 <- str_glue("Bird Conservancy estimated densities (birds per square kilometer) for {n.density} species that were detected in any year during which surveys were conducted, {n.density.priority} of which are priority species. The data yielded robust density estimates (CV < 50%) for {n.density.robust} species.")
+
+p4 <- str_glue("Bird Conservancy estimated the proportion of occupied plots throughout {name} for {n.occupancy} species that were detected in any year during which surveys were conducted, {n.occupancy.priority} of which are priority species. The data yielded robust occupancy estimates (CV < 50%) for {n.occupancy.robust} species.")
+
+p5 <- str_glue("To view a map of approximate survey locations, species counts, and density, occupancy, & trend estimates within {name} across all years of the project, visit the [RMADC](https://app.bcr.eco/rmadc/).")
+
+head <- paste("####", name, sep = " ")
+
+```
+
+`r head`
+
+`r p1`
+
+`r p2`
+
+`r p3`
+
+`r p4`
+
+::: {.callout-note appearance="minimal"}
+## View results on the Rocky Mountain Avian Data Center
+`r p5`  
+
+On the Explore the Data tab, select **`r super_stratum`** from the **`r type`** drop-down filter.
+:::
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+# This script should not need to be updated year to year!
+
+# Lolo National Forest is a special value from the heddlr_loop.qmd file
+x <- which(data$stratum == "Lolo National Forest")
+
+name <- data[x, "name"]
+compilation <- ifelse(data[x, "Strata"] > 1, "compiling and jointly", "compiling and")
+n.strata <- if (data[x, "Strata"] <= 10) {numbers_to_words(data[x, "Strata"])
+  } else data[x, "Strata"]
+stratum_plural <- ifelse(data[x, "Strata"] > 1, "strata", "stratum")
+completed.grids <- (data[x, "CompletedGrids"])
+planned.grids <- (data[x, "PlannedGrids"])
+percent.completed <- round((completed.grids/planned.grids)*100)
+
+transect.clause <- if (planned.grids == completed.grids & planned.grids > 2) {
+  paste("all")
+  } else if (planned.grids == completed.grids & planned.grids == 2) {paste("both")
+  } else {paste((completed.grids), 
+             "of", 
+             (planned.grids),
+             sep = " ")}
+
+year <- data[x, "Year"]
+completed.points <- data[x, "CompletedPoints"]
+first.visit <- data[x, "FirstVisit"]
+last.visit <- data[x, "LastVisit"]
+n.species <- data[x, "nBirdSpecies"]
+n.priority <- data[x, "nPriority"]
+n.density <- data[x, "DensitySpeciesCount"]
+n.density.priority <- data[x, "DensityPrioritySpecies"]
+n.density.robust <- data[x, "DensityRobustCV"]
+n.occupancy <- data[x, "OccupancySpeciesCount"]
+n.occupancy.priority <- data[x, "OccupancyPrioritySpecies"]
+n.occupancy.robust <- data[x, "OccupancyRobustCV"]
+type <- if (data[x, "is_superstratum"]) {"Superstratum"} else {"Stratum"}
+super_stratum <- if (data[x, "is_superstratum"]) {data[x, "stratum"]} else {data[x, "LongStratum"]}
+
+p1 <- str_glue("We obtained results for {name} by {compilation} analyzing data from {n.strata} {stratum_plural}.")
+
+p2 <- str_glue("Field technicians completed {transect.clause} planned surveys ({percent.completed}%) in {year}. Technicians conducted {completed.points} point counts within the {completed.grids} surveyed grid cells between {first.visit} and {last.visit}. They detected {n.species} bird species, including {n.priority} priority species.")
+
+p3 <- str_glue("Bird Conservancy estimated densities (birds per square kilometer) for {n.density} species that were detected in any year during which surveys were conducted, {n.density.priority} of which are priority species. The data yielded robust density estimates (CV < 50%) for {n.density.robust} species.")
+
+p4 <- str_glue("Bird Conservancy estimated the proportion of occupied plots throughout {name} for {n.occupancy} species that were detected in any year during which surveys were conducted, {n.occupancy.priority} of which are priority species. The data yielded robust occupancy estimates (CV < 50%) for {n.occupancy.robust} species.")
+
+p5 <- str_glue("To view a map of approximate survey locations, species counts, and density, occupancy, & trend estimates within {name} across all years of the project, visit the [RMADC](https://app.bcr.eco/rmadc/).")
+
+head <- paste("####", name, sep = " ")
+
+```
+
+`r head`
+
+`r p1`
+
+`r p2`
+
+`r p3`
+
+`r p4`
+
+::: {.callout-note appearance="minimal"}
+## View results on the Rocky Mountain Avian Data Center
+`r p5`  
+
+On the Explore the Data tab, select **`r super_stratum`** from the **`r type`** drop-down filter.
+:::
+
+
+
+### Region 1 National Grasslands 
+ 
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+# This script should not need to be updated year to year!
+
+# USFS-Region 1 National Grasslands 2013-Present is a special value from the heddlr_loop.qmd file
+x <- which(data$stratum == "USFS-Region 1 National Grasslands 2013-Present")
+
+name <- data[x, "name"]
+compilation <- ifelse(data[x, "Strata"] > 1, "compiling and jointly", "compiling and")
+n.strata <- if (data[x, "Strata"] <= 10) {numbers_to_words(data[x, "Strata"])
+  } else data[x, "Strata"]
+stratum_plural <- ifelse(data[x, "Strata"] > 1, "strata", "stratum")
+completed.grids <- (data[x, "CompletedGrids"])
+planned.grids <- (data[x, "PlannedGrids"])
+percent.completed <- round((completed.grids/planned.grids)*100)
+
+transect.clause <- if (planned.grids == completed.grids & planned.grids > 2) {
+  paste("all")
+  } else if (planned.grids == completed.grids & planned.grids == 2) {paste("both")
+  } else {paste((completed.grids), 
+             "of", 
+             (planned.grids),
+             sep = " ")}
+
+year <- data[x, "Year"]
+completed.points <- data[x, "CompletedPoints"]
+first.visit <- data[x, "FirstVisit"]
+last.visit <- data[x, "LastVisit"]
+n.species <- data[x, "nBirdSpecies"]
+n.priority <- data[x, "nPriority"]
+n.density <- data[x, "DensitySpeciesCount"]
+n.density.priority <- data[x, "DensityPrioritySpecies"]
+n.density.robust <- data[x, "DensityRobustCV"]
+n.occupancy <- data[x, "OccupancySpeciesCount"]
+n.occupancy.priority <- data[x, "OccupancyPrioritySpecies"]
+n.occupancy.robust <- data[x, "OccupancyRobustCV"]
+type <- if (data[x, "is_superstratum"]) {"Superstratum"} else {"Stratum"}
+super_stratum <- if (data[x, "is_superstratum"]) {data[x, "stratum"]} else {data[x, "LongStratum"]}
+
+p1 <- str_glue("We obtained results for {name} by {compilation} analyzing data from {n.strata} {stratum_plural}.")
+
+p2 <- str_glue("Field technicians completed {transect.clause} planned surveys ({percent.completed}%) in {year}. Technicians conducted {completed.points} point counts within the {completed.grids} surveyed grid cells between {first.visit} and {last.visit}. They detected {n.species} bird species, including {n.priority} priority species.")
+
+p3 <- str_glue("Bird Conservancy estimated densities (birds per square kilometer) for {n.density} species that were detected in any year during which surveys were conducted, {n.density.priority} of which are priority species. The data yielded robust density estimates (CV < 50%) for {n.density.robust} species.")
+
+p4 <- str_glue("Bird Conservancy estimated the proportion of occupied plots throughout {name} for {n.occupancy} species that were detected in any year during which surveys were conducted, {n.occupancy.priority} of which are priority species. The data yielded robust occupancy estimates (CV < 50%) for {n.occupancy.robust} species.")
+
+p5 <- str_glue("To view a map of approximate survey locations, species counts, and density, occupancy, & trend estimates within {name} across all years of the project, visit the [RMADC](https://app.bcr.eco/rmadc/).")
+
+head <- paste("####", name, sep = " ")
+
+```
+
+`r head`
+
+`r p1`
+
+`r p2`
+
+`r p3`
+
+`r p4`
+
+::: {.callout-note appearance="minimal"}
+## View results on the Rocky Mountain Avian Data Center
+`r p5`  
+
+On the Explore the Data tab, select **`r super_stratum`** from the **`r type`** drop-down filter.
+:::
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+# This script should not need to be updated year to year!
+
+# ND-BCR17-RG is a special value from the heddlr_loop.qmd file
+x <- which(data$stratum == "ND-BCR17-RG")
+
+name <- data[x, "name"]
+compilation <- ifelse(data[x, "Strata"] > 1, "compiling and jointly", "compiling and")
+n.strata <- if (data[x, "Strata"] <= 10) {numbers_to_words(data[x, "Strata"])
+  } else data[x, "Strata"]
+stratum_plural <- ifelse(data[x, "Strata"] > 1, "strata", "stratum")
+completed.grids <- (data[x, "CompletedGrids"])
+planned.grids <- (data[x, "PlannedGrids"])
+percent.completed <- round((completed.grids/planned.grids)*100)
+
+transect.clause <- if (planned.grids == completed.grids & planned.grids > 2) {
+  paste("all")
+  } else if (planned.grids == completed.grids & planned.grids == 2) {paste("both")
+  } else {paste((completed.grids), 
+             "of", 
+             (planned.grids),
+             sep = " ")}
+
+year <- data[x, "Year"]
+completed.points <- data[x, "CompletedPoints"]
+first.visit <- data[x, "FirstVisit"]
+last.visit <- data[x, "LastVisit"]
+n.species <- data[x, "nBirdSpecies"]
+n.priority <- data[x, "nPriority"]
+n.density <- data[x, "DensitySpeciesCount"]
+n.density.priority <- data[x, "DensityPrioritySpecies"]
+n.density.robust <- data[x, "DensityRobustCV"]
+n.occupancy <- data[x, "OccupancySpeciesCount"]
+n.occupancy.priority <- data[x, "OccupancyPrioritySpecies"]
+n.occupancy.robust <- data[x, "OccupancyRobustCV"]
+type <- if (data[x, "is_superstratum"]) {"Superstratum"} else {"Stratum"}
+super_stratum <- if (data[x, "is_superstratum"]) {data[x, "stratum"]} else {data[x, "LongStratum"]}
+
+p1 <- str_glue("We obtained results for {name} by {compilation} analyzing data from {n.strata} {stratum_plural}.")
+
+p2 <- str_glue("Field technicians completed {transect.clause} planned surveys ({percent.completed}%) in {year}. Technicians conducted {completed.points} point counts within the {completed.grids} surveyed grid cells between {first.visit} and {last.visit}. They detected {n.species} bird species, including {n.priority} priority species.")
+
+p3 <- str_glue("Bird Conservancy estimated densities (birds per square kilometer) for {n.density} species that were detected in any year during which surveys were conducted, {n.density.priority} of which are priority species. The data yielded robust density estimates (CV < 50%) for {n.density.robust} species.")
+
+p4 <- str_glue("Bird Conservancy estimated the proportion of occupied plots throughout {name} for {n.occupancy} species that were detected in any year during which surveys were conducted, {n.occupancy.priority} of which are priority species. The data yielded robust occupancy estimates (CV < 50%) for {n.occupancy.robust} species.")
+
+p5 <- str_glue("To view a map of approximate survey locations, species counts, and density, occupancy, & trend estimates within {name} across all years of the project, visit the [RMADC](https://app.bcr.eco/rmadc/).")
+
+head <- paste("####", name, sep = " ")
+
+```
+
+`r head`
+
+`r p1`
+
+`r p2`
+
+`r p3`
+
+`r p4`
+
+::: {.callout-note appearance="minimal"}
+## View results on the Rocky Mountain Avian Data Center
+`r p5`  
+
+On the Explore the Data tab, select **`r super_stratum`** from the **`r type`** drop-down filter.
+:::
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+# This script should not need to be updated year to year!
+
+# SD-BCR17-RG is a special value from the heddlr_loop.qmd file
+x <- which(data$stratum == "SD-BCR17-RG")
+
+name <- data[x, "name"]
+compilation <- ifelse(data[x, "Strata"] > 1, "compiling and jointly", "compiling and")
+n.strata <- if (data[x, "Strata"] <= 10) {numbers_to_words(data[x, "Strata"])
+  } else data[x, "Strata"]
+stratum_plural <- ifelse(data[x, "Strata"] > 1, "strata", "stratum")
+completed.grids <- (data[x, "CompletedGrids"])
+planned.grids <- (data[x, "PlannedGrids"])
+percent.completed <- round((completed.grids/planned.grids)*100)
+
+transect.clause <- if (planned.grids == completed.grids & planned.grids > 2) {
+  paste("all")
+  } else if (planned.grids == completed.grids & planned.grids == 2) {paste("both")
+  } else {paste((completed.grids), 
+             "of", 
+             (planned.grids),
+             sep = " ")}
+
+year <- data[x, "Year"]
+completed.points <- data[x, "CompletedPoints"]
+first.visit <- data[x, "FirstVisit"]
+last.visit <- data[x, "LastVisit"]
+n.species <- data[x, "nBirdSpecies"]
+n.priority <- data[x, "nPriority"]
+n.density <- data[x, "DensitySpeciesCount"]
+n.density.priority <- data[x, "DensityPrioritySpecies"]
+n.density.robust <- data[x, "DensityRobustCV"]
+n.occupancy <- data[x, "OccupancySpeciesCount"]
+n.occupancy.priority <- data[x, "OccupancyPrioritySpecies"]
+n.occupancy.robust <- data[x, "OccupancyRobustCV"]
+type <- if (data[x, "is_superstratum"]) {"Superstratum"} else {"Stratum"}
+super_stratum <- if (data[x, "is_superstratum"]) {data[x, "stratum"]} else {data[x, "LongStratum"]}
+
+p1 <- str_glue("We obtained results for {name} by {compilation} analyzing data from {n.strata} {stratum_plural}.")
+
+p2 <- str_glue("Field technicians completed {transect.clause} planned surveys ({percent.completed}%) in {year}. Technicians conducted {completed.points} point counts within the {completed.grids} surveyed grid cells between {first.visit} and {last.visit}. They detected {n.species} bird species, including {n.priority} priority species.")
+
+p3 <- str_glue("Bird Conservancy estimated densities (birds per square kilometer) for {n.density} species that were detected in any year during which surveys were conducted, {n.density.priority} of which are priority species. The data yielded robust density estimates (CV < 50%) for {n.density.robust} species.")
+
+p4 <- str_glue("Bird Conservancy estimated the proportion of occupied plots throughout {name} for {n.occupancy} species that were detected in any year during which surveys were conducted, {n.occupancy.priority} of which are priority species. The data yielded robust occupancy estimates (CV < 50%) for {n.occupancy.robust} species.")
+
+p5 <- str_glue("To view a map of approximate survey locations, species counts, and density, occupancy, & trend estimates within {name} across all years of the project, visit the [RMADC](https://app.bcr.eco/rmadc/).")
+
+head <- paste("####", name, sep = " ")
+
+```
+
+`r head`
+
+`r p1`
+
+`r p2`
+
+`r p3`
+
+`r p4`
+
+::: {.callout-note appearance="minimal"}
+## View results on the Rocky Mountain Avian Data Center
+`r p5`  
+
+On the Explore the Data tab, select **`r super_stratum`** from the **`r type`** drop-down filter.
+:::
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+# This script should not need to be updated year to year!
+
+# ND-BCR17-MG is a special value from the heddlr_loop.qmd file
+x <- which(data$stratum == "ND-BCR17-MG")
+
+name <- data[x, "name"]
+compilation <- ifelse(data[x, "Strata"] > 1, "compiling and jointly", "compiling and")
+n.strata <- if (data[x, "Strata"] <= 10) {numbers_to_words(data[x, "Strata"])
+  } else data[x, "Strata"]
+stratum_plural <- ifelse(data[x, "Strata"] > 1, "strata", "stratum")
+completed.grids <- (data[x, "CompletedGrids"])
+planned.grids <- (data[x, "PlannedGrids"])
+percent.completed <- round((completed.grids/planned.grids)*100)
+
+transect.clause <- if (planned.grids == completed.grids & planned.grids > 2) {
+  paste("all")
+  } else if (planned.grids == completed.grids & planned.grids == 2) {paste("both")
+  } else {paste((completed.grids), 
+             "of", 
+             (planned.grids),
+             sep = " ")}
+
+year <- data[x, "Year"]
+completed.points <- data[x, "CompletedPoints"]
+first.visit <- data[x, "FirstVisit"]
+last.visit <- data[x, "LastVisit"]
+n.species <- data[x, "nBirdSpecies"]
+n.priority <- data[x, "nPriority"]
+n.density <- data[x, "DensitySpeciesCount"]
+n.density.priority <- data[x, "DensityPrioritySpecies"]
+n.density.robust <- data[x, "DensityRobustCV"]
+n.occupancy <- data[x, "OccupancySpeciesCount"]
+n.occupancy.priority <- data[x, "OccupancyPrioritySpecies"]
+n.occupancy.robust <- data[x, "OccupancyRobustCV"]
+type <- if (data[x, "is_superstratum"]) {"Superstratum"} else {"Stratum"}
+super_stratum <- if (data[x, "is_superstratum"]) {data[x, "stratum"]} else {data[x, "LongStratum"]}
+
+p1 <- str_glue("We obtained results for {name} by {compilation} analyzing data from {n.strata} {stratum_plural}.")
+
+p2 <- str_glue("Field technicians completed {transect.clause} planned surveys ({percent.completed}%) in {year}. Technicians conducted {completed.points} point counts within the {completed.grids} surveyed grid cells between {first.visit} and {last.visit}. They detected {n.species} bird species, including {n.priority} priority species.")
+
+p3 <- str_glue("Bird Conservancy estimated densities (birds per square kilometer) for {n.density} species that were detected in any year during which surveys were conducted, {n.density.priority} of which are priority species. The data yielded robust density estimates (CV < 50%) for {n.density.robust} species.")
+
+p4 <- str_glue("Bird Conservancy estimated the proportion of occupied plots throughout {name} for {n.occupancy} species that were detected in any year during which surveys were conducted, {n.occupancy.priority} of which are priority species. The data yielded robust occupancy estimates (CV < 50%) for {n.occupancy.robust} species.")
+
+p5 <- str_glue("To view a map of approximate survey locations, species counts, and density, occupancy, & trend estimates within {name} across all years of the project, visit the [RMADC](https://app.bcr.eco/rmadc/).")
+
+head <- paste("####", name, sep = " ")
+
+```
+
+`r head`
+
+`r p1`
+
+`r p2`
+
+`r p3`
+
+`r p4`
+
+::: {.callout-note appearance="minimal"}
+## View results on the Rocky Mountain Avian Data Center
+`r p5`  
+
+On the Explore the Data tab, select **`r super_stratum`** from the **`r type`** drop-down filter.
+:::
+
+
+## Region 2 
+
+### Region 2 National Forests 
+ 
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+# This script should not need to be updated year to year!
+
+# USFS-Region 2 National Forests is a special value from the heddlr_loop.qmd file
+x <- which(data$stratum == "USFS-Region 2 National Forests")
+
+name <- data[x, "name"]
+compilation <- ifelse(data[x, "Strata"] > 1, "compiling and jointly", "compiling and")
+n.strata <- if (data[x, "Strata"] <= 10) {numbers_to_words(data[x, "Strata"])
+  } else data[x, "Strata"]
+stratum_plural <- ifelse(data[x, "Strata"] > 1, "strata", "stratum")
+completed.grids <- (data[x, "CompletedGrids"])
+planned.grids <- (data[x, "PlannedGrids"])
+percent.completed <- round((completed.grids/planned.grids)*100)
+
+transect.clause <- if (planned.grids == completed.grids & planned.grids > 2) {
+  paste("all")
+  } else if (planned.grids == completed.grids & planned.grids == 2) {paste("both")
+  } else {paste((completed.grids), 
+             "of", 
+             (planned.grids),
+             sep = " ")}
+
+year <- data[x, "Year"]
+completed.points <- data[x, "CompletedPoints"]
+first.visit <- data[x, "FirstVisit"]
+last.visit <- data[x, "LastVisit"]
+n.species <- data[x, "nBirdSpecies"]
+n.priority <- data[x, "nPriority"]
+n.density <- data[x, "DensitySpeciesCount"]
+n.density.priority <- data[x, "DensityPrioritySpecies"]
+n.density.robust <- data[x, "DensityRobustCV"]
+n.occupancy <- data[x, "OccupancySpeciesCount"]
+n.occupancy.priority <- data[x, "OccupancyPrioritySpecies"]
+n.occupancy.robust <- data[x, "OccupancyRobustCV"]
+type <- if (data[x, "is_superstratum"]) {"Superstratum"} else {"Stratum"}
+super_stratum <- if (data[x, "is_superstratum"]) {data[x, "stratum"]} else {data[x, "LongStratum"]}
+
+p1 <- str_glue("We obtained results for {name} by {compilation} analyzing data from {n.strata} {stratum_plural}.")
+
+p2 <- str_glue("Field technicians completed {transect.clause} planned surveys ({percent.completed}%) in {year}. Technicians conducted {completed.points} point counts within the {completed.grids} surveyed grid cells between {first.visit} and {last.visit}. They detected {n.species} bird species, including {n.priority} priority species.")
+
+p3 <- str_glue("Bird Conservancy estimated densities (birds per square kilometer) for {n.density} species that were detected in any year during which surveys were conducted, {n.density.priority} of which are priority species. The data yielded robust density estimates (CV < 50%) for {n.density.robust} species.")
+
+p4 <- str_glue("Bird Conservancy estimated the proportion of occupied plots throughout {name} for {n.occupancy} species that were detected in any year during which surveys were conducted, {n.occupancy.priority} of which are priority species. The data yielded robust occupancy estimates (CV < 50%) for {n.occupancy.robust} species.")
+
+p5 <- str_glue("To view a map of approximate survey locations, species counts, and density, occupancy, & trend estimates within {name} across all years of the project, visit the [RMADC](https://app.bcr.eco/rmadc/).")
+
+head <- paste("####", name, sep = " ")
+
+```
+
+`r head`
+
+`r p1`
+
+`r p2`
+
+`r p3`
+
+`r p4`
+
+::: {.callout-note appearance="minimal"}
+## View results on the Rocky Mountain Avian Data Center
+`r p5`  
+
+On the Explore the Data tab, select **`r super_stratum`** from the **`r type`** drop-down filter.
+:::
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+# This script should not need to be updated year to year!
+
+# Black Hills National Forest is a special value from the heddlr_loop.qmd file
+x <- which(data$stratum == "Black Hills National Forest")
+
+name <- data[x, "name"]
+compilation <- ifelse(data[x, "Strata"] > 1, "compiling and jointly", "compiling and")
+n.strata <- if (data[x, "Strata"] <= 10) {numbers_to_words(data[x, "Strata"])
+  } else data[x, "Strata"]
+stratum_plural <- ifelse(data[x, "Strata"] > 1, "strata", "stratum")
+completed.grids <- (data[x, "CompletedGrids"])
+planned.grids <- (data[x, "PlannedGrids"])
+percent.completed <- round((completed.grids/planned.grids)*100)
+
+transect.clause <- if (planned.grids == completed.grids & planned.grids > 2) {
+  paste("all")
+  } else if (planned.grids == completed.grids & planned.grids == 2) {paste("both")
+  } else {paste((completed.grids), 
+             "of", 
+             (planned.grids),
+             sep = " ")}
+
+year <- data[x, "Year"]
+completed.points <- data[x, "CompletedPoints"]
+first.visit <- data[x, "FirstVisit"]
+last.visit <- data[x, "LastVisit"]
+n.species <- data[x, "nBirdSpecies"]
+n.priority <- data[x, "nPriority"]
+n.density <- data[x, "DensitySpeciesCount"]
+n.density.priority <- data[x, "DensityPrioritySpecies"]
+n.density.robust <- data[x, "DensityRobustCV"]
+n.occupancy <- data[x, "OccupancySpeciesCount"]
+n.occupancy.priority <- data[x, "OccupancyPrioritySpecies"]
+n.occupancy.robust <- data[x, "OccupancyRobustCV"]
+type <- if (data[x, "is_superstratum"]) {"Superstratum"} else {"Stratum"}
+super_stratum <- if (data[x, "is_superstratum"]) {data[x, "stratum"]} else {data[x, "LongStratum"]}
+
+p1 <- str_glue("We obtained results for {name} by {compilation} analyzing data from {n.strata} {stratum_plural}.")
+
+p2 <- str_glue("Field technicians completed {transect.clause} planned surveys ({percent.completed}%) in {year}. Technicians conducted {completed.points} point counts within the {completed.grids} surveyed grid cells between {first.visit} and {last.visit}. They detected {n.species} bird species, including {n.priority} priority species.")
+
+p3 <- str_glue("Bird Conservancy estimated densities (birds per square kilometer) for {n.density} species that were detected in any year during which surveys were conducted, {n.density.priority} of which are priority species. The data yielded robust density estimates (CV < 50%) for {n.density.robust} species.")
+
+p4 <- str_glue("Bird Conservancy estimated the proportion of occupied plots throughout {name} for {n.occupancy} species that were detected in any year during which surveys were conducted, {n.occupancy.priority} of which are priority species. The data yielded robust occupancy estimates (CV < 50%) for {n.occupancy.robust} species.")
+
+p5 <- str_glue("To view a map of approximate survey locations, species counts, and density, occupancy, & trend estimates within {name} across all years of the project, visit the [RMADC](https://app.bcr.eco/rmadc/).")
+
+head <- paste("####", name, sep = " ")
+
+```
+
+`r head`
+
+`r p1`
+
+`r p2`
+
+`r p3`
+
+`r p4`
+
+::: {.callout-note appearance="minimal"}
+## View results on the Rocky Mountain Avian Data Center
+`r p5`  
+
+On the Explore the Data tab, select **`r super_stratum`** from the **`r type`** drop-down filter.
+:::
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+# This script should not need to be updated year to year!
+
+# CO-BCR16-AR is a special value from the heddlr_loop.qmd file
+x <- which(data$stratum == "CO-BCR16-AR")
+
+name <- data[x, "name"]
+compilation <- ifelse(data[x, "Strata"] > 1, "compiling and jointly", "compiling and")
+n.strata <- if (data[x, "Strata"] <= 10) {numbers_to_words(data[x, "Strata"])
+  } else data[x, "Strata"]
+stratum_plural <- ifelse(data[x, "Strata"] > 1, "strata", "stratum")
+completed.grids <- (data[x, "CompletedGrids"])
+planned.grids <- (data[x, "PlannedGrids"])
+percent.completed <- round((completed.grids/planned.grids)*100)
+
+transect.clause <- if (planned.grids == completed.grids & planned.grids > 2) {
+  paste("all")
+  } else if (planned.grids == completed.grids & planned.grids == 2) {paste("both")
+  } else {paste((completed.grids), 
+             "of", 
+             (planned.grids),
+             sep = " ")}
+
+year <- data[x, "Year"]
+completed.points <- data[x, "CompletedPoints"]
+first.visit <- data[x, "FirstVisit"]
+last.visit <- data[x, "LastVisit"]
+n.species <- data[x, "nBirdSpecies"]
+n.priority <- data[x, "nPriority"]
+n.density <- data[x, "DensitySpeciesCount"]
+n.density.priority <- data[x, "DensityPrioritySpecies"]
+n.density.robust <- data[x, "DensityRobustCV"]
+n.occupancy <- data[x, "OccupancySpeciesCount"]
+n.occupancy.priority <- data[x, "OccupancyPrioritySpecies"]
+n.occupancy.robust <- data[x, "OccupancyRobustCV"]
+type <- if (data[x, "is_superstratum"]) {"Superstratum"} else {"Stratum"}
+super_stratum <- if (data[x, "is_superstratum"]) {data[x, "stratum"]} else {data[x, "LongStratum"]}
+
+p1 <- str_glue("We obtained results for {name} by {compilation} analyzing data from {n.strata} {stratum_plural}.")
+
+p2 <- str_glue("Field technicians completed {transect.clause} planned surveys ({percent.completed}%) in {year}. Technicians conducted {completed.points} point counts within the {completed.grids} surveyed grid cells between {first.visit} and {last.visit}. They detected {n.species} bird species, including {n.priority} priority species.")
+
+p3 <- str_glue("Bird Conservancy estimated densities (birds per square kilometer) for {n.density} species that were detected in any year during which surveys were conducted, {n.density.priority} of which are priority species. The data yielded robust density estimates (CV < 50%) for {n.density.robust} species.")
+
+p4 <- str_glue("Bird Conservancy estimated the proportion of occupied plots throughout {name} for {n.occupancy} species that were detected in any year during which surveys were conducted, {n.occupancy.priority} of which are priority species. The data yielded robust occupancy estimates (CV < 50%) for {n.occupancy.robust} species.")
+
+p5 <- str_glue("To view a map of approximate survey locations, species counts, and density, occupancy, & trend estimates within {name} across all years of the project, visit the [RMADC](https://app.bcr.eco/rmadc/).")
+
+head <- paste("####", name, sep = " ")
+
+```
+
+`r head`
+
+`r p1`
+
+`r p2`
+
+`r p3`
+
+`r p4`
+
+::: {.callout-note appearance="minimal"}
+## View results on the Rocky Mountain Avian Data Center
+`r p5`  
+
+On the Explore the Data tab, select **`r super_stratum`** from the **`r type`** drop-down filter.
+:::
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+# This script should not need to be updated year to year!
+
+# WY-BCR10-BI is a special value from the heddlr_loop.qmd file
+x <- which(data$stratum == "WY-BCR10-BI")
+
+name <- data[x, "name"]
+compilation <- ifelse(data[x, "Strata"] > 1, "compiling and jointly", "compiling and")
+n.strata <- if (data[x, "Strata"] <= 10) {numbers_to_words(data[x, "Strata"])
+  } else data[x, "Strata"]
+stratum_plural <- ifelse(data[x, "Strata"] > 1, "strata", "stratum")
+completed.grids <- (data[x, "CompletedGrids"])
+planned.grids <- (data[x, "PlannedGrids"])
+percent.completed <- round((completed.grids/planned.grids)*100)
+
+transect.clause <- if (planned.grids == completed.grids & planned.grids > 2) {
+  paste("all")
+  } else if (planned.grids == completed.grids & planned.grids == 2) {paste("both")
+  } else {paste((completed.grids), 
+             "of", 
+             (planned.grids),
+             sep = " ")}
+
+year <- data[x, "Year"]
+completed.points <- data[x, "CompletedPoints"]
+first.visit <- data[x, "FirstVisit"]
+last.visit <- data[x, "LastVisit"]
+n.species <- data[x, "nBirdSpecies"]
+n.priority <- data[x, "nPriority"]
+n.density <- data[x, "DensitySpeciesCount"]
+n.density.priority <- data[x, "DensityPrioritySpecies"]
+n.density.robust <- data[x, "DensityRobustCV"]
+n.occupancy <- data[x, "OccupancySpeciesCount"]
+n.occupancy.priority <- data[x, "OccupancyPrioritySpecies"]
+n.occupancy.robust <- data[x, "OccupancyRobustCV"]
+type <- if (data[x, "is_superstratum"]) {"Superstratum"} else {"Stratum"}
+super_stratum <- if (data[x, "is_superstratum"]) {data[x, "stratum"]} else {data[x, "LongStratum"]}
+
+p1 <- str_glue("We obtained results for {name} by {compilation} analyzing data from {n.strata} {stratum_plural}.")
+
+p2 <- str_glue("Field technicians completed {transect.clause} planned surveys ({percent.completed}%) in {year}. Technicians conducted {completed.points} point counts within the {completed.grids} surveyed grid cells between {first.visit} and {last.visit}. They detected {n.species} bird species, including {n.priority} priority species.")
+
+p3 <- str_glue("Bird Conservancy estimated densities (birds per square kilometer) for {n.density} species that were detected in any year during which surveys were conducted, {n.density.priority} of which are priority species. The data yielded robust density estimates (CV < 50%) for {n.density.robust} species.")
+
+p4 <- str_glue("Bird Conservancy estimated the proportion of occupied plots throughout {name} for {n.occupancy} species that were detected in any year during which surveys were conducted, {n.occupancy.priority} of which are priority species. The data yielded robust occupancy estimates (CV < 50%) for {n.occupancy.robust} species.")
+
+p5 <- str_glue("To view a map of approximate survey locations, species counts, and density, occupancy, & trend estimates within {name} across all years of the project, visit the [RMADC](https://app.bcr.eco/rmadc/).")
+
+head <- paste("####", name, sep = " ")
+
+```
+
+`r head`
+
+`r p1`
+
+`r p2`
+
+`r p3`
+
+`r p4`
+
+::: {.callout-note appearance="minimal"}
+## View results on the Rocky Mountain Avian Data Center
+`r p5`  
+
+On the Explore the Data tab, select **`r super_stratum`** from the **`r type`** drop-down filter.
+:::
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+# This script should not need to be updated year to year!
+
+# CO-BCR16-GM is a special value from the heddlr_loop.qmd file
+x <- which(data$stratum == "CO-BCR16-GM")
+
+name <- data[x, "name"]
+compilation <- ifelse(data[x, "Strata"] > 1, "compiling and jointly", "compiling and")
+n.strata <- if (data[x, "Strata"] <= 10) {numbers_to_words(data[x, "Strata"])
+  } else data[x, "Strata"]
+stratum_plural <- ifelse(data[x, "Strata"] > 1, "strata", "stratum")
+completed.grids <- (data[x, "CompletedGrids"])
+planned.grids <- (data[x, "PlannedGrids"])
+percent.completed <- round((completed.grids/planned.grids)*100)
+
+transect.clause <- if (planned.grids == completed.grids & planned.grids > 2) {
+  paste("all")
+  } else if (planned.grids == completed.grids & planned.grids == 2) {paste("both")
+  } else {paste((completed.grids), 
+             "of", 
+             (planned.grids),
+             sep = " ")}
+
+year <- data[x, "Year"]
+completed.points <- data[x, "CompletedPoints"]
+first.visit <- data[x, "FirstVisit"]
+last.visit <- data[x, "LastVisit"]
+n.species <- data[x, "nBirdSpecies"]
+n.priority <- data[x, "nPriority"]
+n.density <- data[x, "DensitySpeciesCount"]
+n.density.priority <- data[x, "DensityPrioritySpecies"]
+n.density.robust <- data[x, "DensityRobustCV"]
+n.occupancy <- data[x, "OccupancySpeciesCount"]
+n.occupancy.priority <- data[x, "OccupancyPrioritySpecies"]
+n.occupancy.robust <- data[x, "OccupancyRobustCV"]
+type <- if (data[x, "is_superstratum"]) {"Superstratum"} else {"Stratum"}
+super_stratum <- if (data[x, "is_superstratum"]) {data[x, "stratum"]} else {data[x, "LongStratum"]}
+
+p1 <- str_glue("We obtained results for {name} by {compilation} analyzing data from {n.strata} {stratum_plural}.")
+
+p2 <- str_glue("Field technicians completed {transect.clause} planned surveys ({percent.completed}%) in {year}. Technicians conducted {completed.points} point counts within the {completed.grids} surveyed grid cells between {first.visit} and {last.visit}. They detected {n.species} bird species, including {n.priority} priority species.")
+
+p3 <- str_glue("Bird Conservancy estimated densities (birds per square kilometer) for {n.density} species that were detected in any year during which surveys were conducted, {n.density.priority} of which are priority species. The data yielded robust density estimates (CV < 50%) for {n.density.robust} species.")
+
+p4 <- str_glue("Bird Conservancy estimated the proportion of occupied plots throughout {name} for {n.occupancy} species that were detected in any year during which surveys were conducted, {n.occupancy.priority} of which are priority species. The data yielded robust occupancy estimates (CV < 50%) for {n.occupancy.robust} species.")
+
+p5 <- str_glue("To view a map of approximate survey locations, species counts, and density, occupancy, & trend estimates within {name} across all years of the project, visit the [RMADC](https://app.bcr.eco/rmadc/).")
+
+head <- paste("####", name, sep = " ")
+
+```
+
+`r head`
+
+`r p1`
+
+`r p2`
+
+`r p3`
+
+`r p4`
+
+::: {.callout-note appearance="minimal"}
+## View results on the Rocky Mountain Avian Data Center
+`r p5`  
+
+On the Explore the Data tab, select **`r super_stratum`** from the **`r type`** drop-down filter.
+:::
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+# This script should not need to be updated year to year!
+
+# Medicine Bow National Forest is a special value from the heddlr_loop.qmd file
+x <- which(data$stratum == "Medicine Bow National Forest")
+
+name <- data[x, "name"]
+compilation <- ifelse(data[x, "Strata"] > 1, "compiling and jointly", "compiling and")
+n.strata <- if (data[x, "Strata"] <= 10) {numbers_to_words(data[x, "Strata"])
+  } else data[x, "Strata"]
+stratum_plural <- ifelse(data[x, "Strata"] > 1, "strata", "stratum")
+completed.grids <- (data[x, "CompletedGrids"])
+planned.grids <- (data[x, "PlannedGrids"])
+percent.completed <- round((completed.grids/planned.grids)*100)
+
+transect.clause <- if (planned.grids == completed.grids & planned.grids > 2) {
+  paste("all")
+  } else if (planned.grids == completed.grids & planned.grids == 2) {paste("both")
+  } else {paste((completed.grids), 
+             "of", 
+             (planned.grids),
+             sep = " ")}
+
+year <- data[x, "Year"]
+completed.points <- data[x, "CompletedPoints"]
+first.visit <- data[x, "FirstVisit"]
+last.visit <- data[x, "LastVisit"]
+n.species <- data[x, "nBirdSpecies"]
+n.priority <- data[x, "nPriority"]
+n.density <- data[x, "DensitySpeciesCount"]
+n.density.priority <- data[x, "DensityPrioritySpecies"]
+n.density.robust <- data[x, "DensityRobustCV"]
+n.occupancy <- data[x, "OccupancySpeciesCount"]
+n.occupancy.priority <- data[x, "OccupancyPrioritySpecies"]
+n.occupancy.robust <- data[x, "OccupancyRobustCV"]
+type <- if (data[x, "is_superstratum"]) {"Superstratum"} else {"Stratum"}
+super_stratum <- if (data[x, "is_superstratum"]) {data[x, "stratum"]} else {data[x, "LongStratum"]}
+
+p1 <- str_glue("We obtained results for {name} by {compilation} analyzing data from {n.strata} {stratum_plural}.")
+
+p2 <- str_glue("Field technicians completed {transect.clause} planned surveys ({percent.completed}%) in {year}. Technicians conducted {completed.points} point counts within the {completed.grids} surveyed grid cells between {first.visit} and {last.visit}. They detected {n.species} bird species, including {n.priority} priority species.")
+
+p3 <- str_glue("Bird Conservancy estimated densities (birds per square kilometer) for {n.density} species that were detected in any year during which surveys were conducted, {n.density.priority} of which are priority species. The data yielded robust density estimates (CV < 50%) for {n.density.robust} species.")
+
+p4 <- str_glue("Bird Conservancy estimated the proportion of occupied plots throughout {name} for {n.occupancy} species that were detected in any year during which surveys were conducted, {n.occupancy.priority} of which are priority species. The data yielded robust occupancy estimates (CV < 50%) for {n.occupancy.robust} species.")
+
+p5 <- str_glue("To view a map of approximate survey locations, species counts, and density, occupancy, & trend estimates within {name} across all years of the project, visit the [RMADC](https://app.bcr.eco/rmadc/).")
+
+head <- paste("####", name, sep = " ")
+
+```
+
+`r head`
+
+`r p1`
+
+`r p2`
+
+`r p3`
+
+`r p4`
+
+::: {.callout-note appearance="minimal"}
+## View results on the Rocky Mountain Avian Data Center
+`r p5`  
+
+On the Explore the Data tab, select **`r super_stratum`** from the **`r type`** drop-down filter.
+:::
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+# This script should not need to be updated year to year!
+
+# Nebraska National Forests 2013-2023 is a special value from the heddlr_loop.qmd file
+x <- which(data$stratum == "Nebraska National Forests 2013-2023")
+
+name <- data[x, "name"]
+compilation <- ifelse(data[x, "Strata"] > 1, "compiling and jointly", "compiling and")
+n.strata <- if (data[x, "Strata"] <= 10) {numbers_to_words(data[x, "Strata"])
+  } else data[x, "Strata"]
+stratum_plural <- ifelse(data[x, "Strata"] > 1, "strata", "stratum")
+completed.grids <- (data[x, "CompletedGrids"])
+planned.grids <- (data[x, "PlannedGrids"])
+percent.completed <- round((completed.grids/planned.grids)*100)
+
+transect.clause <- if (planned.grids == completed.grids & planned.grids > 2) {
+  paste("all")
+  } else if (planned.grids == completed.grids & planned.grids == 2) {paste("both")
+  } else {paste((completed.grids), 
+             "of", 
+             (planned.grids),
+             sep = " ")}
+
+year <- data[x, "Year"]
+completed.points <- data[x, "CompletedPoints"]
+first.visit <- data[x, "FirstVisit"]
+last.visit <- data[x, "LastVisit"]
+n.species <- data[x, "nBirdSpecies"]
+n.priority <- data[x, "nPriority"]
+n.density <- data[x, "DensitySpeciesCount"]
+n.density.priority <- data[x, "DensityPrioritySpecies"]
+n.density.robust <- data[x, "DensityRobustCV"]
+n.occupancy <- data[x, "OccupancySpeciesCount"]
+n.occupancy.priority <- data[x, "OccupancyPrioritySpecies"]
+n.occupancy.robust <- data[x, "OccupancyRobustCV"]
+type <- if (data[x, "is_superstratum"]) {"Superstratum"} else {"Stratum"}
+super_stratum <- if (data[x, "is_superstratum"]) {data[x, "stratum"]} else {data[x, "LongStratum"]}
+
+p1 <- str_glue("We obtained results for {name} by {compilation} analyzing data from {n.strata} {stratum_plural}.")
+
+p2 <- str_glue("Field technicians completed {transect.clause} planned surveys ({percent.completed}%) in {year}. Technicians conducted {completed.points} point counts within the {completed.grids} surveyed grid cells between {first.visit} and {last.visit}. They detected {n.species} bird species, including {n.priority} priority species.")
+
+p3 <- str_glue("Bird Conservancy estimated densities (birds per square kilometer) for {n.density} species that were detected in any year during which surveys were conducted, {n.density.priority} of which are priority species. The data yielded robust density estimates (CV < 50%) for {n.density.robust} species.")
+
+p4 <- str_glue("Bird Conservancy estimated the proportion of occupied plots throughout {name} for {n.occupancy} species that were detected in any year during which surveys were conducted, {n.occupancy.priority} of which are priority species. The data yielded robust occupancy estimates (CV < 50%) for {n.occupancy.robust} species.")
+
+p5 <- str_glue("To view a map of approximate survey locations, species counts, and density, occupancy, & trend estimates within {name} across all years of the project, visit the [RMADC](https://app.bcr.eco/rmadc/).")
+
+head <- paste("####", name, sep = " ")
+
+```
+
+`r head`
+
+`r p1`
+
+`r p2`
+
+`r p3`
+
+`r p4`
+
+::: {.callout-note appearance="minimal"}
+## View results on the Rocky Mountain Avian Data Center
+`r p5`  
+
+On the Explore the Data tab, select **`r super_stratum`** from the **`r type`** drop-down filter.
+:::
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+# This script should not need to be updated year to year!
+
+# CO-BCR16-PS is a special value from the heddlr_loop.qmd file
+x <- which(data$stratum == "CO-BCR16-PS")
+
+name <- data[x, "name"]
+compilation <- ifelse(data[x, "Strata"] > 1, "compiling and jointly", "compiling and")
+n.strata <- if (data[x, "Strata"] <= 10) {numbers_to_words(data[x, "Strata"])
+  } else data[x, "Strata"]
+stratum_plural <- ifelse(data[x, "Strata"] > 1, "strata", "stratum")
+completed.grids <- (data[x, "CompletedGrids"])
+planned.grids <- (data[x, "PlannedGrids"])
+percent.completed <- round((completed.grids/planned.grids)*100)
+
+transect.clause <- if (planned.grids == completed.grids & planned.grids > 2) {
+  paste("all")
+  } else if (planned.grids == completed.grids & planned.grids == 2) {paste("both")
+  } else {paste((completed.grids), 
+             "of", 
+             (planned.grids),
+             sep = " ")}
+
+year <- data[x, "Year"]
+completed.points <- data[x, "CompletedPoints"]
+first.visit <- data[x, "FirstVisit"]
+last.visit <- data[x, "LastVisit"]
+n.species <- data[x, "nBirdSpecies"]
+n.priority <- data[x, "nPriority"]
+n.density <- data[x, "DensitySpeciesCount"]
+n.density.priority <- data[x, "DensityPrioritySpecies"]
+n.density.robust <- data[x, "DensityRobustCV"]
+n.occupancy <- data[x, "OccupancySpeciesCount"]
+n.occupancy.priority <- data[x, "OccupancyPrioritySpecies"]
+n.occupancy.robust <- data[x, "OccupancyRobustCV"]
+type <- if (data[x, "is_superstratum"]) {"Superstratum"} else {"Stratum"}
+super_stratum <- if (data[x, "is_superstratum"]) {data[x, "stratum"]} else {data[x, "LongStratum"]}
+
+p1 <- str_glue("We obtained results for {name} by {compilation} analyzing data from {n.strata} {stratum_plural}.")
+
+p2 <- str_glue("Field technicians completed {transect.clause} planned surveys ({percent.completed}%) in {year}. Technicians conducted {completed.points} point counts within the {completed.grids} surveyed grid cells between {first.visit} and {last.visit}. They detected {n.species} bird species, including {n.priority} priority species.")
+
+p3 <- str_glue("Bird Conservancy estimated densities (birds per square kilometer) for {n.density} species that were detected in any year during which surveys were conducted, {n.density.priority} of which are priority species. The data yielded robust density estimates (CV < 50%) for {n.density.robust} species.")
+
+p4 <- str_glue("Bird Conservancy estimated the proportion of occupied plots throughout {name} for {n.occupancy} species that were detected in any year during which surveys were conducted, {n.occupancy.priority} of which are priority species. The data yielded robust occupancy estimates (CV < 50%) for {n.occupancy.robust} species.")
+
+p5 <- str_glue("To view a map of approximate survey locations, species counts, and density, occupancy, & trend estimates within {name} across all years of the project, visit the [RMADC](https://app.bcr.eco/rmadc/).")
+
+head <- paste("####", name, sep = " ")
+
+```
+
+`r head`
+
+`r p1`
+
+`r p2`
+
+`r p3`
+
+`r p4`
+
+::: {.callout-note appearance="minimal"}
+## View results on the Rocky Mountain Avian Data Center
+`r p5`  
+
+On the Explore the Data tab, select **`r super_stratum`** from the **`r type`** drop-down filter.
+:::
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+# This script should not need to be updated year to year!
+
+# Rio Grande National Forest is a special value from the heddlr_loop.qmd file
+x <- which(data$stratum == "Rio Grande National Forest")
+
+name <- data[x, "name"]
+compilation <- ifelse(data[x, "Strata"] > 1, "compiling and jointly", "compiling and")
+n.strata <- if (data[x, "Strata"] <= 10) {numbers_to_words(data[x, "Strata"])
+  } else data[x, "Strata"]
+stratum_plural <- ifelse(data[x, "Strata"] > 1, "strata", "stratum")
+completed.grids <- (data[x, "CompletedGrids"])
+planned.grids <- (data[x, "PlannedGrids"])
+percent.completed <- round((completed.grids/planned.grids)*100)
+
+transect.clause <- if (planned.grids == completed.grids & planned.grids > 2) {
+  paste("all")
+  } else if (planned.grids == completed.grids & planned.grids == 2) {paste("both")
+  } else {paste((completed.grids), 
+             "of", 
+             (planned.grids),
+             sep = " ")}
+
+year <- data[x, "Year"]
+completed.points <- data[x, "CompletedPoints"]
+first.visit <- data[x, "FirstVisit"]
+last.visit <- data[x, "LastVisit"]
+n.species <- data[x, "nBirdSpecies"]
+n.priority <- data[x, "nPriority"]
+n.density <- data[x, "DensitySpeciesCount"]
+n.density.priority <- data[x, "DensityPrioritySpecies"]
+n.density.robust <- data[x, "DensityRobustCV"]
+n.occupancy <- data[x, "OccupancySpeciesCount"]
+n.occupancy.priority <- data[x, "OccupancyPrioritySpecies"]
+n.occupancy.robust <- data[x, "OccupancyRobustCV"]
+type <- if (data[x, "is_superstratum"]) {"Superstratum"} else {"Stratum"}
+super_stratum <- if (data[x, "is_superstratum"]) {data[x, "stratum"]} else {data[x, "LongStratum"]}
+
+p1 <- str_glue("We obtained results for {name} by {compilation} analyzing data from {n.strata} {stratum_plural}.")
+
+p2 <- str_glue("Field technicians completed {transect.clause} planned surveys ({percent.completed}%) in {year}. Technicians conducted {completed.points} point counts within the {completed.grids} surveyed grid cells between {first.visit} and {last.visit}. They detected {n.species} bird species, including {n.priority} priority species.")
+
+p3 <- str_glue("Bird Conservancy estimated densities (birds per square kilometer) for {n.density} species that were detected in any year during which surveys were conducted, {n.density.priority} of which are priority species. The data yielded robust density estimates (CV < 50%) for {n.density.robust} species.")
+
+p4 <- str_glue("Bird Conservancy estimated the proportion of occupied plots throughout {name} for {n.occupancy} species that were detected in any year during which surveys were conducted, {n.occupancy.priority} of which are priority species. The data yielded robust occupancy estimates (CV < 50%) for {n.occupancy.robust} species.")
+
+p5 <- str_glue("To view a map of approximate survey locations, species counts, and density, occupancy, & trend estimates within {name} across all years of the project, visit the [RMADC](https://app.bcr.eco/rmadc/).")
+
+head <- paste("####", name, sep = " ")
+
+```
+
+`r head`
+
+`r p1`
+
+`r p2`
+
+`r p3`
+
+`r p4`
+
+::: {.callout-note appearance="minimal"}
+## View results on the Rocky Mountain Avian Data Center
+`r p5`  
+
+On the Explore the Data tab, select **`r super_stratum`** from the **`r type`** drop-down filter.
+:::
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+# This script should not need to be updated year to year!
+
+# Routt National Forest is a special value from the heddlr_loop.qmd file
+x <- which(data$stratum == "Routt National Forest")
+
+name <- data[x, "name"]
+compilation <- ifelse(data[x, "Strata"] > 1, "compiling and jointly", "compiling and")
+n.strata <- if (data[x, "Strata"] <= 10) {numbers_to_words(data[x, "Strata"])
+  } else data[x, "Strata"]
+stratum_plural <- ifelse(data[x, "Strata"] > 1, "strata", "stratum")
+completed.grids <- (data[x, "CompletedGrids"])
+planned.grids <- (data[x, "PlannedGrids"])
+percent.completed <- round((completed.grids/planned.grids)*100)
+
+transect.clause <- if (planned.grids == completed.grids & planned.grids > 2) {
+  paste("all")
+  } else if (planned.grids == completed.grids & planned.grids == 2) {paste("both")
+  } else {paste((completed.grids), 
+             "of", 
+             (planned.grids),
+             sep = " ")}
+
+year <- data[x, "Year"]
+completed.points <- data[x, "CompletedPoints"]
+first.visit <- data[x, "FirstVisit"]
+last.visit <- data[x, "LastVisit"]
+n.species <- data[x, "nBirdSpecies"]
+n.priority <- data[x, "nPriority"]
+n.density <- data[x, "DensitySpeciesCount"]
+n.density.priority <- data[x, "DensityPrioritySpecies"]
+n.density.robust <- data[x, "DensityRobustCV"]
+n.occupancy <- data[x, "OccupancySpeciesCount"]
+n.occupancy.priority <- data[x, "OccupancyPrioritySpecies"]
+n.occupancy.robust <- data[x, "OccupancyRobustCV"]
+type <- if (data[x, "is_superstratum"]) {"Superstratum"} else {"Stratum"}
+super_stratum <- if (data[x, "is_superstratum"]) {data[x, "stratum"]} else {data[x, "LongStratum"]}
+
+p1 <- str_glue("We obtained results for {name} by {compilation} analyzing data from {n.strata} {stratum_plural}.")
+
+p2 <- str_glue("Field technicians completed {transect.clause} planned surveys ({percent.completed}%) in {year}. Technicians conducted {completed.points} point counts within the {completed.grids} surveyed grid cells between {first.visit} and {last.visit}. They detected {n.species} bird species, including {n.priority} priority species.")
+
+p3 <- str_glue("Bird Conservancy estimated densities (birds per square kilometer) for {n.density} species that were detected in any year during which surveys were conducted, {n.density.priority} of which are priority species. The data yielded robust density estimates (CV < 50%) for {n.density.robust} species.")
+
+p4 <- str_glue("Bird Conservancy estimated the proportion of occupied plots throughout {name} for {n.occupancy} species that were detected in any year during which surveys were conducted, {n.occupancy.priority} of which are priority species. The data yielded robust occupancy estimates (CV < 50%) for {n.occupancy.robust} species.")
+
+p5 <- str_glue("To view a map of approximate survey locations, species counts, and density, occupancy, & trend estimates within {name} across all years of the project, visit the [RMADC](https://app.bcr.eco/rmadc/).")
+
+head <- paste("####", name, sep = " ")
+
+```
+
+`r head`
+
+`r p1`
+
+`r p2`
+
+`r p3`
+
+`r p4`
+
+::: {.callout-note appearance="minimal"}
+## View results on the Rocky Mountain Avian Data Center
+`r p5`  
+
+On the Explore the Data tab, select **`r super_stratum`** from the **`r type`** drop-down filter.
+:::
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+# This script should not need to be updated year to year!
+
+# CO-BCR16-SA is a special value from the heddlr_loop.qmd file
+x <- which(data$stratum == "CO-BCR16-SA")
+
+name <- data[x, "name"]
+compilation <- ifelse(data[x, "Strata"] > 1, "compiling and jointly", "compiling and")
+n.strata <- if (data[x, "Strata"] <= 10) {numbers_to_words(data[x, "Strata"])
+  } else data[x, "Strata"]
+stratum_plural <- ifelse(data[x, "Strata"] > 1, "strata", "stratum")
+completed.grids <- (data[x, "CompletedGrids"])
+planned.grids <- (data[x, "PlannedGrids"])
+percent.completed <- round((completed.grids/planned.grids)*100)
+
+transect.clause <- if (planned.grids == completed.grids & planned.grids > 2) {
+  paste("all")
+  } else if (planned.grids == completed.grids & planned.grids == 2) {paste("both")
+  } else {paste((completed.grids), 
+             "of", 
+             (planned.grids),
+             sep = " ")}
+
+year <- data[x, "Year"]
+completed.points <- data[x, "CompletedPoints"]
+first.visit <- data[x, "FirstVisit"]
+last.visit <- data[x, "LastVisit"]
+n.species <- data[x, "nBirdSpecies"]
+n.priority <- data[x, "nPriority"]
+n.density <- data[x, "DensitySpeciesCount"]
+n.density.priority <- data[x, "DensityPrioritySpecies"]
+n.density.robust <- data[x, "DensityRobustCV"]
+n.occupancy <- data[x, "OccupancySpeciesCount"]
+n.occupancy.priority <- data[x, "OccupancyPrioritySpecies"]
+n.occupancy.robust <- data[x, "OccupancyRobustCV"]
+type <- if (data[x, "is_superstratum"]) {"Superstratum"} else {"Stratum"}
+super_stratum <- if (data[x, "is_superstratum"]) {data[x, "stratum"]} else {data[x, "LongStratum"]}
+
+p1 <- str_glue("We obtained results for {name} by {compilation} analyzing data from {n.strata} {stratum_plural}.")
+
+p2 <- str_glue("Field technicians completed {transect.clause} planned surveys ({percent.completed}%) in {year}. Technicians conducted {completed.points} point counts within the {completed.grids} surveyed grid cells between {first.visit} and {last.visit}. They detected {n.species} bird species, including {n.priority} priority species.")
+
+p3 <- str_glue("Bird Conservancy estimated densities (birds per square kilometer) for {n.density} species that were detected in any year during which surveys were conducted, {n.density.priority} of which are priority species. The data yielded robust density estimates (CV < 50%) for {n.density.robust} species.")
+
+p4 <- str_glue("Bird Conservancy estimated the proportion of occupied plots throughout {name} for {n.occupancy} species that were detected in any year during which surveys were conducted, {n.occupancy.priority} of which are priority species. The data yielded robust occupancy estimates (CV < 50%) for {n.occupancy.robust} species.")
+
+p5 <- str_glue("To view a map of approximate survey locations, species counts, and density, occupancy, & trend estimates within {name} across all years of the project, visit the [RMADC](https://app.bcr.eco/rmadc/).")
+
+head <- paste("####", name, sep = " ")
+
+```
+
+`r head`
+
+`r p1`
+
+`r p2`
+
+`r p3`
+
+`r p4`
+
+::: {.callout-note appearance="minimal"}
+## View results on the Rocky Mountain Avian Data Center
+`r p5`  
+
+On the Explore the Data tab, select **`r super_stratum`** from the **`r type`** drop-down filter.
+:::
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+# This script should not need to be updated year to year!
+
+# Shoshone National Forest is a special value from the heddlr_loop.qmd file
+x <- which(data$stratum == "Shoshone National Forest")
+
+name <- data[x, "name"]
+compilation <- ifelse(data[x, "Strata"] > 1, "compiling and jointly", "compiling and")
+n.strata <- if (data[x, "Strata"] <= 10) {numbers_to_words(data[x, "Strata"])
+  } else data[x, "Strata"]
+stratum_plural <- ifelse(data[x, "Strata"] > 1, "strata", "stratum")
+completed.grids <- (data[x, "CompletedGrids"])
+planned.grids <- (data[x, "PlannedGrids"])
+percent.completed <- round((completed.grids/planned.grids)*100)
+
+transect.clause <- if (planned.grids == completed.grids & planned.grids > 2) {
+  paste("all")
+  } else if (planned.grids == completed.grids & planned.grids == 2) {paste("both")
+  } else {paste((completed.grids), 
+             "of", 
+             (planned.grids),
+             sep = " ")}
+
+year <- data[x, "Year"]
+completed.points <- data[x, "CompletedPoints"]
+first.visit <- data[x, "FirstVisit"]
+last.visit <- data[x, "LastVisit"]
+n.species <- data[x, "nBirdSpecies"]
+n.priority <- data[x, "nPriority"]
+n.density <- data[x, "DensitySpeciesCount"]
+n.density.priority <- data[x, "DensityPrioritySpecies"]
+n.density.robust <- data[x, "DensityRobustCV"]
+n.occupancy <- data[x, "OccupancySpeciesCount"]
+n.occupancy.priority <- data[x, "OccupancyPrioritySpecies"]
+n.occupancy.robust <- data[x, "OccupancyRobustCV"]
+type <- if (data[x, "is_superstratum"]) {"Superstratum"} else {"Stratum"}
+super_stratum <- if (data[x, "is_superstratum"]) {data[x, "stratum"]} else {data[x, "LongStratum"]}
+
+p1 <- str_glue("We obtained results for {name} by {compilation} analyzing data from {n.strata} {stratum_plural}.")
+
+p2 <- str_glue("Field technicians completed {transect.clause} planned surveys ({percent.completed}%) in {year}. Technicians conducted {completed.points} point counts within the {completed.grids} surveyed grid cells between {first.visit} and {last.visit}. They detected {n.species} bird species, including {n.priority} priority species.")
+
+p3 <- str_glue("Bird Conservancy estimated densities (birds per square kilometer) for {n.density} species that were detected in any year during which surveys were conducted, {n.density.priority} of which are priority species. The data yielded robust density estimates (CV < 50%) for {n.density.robust} species.")
+
+p4 <- str_glue("Bird Conservancy estimated the proportion of occupied plots throughout {name} for {n.occupancy} species that were detected in any year during which surveys were conducted, {n.occupancy.priority} of which are priority species. The data yielded robust occupancy estimates (CV < 50%) for {n.occupancy.robust} species.")
+
+p5 <- str_glue("To view a map of approximate survey locations, species counts, and density, occupancy, & trend estimates within {name} across all years of the project, visit the [RMADC](https://app.bcr.eco/rmadc/).")
+
+head <- paste("####", name, sep = " ")
+
+```
+
+`r head`
+
+`r p1`
+
+`r p2`
+
+`r p3`
+
+`r p4`
+
+::: {.callout-note appearance="minimal"}
+## View results on the Rocky Mountain Avian Data Center
+`r p5`  
+
+On the Explore the Data tab, select **`r super_stratum`** from the **`r type`** drop-down filter.
+:::
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+# This script should not need to be updated year to year!
+
+# White River National Forest is a special value from the heddlr_loop.qmd file
+x <- which(data$stratum == "White River National Forest")
+
+name <- data[x, "name"]
+compilation <- ifelse(data[x, "Strata"] > 1, "compiling and jointly", "compiling and")
+n.strata <- if (data[x, "Strata"] <= 10) {numbers_to_words(data[x, "Strata"])
+  } else data[x, "Strata"]
+stratum_plural <- ifelse(data[x, "Strata"] > 1, "strata", "stratum")
+completed.grids <- (data[x, "CompletedGrids"])
+planned.grids <- (data[x, "PlannedGrids"])
+percent.completed <- round((completed.grids/planned.grids)*100)
+
+transect.clause <- if (planned.grids == completed.grids & planned.grids > 2) {
+  paste("all")
+  } else if (planned.grids == completed.grids & planned.grids == 2) {paste("both")
+  } else {paste((completed.grids), 
+             "of", 
+             (planned.grids),
+             sep = " ")}
+
+year <- data[x, "Year"]
+completed.points <- data[x, "CompletedPoints"]
+first.visit <- data[x, "FirstVisit"]
+last.visit <- data[x, "LastVisit"]
+n.species <- data[x, "nBirdSpecies"]
+n.priority <- data[x, "nPriority"]
+n.density <- data[x, "DensitySpeciesCount"]
+n.density.priority <- data[x, "DensityPrioritySpecies"]
+n.density.robust <- data[x, "DensityRobustCV"]
+n.occupancy <- data[x, "OccupancySpeciesCount"]
+n.occupancy.priority <- data[x, "OccupancyPrioritySpecies"]
+n.occupancy.robust <- data[x, "OccupancyRobustCV"]
+type <- if (data[x, "is_superstratum"]) {"Superstratum"} else {"Stratum"}
+super_stratum <- if (data[x, "is_superstratum"]) {data[x, "stratum"]} else {data[x, "LongStratum"]}
+
+p1 <- str_glue("We obtained results for {name} by {compilation} analyzing data from {n.strata} {stratum_plural}.")
+
+p2 <- str_glue("Field technicians completed {transect.clause} planned surveys ({percent.completed}%) in {year}. Technicians conducted {completed.points} point counts within the {completed.grids} surveyed grid cells between {first.visit} and {last.visit}. They detected {n.species} bird species, including {n.priority} priority species.")
+
+p3 <- str_glue("Bird Conservancy estimated densities (birds per square kilometer) for {n.density} species that were detected in any year during which surveys were conducted, {n.density.priority} of which are priority species. The data yielded robust density estimates (CV < 50%) for {n.density.robust} species.")
+
+p4 <- str_glue("Bird Conservancy estimated the proportion of occupied plots throughout {name} for {n.occupancy} species that were detected in any year during which surveys were conducted, {n.occupancy.priority} of which are priority species. The data yielded robust occupancy estimates (CV < 50%) for {n.occupancy.robust} species.")
+
+p5 <- str_glue("To view a map of approximate survey locations, species counts, and density, occupancy, & trend estimates within {name} across all years of the project, visit the [RMADC](https://app.bcr.eco/rmadc/).")
+
+head <- paste("####", name, sep = " ")
+
+```
+
+`r head`
+
+`r p1`
+
+`r p2`
+
+`r p3`
+
+`r p4`
+
+::: {.callout-note appearance="minimal"}
+## View results on the Rocky Mountain Avian Data Center
+`r p5`  
+
+On the Explore the Data tab, select **`r super_stratum`** from the **`r type`** drop-down filter.
+:::
+
+
+
+### Region 2 National Grasslands 
+ 
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+# This script should not need to be updated year to year!
+
+# USFS-Region 2 National Grasslands 2016-Present is a special value from the heddlr_loop.qmd file
+x <- which(data$stratum == "USFS-Region 2 National Grasslands 2016-Present")
+
+name <- data[x, "name"]
+compilation <- ifelse(data[x, "Strata"] > 1, "compiling and jointly", "compiling and")
+n.strata <- if (data[x, "Strata"] <= 10) {numbers_to_words(data[x, "Strata"])
+  } else data[x, "Strata"]
+stratum_plural <- ifelse(data[x, "Strata"] > 1, "strata", "stratum")
+completed.grids <- (data[x, "CompletedGrids"])
+planned.grids <- (data[x, "PlannedGrids"])
+percent.completed <- round((completed.grids/planned.grids)*100)
+
+transect.clause <- if (planned.grids == completed.grids & planned.grids > 2) {
+  paste("all")
+  } else if (planned.grids == completed.grids & planned.grids == 2) {paste("both")
+  } else {paste((completed.grids), 
+             "of", 
+             (planned.grids),
+             sep = " ")}
+
+year <- data[x, "Year"]
+completed.points <- data[x, "CompletedPoints"]
+first.visit <- data[x, "FirstVisit"]
+last.visit <- data[x, "LastVisit"]
+n.species <- data[x, "nBirdSpecies"]
+n.priority <- data[x, "nPriority"]
+n.density <- data[x, "DensitySpeciesCount"]
+n.density.priority <- data[x, "DensityPrioritySpecies"]
+n.density.robust <- data[x, "DensityRobustCV"]
+n.occupancy <- data[x, "OccupancySpeciesCount"]
+n.occupancy.priority <- data[x, "OccupancyPrioritySpecies"]
+n.occupancy.robust <- data[x, "OccupancyRobustCV"]
+type <- if (data[x, "is_superstratum"]) {"Superstratum"} else {"Stratum"}
+super_stratum <- if (data[x, "is_superstratum"]) {data[x, "stratum"]} else {data[x, "LongStratum"]}
+
+p1 <- str_glue("We obtained results for {name} by {compilation} analyzing data from {n.strata} {stratum_plural}.")
+
+p2 <- str_glue("Field technicians completed {transect.clause} planned surveys ({percent.completed}%) in {year}. Technicians conducted {completed.points} point counts within the {completed.grids} surveyed grid cells between {first.visit} and {last.visit}. They detected {n.species} bird species, including {n.priority} priority species.")
+
+p3 <- str_glue("Bird Conservancy estimated densities (birds per square kilometer) for {n.density} species that were detected in any year during which surveys were conducted, {n.density.priority} of which are priority species. The data yielded robust density estimates (CV < 50%) for {n.density.robust} species.")
+
+p4 <- str_glue("Bird Conservancy estimated the proportion of occupied plots throughout {name} for {n.occupancy} species that were detected in any year during which surveys were conducted, {n.occupancy.priority} of which are priority species. The data yielded robust occupancy estimates (CV < 50%) for {n.occupancy.robust} species.")
+
+p5 <- str_glue("To view a map of approximate survey locations, species counts, and density, occupancy, & trend estimates within {name} across all years of the project, visit the [RMADC](https://app.bcr.eco/rmadc/).")
+
+head <- paste("####", name, sep = " ")
+
+```
+
+`r head`
+
+`r p1`
+
+`r p2`
+
+`r p3`
+
+`r p4`
+
+::: {.callout-note appearance="minimal"}
+## View results on the Rocky Mountain Avian Data Center
+`r p5`  
+
+On the Explore the Data tab, select **`r super_stratum`** from the **`r type`** drop-down filter.
+:::
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+# This script should not need to be updated year to year!
+
+# CO-BCR18-CO is a special value from the heddlr_loop.qmd file
+x <- which(data$stratum == "CO-BCR18-CO")
+
+name <- data[x, "name"]
+compilation <- ifelse(data[x, "Strata"] > 1, "compiling and jointly", "compiling and")
+n.strata <- if (data[x, "Strata"] <= 10) {numbers_to_words(data[x, "Strata"])
+  } else data[x, "Strata"]
+stratum_plural <- ifelse(data[x, "Strata"] > 1, "strata", "stratum")
+completed.grids <- (data[x, "CompletedGrids"])
+planned.grids <- (data[x, "PlannedGrids"])
+percent.completed <- round((completed.grids/planned.grids)*100)
+
+transect.clause <- if (planned.grids == completed.grids & planned.grids > 2) {
+  paste("all")
+  } else if (planned.grids == completed.grids & planned.grids == 2) {paste("both")
+  } else {paste((completed.grids), 
+             "of", 
+             (planned.grids),
+             sep = " ")}
+
+year <- data[x, "Year"]
+completed.points <- data[x, "CompletedPoints"]
+first.visit <- data[x, "FirstVisit"]
+last.visit <- data[x, "LastVisit"]
+n.species <- data[x, "nBirdSpecies"]
+n.priority <- data[x, "nPriority"]
+n.density <- data[x, "DensitySpeciesCount"]
+n.density.priority <- data[x, "DensityPrioritySpecies"]
+n.density.robust <- data[x, "DensityRobustCV"]
+n.occupancy <- data[x, "OccupancySpeciesCount"]
+n.occupancy.priority <- data[x, "OccupancyPrioritySpecies"]
+n.occupancy.robust <- data[x, "OccupancyRobustCV"]
+type <- if (data[x, "is_superstratum"]) {"Superstratum"} else {"Stratum"}
+super_stratum <- if (data[x, "is_superstratum"]) {data[x, "stratum"]} else {data[x, "LongStratum"]}
+
+p1 <- str_glue("We obtained results for {name} by {compilation} analyzing data from {n.strata} {stratum_plural}.")
+
+p2 <- str_glue("Field technicians completed {transect.clause} planned surveys ({percent.completed}%) in {year}. Technicians conducted {completed.points} point counts within the {completed.grids} surveyed grid cells between {first.visit} and {last.visit}. They detected {n.species} bird species, including {n.priority} priority species.")
+
+p3 <- str_glue("Bird Conservancy estimated densities (birds per square kilometer) for {n.density} species that were detected in any year during which surveys were conducted, {n.density.priority} of which are priority species. The data yielded robust density estimates (CV < 50%) for {n.density.robust} species.")
+
+p4 <- str_glue("Bird Conservancy estimated the proportion of occupied plots throughout {name} for {n.occupancy} species that were detected in any year during which surveys were conducted, {n.occupancy.priority} of which are priority species. The data yielded robust occupancy estimates (CV < 50%) for {n.occupancy.robust} species.")
+
+p5 <- str_glue("To view a map of approximate survey locations, species counts, and density, occupancy, & trend estimates within {name} across all years of the project, visit the [RMADC](https://app.bcr.eco/rmadc/).")
+
+head <- paste("####", name, sep = " ")
+
+```
+
+`r head`
+
+`r p1`
+
+`r p2`
+
+`r p3`
+
+`r p4`
+
+::: {.callout-note appearance="minimal"}
+## View results on the Rocky Mountain Avian Data Center
+`r p5`  
+
+On the Explore the Data tab, select **`r super_stratum`** from the **`r type`** drop-down filter.
+:::
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+# This script should not need to be updated year to year!
+
+# KS-BCR18-CM is a special value from the heddlr_loop.qmd file
+x <- which(data$stratum == "KS-BCR18-CM")
+
+name <- data[x, "name"]
+compilation <- ifelse(data[x, "Strata"] > 1, "compiling and jointly", "compiling and")
+n.strata <- if (data[x, "Strata"] <= 10) {numbers_to_words(data[x, "Strata"])
+  } else data[x, "Strata"]
+stratum_plural <- ifelse(data[x, "Strata"] > 1, "strata", "stratum")
+completed.grids <- (data[x, "CompletedGrids"])
+planned.grids <- (data[x, "PlannedGrids"])
+percent.completed <- round((completed.grids/planned.grids)*100)
+
+transect.clause <- if (planned.grids == completed.grids & planned.grids > 2) {
+  paste("all")
+  } else if (planned.grids == completed.grids & planned.grids == 2) {paste("both")
+  } else {paste((completed.grids), 
+             "of", 
+             (planned.grids),
+             sep = " ")}
+
+year <- data[x, "Year"]
+completed.points <- data[x, "CompletedPoints"]
+first.visit <- data[x, "FirstVisit"]
+last.visit <- data[x, "LastVisit"]
+n.species <- data[x, "nBirdSpecies"]
+n.priority <- data[x, "nPriority"]
+n.density <- data[x, "DensitySpeciesCount"]
+n.density.priority <- data[x, "DensityPrioritySpecies"]
+n.density.robust <- data[x, "DensityRobustCV"]
+n.occupancy <- data[x, "OccupancySpeciesCount"]
+n.occupancy.priority <- data[x, "OccupancyPrioritySpecies"]
+n.occupancy.robust <- data[x, "OccupancyRobustCV"]
+type <- if (data[x, "is_superstratum"]) {"Superstratum"} else {"Stratum"}
+super_stratum <- if (data[x, "is_superstratum"]) {data[x, "stratum"]} else {data[x, "LongStratum"]}
+
+p1 <- str_glue("We obtained results for {name} by {compilation} analyzing data from {n.strata} {stratum_plural}.")
+
+p2 <- str_glue("Field technicians completed {transect.clause} planned surveys ({percent.completed}%) in {year}. Technicians conducted {completed.points} point counts within the {completed.grids} surveyed grid cells between {first.visit} and {last.visit}. They detected {n.species} bird species, including {n.priority} priority species.")
+
+p3 <- str_glue("Bird Conservancy estimated densities (birds per square kilometer) for {n.density} species that were detected in any year during which surveys were conducted, {n.density.priority} of which are priority species. The data yielded robust density estimates (CV < 50%) for {n.density.robust} species.")
+
+p4 <- str_glue("Bird Conservancy estimated the proportion of occupied plots throughout {name} for {n.occupancy} species that were detected in any year during which surveys were conducted, {n.occupancy.priority} of which are priority species. The data yielded robust occupancy estimates (CV < 50%) for {n.occupancy.robust} species.")
+
+p5 <- str_glue("To view a map of approximate survey locations, species counts, and density, occupancy, & trend estimates within {name} across all years of the project, visit the [RMADC](https://app.bcr.eco/rmadc/).")
+
+head <- paste("####", name, sep = " ")
+
+```
+
+`r head`
+
+`r p1`
+
+`r p2`
+
+`r p3`
+
+`r p4`
+
+::: {.callout-note appearance="minimal"}
+## View results on the Rocky Mountain Avian Data Center
+`r p5`  
+
+On the Explore the Data tab, select **`r super_stratum`** from the **`r type`** drop-down filter.
+:::
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+# This script should not need to be updated year to year!
+
+# Nebraska National Grasslands is a special value from the heddlr_loop.qmd file
+x <- which(data$stratum == "Nebraska National Grasslands")
+
+name <- data[x, "name"]
+compilation <- ifelse(data[x, "Strata"] > 1, "compiling and jointly", "compiling and")
+n.strata <- if (data[x, "Strata"] <= 10) {numbers_to_words(data[x, "Strata"])
+  } else data[x, "Strata"]
+stratum_plural <- ifelse(data[x, "Strata"] > 1, "strata", "stratum")
+completed.grids <- (data[x, "CompletedGrids"])
+planned.grids <- (data[x, "PlannedGrids"])
+percent.completed <- round((completed.grids/planned.grids)*100)
+
+transect.clause <- if (planned.grids == completed.grids & planned.grids > 2) {
+  paste("all")
+  } else if (planned.grids == completed.grids & planned.grids == 2) {paste("both")
+  } else {paste((completed.grids), 
+             "of", 
+             (planned.grids),
+             sep = " ")}
+
+year <- data[x, "Year"]
+completed.points <- data[x, "CompletedPoints"]
+first.visit <- data[x, "FirstVisit"]
+last.visit <- data[x, "LastVisit"]
+n.species <- data[x, "nBirdSpecies"]
+n.priority <- data[x, "nPriority"]
+n.density <- data[x, "DensitySpeciesCount"]
+n.density.priority <- data[x, "DensityPrioritySpecies"]
+n.density.robust <- data[x, "DensityRobustCV"]
+n.occupancy <- data[x, "OccupancySpeciesCount"]
+n.occupancy.priority <- data[x, "OccupancyPrioritySpecies"]
+n.occupancy.robust <- data[x, "OccupancyRobustCV"]
+type <- if (data[x, "is_superstratum"]) {"Superstratum"} else {"Stratum"}
+super_stratum <- if (data[x, "is_superstratum"]) {data[x, "stratum"]} else {data[x, "LongStratum"]}
+
+p1 <- str_glue("We obtained results for {name} by {compilation} analyzing data from {n.strata} {stratum_plural}.")
+
+p2 <- str_glue("Field technicians completed {transect.clause} planned surveys ({percent.completed}%) in {year}. Technicians conducted {completed.points} point counts within the {completed.grids} surveyed grid cells between {first.visit} and {last.visit}. They detected {n.species} bird species, including {n.priority} priority species.")
+
+p3 <- str_glue("Bird Conservancy estimated densities (birds per square kilometer) for {n.density} species that were detected in any year during which surveys were conducted, {n.density.priority} of which are priority species. The data yielded robust density estimates (CV < 50%) for {n.density.robust} species.")
+
+p4 <- str_glue("Bird Conservancy estimated the proportion of occupied plots throughout {name} for {n.occupancy} species that were detected in any year during which surveys were conducted, {n.occupancy.priority} of which are priority species. The data yielded robust occupancy estimates (CV < 50%) for {n.occupancy.robust} species.")
+
+p5 <- str_glue("To view a map of approximate survey locations, species counts, and density, occupancy, & trend estimates within {name} across all years of the project, visit the [RMADC](https://app.bcr.eco/rmadc/).")
+
+head <- paste("####", name, sep = " ")
+
+```
+
+`r head`
+
+`r p1`
+
+`r p2`
+
+`r p3`
+
+`r p4`
+
+::: {.callout-note appearance="minimal"}
+## View results on the Rocky Mountain Avian Data Center
+`r p5`  
+
+On the Explore the Data tab, select **`r super_stratum`** from the **`r type`** drop-down filter.
+:::
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+# This script should not need to be updated year to year!
+
+# CO-BCR18-PG is a special value from the heddlr_loop.qmd file
+x <- which(data$stratum == "CO-BCR18-PG")
+
+name <- data[x, "name"]
+compilation <- ifelse(data[x, "Strata"] > 1, "compiling and jointly", "compiling and")
+n.strata <- if (data[x, "Strata"] <= 10) {numbers_to_words(data[x, "Strata"])
+  } else data[x, "Strata"]
+stratum_plural <- ifelse(data[x, "Strata"] > 1, "strata", "stratum")
+completed.grids <- (data[x, "CompletedGrids"])
+planned.grids <- (data[x, "PlannedGrids"])
+percent.completed <- round((completed.grids/planned.grids)*100)
+
+transect.clause <- if (planned.grids == completed.grids & planned.grids > 2) {
+  paste("all")
+  } else if (planned.grids == completed.grids & planned.grids == 2) {paste("both")
+  } else {paste((completed.grids), 
+             "of", 
+             (planned.grids),
+             sep = " ")}
+
+year <- data[x, "Year"]
+completed.points <- data[x, "CompletedPoints"]
+first.visit <- data[x, "FirstVisit"]
+last.visit <- data[x, "LastVisit"]
+n.species <- data[x, "nBirdSpecies"]
+n.priority <- data[x, "nPriority"]
+n.density <- data[x, "DensitySpeciesCount"]
+n.density.priority <- data[x, "DensityPrioritySpecies"]
+n.density.robust <- data[x, "DensityRobustCV"]
+n.occupancy <- data[x, "OccupancySpeciesCount"]
+n.occupancy.priority <- data[x, "OccupancyPrioritySpecies"]
+n.occupancy.robust <- data[x, "OccupancyRobustCV"]
+type <- if (data[x, "is_superstratum"]) {"Superstratum"} else {"Stratum"}
+super_stratum <- if (data[x, "is_superstratum"]) {data[x, "stratum"]} else {data[x, "LongStratum"]}
+
+p1 <- str_glue("We obtained results for {name} by {compilation} analyzing data from {n.strata} {stratum_plural}.")
+
+p2 <- str_glue("Field technicians completed {transect.clause} planned surveys ({percent.completed}%) in {year}. Technicians conducted {completed.points} point counts within the {completed.grids} surveyed grid cells between {first.visit} and {last.visit}. They detected {n.species} bird species, including {n.priority} priority species.")
+
+p3 <- str_glue("Bird Conservancy estimated densities (birds per square kilometer) for {n.density} species that were detected in any year during which surveys were conducted, {n.density.priority} of which are priority species. The data yielded robust density estimates (CV < 50%) for {n.density.robust} species.")
+
+p4 <- str_glue("Bird Conservancy estimated the proportion of occupied plots throughout {name} for {n.occupancy} species that were detected in any year during which surveys were conducted, {n.occupancy.priority} of which are priority species. The data yielded robust occupancy estimates (CV < 50%) for {n.occupancy.robust} species.")
+
+p5 <- str_glue("To view a map of approximate survey locations, species counts, and density, occupancy, & trend estimates within {name} across all years of the project, visit the [RMADC](https://app.bcr.eco/rmadc/).")
+
+head <- paste("####", name, sep = " ")
+
+```
+
+`r head`
+
+`r p1`
+
+`r p2`
+
+`r p3`
+
+`r p4`
+
+::: {.callout-note appearance="minimal"}
+## View results on the Rocky Mountain Avian Data Center
+`r p5`  
+
+On the Explore the Data tab, select **`r super_stratum`** from the **`r type`** drop-down filter.
+:::
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+# This script should not need to be updated year to year!
+
+# WY-BCR17-TB is a special value from the heddlr_loop.qmd file
+x <- which(data$stratum == "WY-BCR17-TB")
+
+name <- data[x, "name"]
+compilation <- ifelse(data[x, "Strata"] > 1, "compiling and jointly", "compiling and")
+n.strata <- if (data[x, "Strata"] <= 10) {numbers_to_words(data[x, "Strata"])
+  } else data[x, "Strata"]
+stratum_plural <- ifelse(data[x, "Strata"] > 1, "strata", "stratum")
+completed.grids <- (data[x, "CompletedGrids"])
+planned.grids <- (data[x, "PlannedGrids"])
+percent.completed <- round((completed.grids/planned.grids)*100)
+
+transect.clause <- if (planned.grids == completed.grids & planned.grids > 2) {
+  paste("all")
+  } else if (planned.grids == completed.grids & planned.grids == 2) {paste("both")
+  } else {paste((completed.grids), 
+             "of", 
+             (planned.grids),
+             sep = " ")}
+
+year <- data[x, "Year"]
+completed.points <- data[x, "CompletedPoints"]
+first.visit <- data[x, "FirstVisit"]
+last.visit <- data[x, "LastVisit"]
+n.species <- data[x, "nBirdSpecies"]
+n.priority <- data[x, "nPriority"]
+n.density <- data[x, "DensitySpeciesCount"]
+n.density.priority <- data[x, "DensityPrioritySpecies"]
+n.density.robust <- data[x, "DensityRobustCV"]
+n.occupancy <- data[x, "OccupancySpeciesCount"]
+n.occupancy.priority <- data[x, "OccupancyPrioritySpecies"]
+n.occupancy.robust <- data[x, "OccupancyRobustCV"]
+type <- if (data[x, "is_superstratum"]) {"Superstratum"} else {"Stratum"}
+super_stratum <- if (data[x, "is_superstratum"]) {data[x, "stratum"]} else {data[x, "LongStratum"]}
+
+p1 <- str_glue("We obtained results for {name} by {compilation} analyzing data from {n.strata} {stratum_plural}.")
+
+p2 <- str_glue("Field technicians completed {transect.clause} planned surveys ({percent.completed}%) in {year}. Technicians conducted {completed.points} point counts within the {completed.grids} surveyed grid cells between {first.visit} and {last.visit}. They detected {n.species} bird species, including {n.priority} priority species.")
+
+p3 <- str_glue("Bird Conservancy estimated densities (birds per square kilometer) for {n.density} species that were detected in any year during which surveys were conducted, {n.density.priority} of which are priority species. The data yielded robust density estimates (CV < 50%) for {n.density.robust} species.")
+
+p4 <- str_glue("Bird Conservancy estimated the proportion of occupied plots throughout {name} for {n.occupancy} species that were detected in any year during which surveys were conducted, {n.occupancy.priority} of which are priority species. The data yielded robust occupancy estimates (CV < 50%) for {n.occupancy.robust} species.")
+
+p5 <- str_glue("To view a map of approximate survey locations, species counts, and density, occupancy, & trend estimates within {name} across all years of the project, visit the [RMADC](https://app.bcr.eco/rmadc/).")
+
+head <- paste("####", name, sep = " ")
+
+```
+
+`r head`
+
+`r p1`
+
+`r p2`
+
+`r p3`
+
+`r p4`
+
+::: {.callout-note appearance="minimal"}
+## View results on the Rocky Mountain Avian Data Center
+`r p5`  
+
+On the Explore the Data tab, select **`r super_stratum`** from the **`r type`** drop-down filter.
+:::
+
+
+## Region 3 
+
+### Region 3 National Forests 
+ 
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+# This script should not need to be updated year to year!
+
+# USFS-Region 3 National Forests is a special value from the heddlr_loop.qmd file
+x <- which(data$stratum == "USFS-Region 3 National Forests")
+
+name <- data[x, "name"]
+compilation <- ifelse(data[x, "Strata"] > 1, "compiling and jointly", "compiling and")
+n.strata <- if (data[x, "Strata"] <= 10) {numbers_to_words(data[x, "Strata"])
+  } else data[x, "Strata"]
+stratum_plural <- ifelse(data[x, "Strata"] > 1, "strata", "stratum")
+completed.grids <- (data[x, "CompletedGrids"])
+planned.grids <- (data[x, "PlannedGrids"])
+percent.completed <- round((completed.grids/planned.grids)*100)
+
+transect.clause <- if (planned.grids == completed.grids & planned.grids > 2) {
+  paste("all")
+  } else if (planned.grids == completed.grids & planned.grids == 2) {paste("both")
+  } else {paste((completed.grids), 
+             "of", 
+             (planned.grids),
+             sep = " ")}
+
+year <- data[x, "Year"]
+completed.points <- data[x, "CompletedPoints"]
+first.visit <- data[x, "FirstVisit"]
+last.visit <- data[x, "LastVisit"]
+n.species <- data[x, "nBirdSpecies"]
+n.priority <- data[x, "nPriority"]
+n.density <- data[x, "DensitySpeciesCount"]
+n.density.priority <- data[x, "DensityPrioritySpecies"]
+n.density.robust <- data[x, "DensityRobustCV"]
+n.occupancy <- data[x, "OccupancySpeciesCount"]
+n.occupancy.priority <- data[x, "OccupancyPrioritySpecies"]
+n.occupancy.robust <- data[x, "OccupancyRobustCV"]
+type <- if (data[x, "is_superstratum"]) {"Superstratum"} else {"Stratum"}
+super_stratum <- if (data[x, "is_superstratum"]) {data[x, "stratum"]} else {data[x, "LongStratum"]}
+
+p1 <- str_glue("We obtained results for {name} by {compilation} analyzing data from {n.strata} {stratum_plural}.")
+
+p2 <- str_glue("Field technicians completed {transect.clause} planned surveys ({percent.completed}%) in {year}. Technicians conducted {completed.points} point counts within the {completed.grids} surveyed grid cells between {first.visit} and {last.visit}. They detected {n.species} bird species, including {n.priority} priority species.")
+
+p3 <- str_glue("Bird Conservancy estimated densities (birds per square kilometer) for {n.density} species that were detected in any year during which surveys were conducted, {n.density.priority} of which are priority species. The data yielded robust density estimates (CV < 50%) for {n.density.robust} species.")
+
+p4 <- str_glue("Bird Conservancy estimated the proportion of occupied plots throughout {name} for {n.occupancy} species that were detected in any year during which surveys were conducted, {n.occupancy.priority} of which are priority species. The data yielded robust occupancy estimates (CV < 50%) for {n.occupancy.robust} species.")
+
+p5 <- str_glue("To view a map of approximate survey locations, species counts, and density, occupancy, & trend estimates within {name} across all years of the project, visit the [RMADC](https://app.bcr.eco/rmadc/).")
+
+head <- paste("####", name, sep = " ")
+
+```
+
+`r head`
+
+`r p1`
+
+`r p2`
+
+`r p3`
+
+`r p4`
+
+::: {.callout-note appearance="minimal"}
+## View results on the Rocky Mountain Avian Data Center
+`r p5`  
+
+On the Explore the Data tab, select **`r super_stratum`** from the **`r type`** drop-down filter.
+:::
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+# This script should not need to be updated year to year!
+
+# Apache-Sitgreaves National Forest is a special value from the heddlr_loop.qmd file
+x <- which(data$stratum == "Apache-Sitgreaves National Forest")
+
+name <- data[x, "name"]
+compilation <- ifelse(data[x, "Strata"] > 1, "compiling and jointly", "compiling and")
+n.strata <- if (data[x, "Strata"] <= 10) {numbers_to_words(data[x, "Strata"])
+  } else data[x, "Strata"]
+stratum_plural <- ifelse(data[x, "Strata"] > 1, "strata", "stratum")
+completed.grids <- (data[x, "CompletedGrids"])
+planned.grids <- (data[x, "PlannedGrids"])
+percent.completed <- round((completed.grids/planned.grids)*100)
+
+transect.clause <- if (planned.grids == completed.grids & planned.grids > 2) {
+  paste("all")
+  } else if (planned.grids == completed.grids & planned.grids == 2) {paste("both")
+  } else {paste((completed.grids), 
+             "of", 
+             (planned.grids),
+             sep = " ")}
+
+year <- data[x, "Year"]
+completed.points <- data[x, "CompletedPoints"]
+first.visit <- data[x, "FirstVisit"]
+last.visit <- data[x, "LastVisit"]
+n.species <- data[x, "nBirdSpecies"]
+n.priority <- data[x, "nPriority"]
+n.density <- data[x, "DensitySpeciesCount"]
+n.density.priority <- data[x, "DensityPrioritySpecies"]
+n.density.robust <- data[x, "DensityRobustCV"]
+n.occupancy <- data[x, "OccupancySpeciesCount"]
+n.occupancy.priority <- data[x, "OccupancyPrioritySpecies"]
+n.occupancy.robust <- data[x, "OccupancyRobustCV"]
+type <- if (data[x, "is_superstratum"]) {"Superstratum"} else {"Stratum"}
+super_stratum <- if (data[x, "is_superstratum"]) {data[x, "stratum"]} else {data[x, "LongStratum"]}
+
+p1 <- str_glue("We obtained results for {name} by {compilation} analyzing data from {n.strata} {stratum_plural}.")
+
+p2 <- str_glue("Field technicians completed {transect.clause} planned surveys ({percent.completed}%) in {year}. Technicians conducted {completed.points} point counts within the {completed.grids} surveyed grid cells between {first.visit} and {last.visit}. They detected {n.species} bird species, including {n.priority} priority species.")
+
+p3 <- str_glue("Bird Conservancy estimated densities (birds per square kilometer) for {n.density} species that were detected in any year during which surveys were conducted, {n.density.priority} of which are priority species. The data yielded robust density estimates (CV < 50%) for {n.density.robust} species.")
+
+p4 <- str_glue("Bird Conservancy estimated the proportion of occupied plots throughout {name} for {n.occupancy} species that were detected in any year during which surveys were conducted, {n.occupancy.priority} of which are priority species. The data yielded robust occupancy estimates (CV < 50%) for {n.occupancy.robust} species.")
+
+p5 <- str_glue("To view a map of approximate survey locations, species counts, and density, occupancy, & trend estimates within {name} across all years of the project, visit the [RMADC](https://app.bcr.eco/rmadc/).")
+
+head <- paste("####", name, sep = " ")
+
+```
+
+`r head`
+
+`r p1`
+
+`r p2`
+
+`r p3`
+
+`r p4`
+
+::: {.callout-note appearance="minimal"}
+## View results on the Rocky Mountain Avian Data Center
+`r p5`  
+
+On the Explore the Data tab, select **`r super_stratum`** from the **`r type`** drop-down filter.
+:::
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+# This script should not need to be updated year to year!
+
+# NM-BCR16-CF is a special value from the heddlr_loop.qmd file
+x <- which(data$stratum == "NM-BCR16-CF")
+
+name <- data[x, "name"]
+compilation <- ifelse(data[x, "Strata"] > 1, "compiling and jointly", "compiling and")
+n.strata <- if (data[x, "Strata"] <= 10) {numbers_to_words(data[x, "Strata"])
+  } else data[x, "Strata"]
+stratum_plural <- ifelse(data[x, "Strata"] > 1, "strata", "stratum")
+completed.grids <- (data[x, "CompletedGrids"])
+planned.grids <- (data[x, "PlannedGrids"])
+percent.completed <- round((completed.grids/planned.grids)*100)
+
+transect.clause <- if (planned.grids == completed.grids & planned.grids > 2) {
+  paste("all")
+  } else if (planned.grids == completed.grids & planned.grids == 2) {paste("both")
+  } else {paste((completed.grids), 
+             "of", 
+             (planned.grids),
+             sep = " ")}
+
+year <- data[x, "Year"]
+completed.points <- data[x, "CompletedPoints"]
+first.visit <- data[x, "FirstVisit"]
+last.visit <- data[x, "LastVisit"]
+n.species <- data[x, "nBirdSpecies"]
+n.priority <- data[x, "nPriority"]
+n.density <- data[x, "DensitySpeciesCount"]
+n.density.priority <- data[x, "DensityPrioritySpecies"]
+n.density.robust <- data[x, "DensityRobustCV"]
+n.occupancy <- data[x, "OccupancySpeciesCount"]
+n.occupancy.priority <- data[x, "OccupancyPrioritySpecies"]
+n.occupancy.robust <- data[x, "OccupancyRobustCV"]
+type <- if (data[x, "is_superstratum"]) {"Superstratum"} else {"Stratum"}
+super_stratum <- if (data[x, "is_superstratum"]) {data[x, "stratum"]} else {data[x, "LongStratum"]}
+
+p1 <- str_glue("We obtained results for {name} by {compilation} analyzing data from {n.strata} {stratum_plural}.")
+
+p2 <- str_glue("Field technicians completed {transect.clause} planned surveys ({percent.completed}%) in {year}. Technicians conducted {completed.points} point counts within the {completed.grids} surveyed grid cells between {first.visit} and {last.visit}. They detected {n.species} bird species, including {n.priority} priority species.")
+
+p3 <- str_glue("Bird Conservancy estimated densities (birds per square kilometer) for {n.density} species that were detected in any year during which surveys were conducted, {n.density.priority} of which are priority species. The data yielded robust density estimates (CV < 50%) for {n.density.robust} species.")
+
+p4 <- str_glue("Bird Conservancy estimated the proportion of occupied plots throughout {name} for {n.occupancy} species that were detected in any year during which surveys were conducted, {n.occupancy.priority} of which are priority species. The data yielded robust occupancy estimates (CV < 50%) for {n.occupancy.robust} species.")
+
+p5 <- str_glue("To view a map of approximate survey locations, species counts, and density, occupancy, & trend estimates within {name} across all years of the project, visit the [RMADC](https://app.bcr.eco/rmadc/).")
+
+head <- paste("####", name, sep = " ")
+
+```
+
+`r head`
+
+`r p1`
+
+`r p2`
+
+`r p3`
+
+`r p4`
+
+::: {.callout-note appearance="minimal"}
+## View results on the Rocky Mountain Avian Data Center
+`r p5`  
+
+On the Explore the Data tab, select **`r super_stratum`** from the **`r type`** drop-down filter.
+:::
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+# This script should not need to be updated year to year!
+
+# NM-CIBOL-CB is a special value from the heddlr_loop.qmd file
+x <- which(data$stratum == "NM-CIBOL-CB")
+
+name <- data[x, "name"]
+compilation <- ifelse(data[x, "Strata"] > 1, "compiling and jointly", "compiling and")
+n.strata <- if (data[x, "Strata"] <= 10) {numbers_to_words(data[x, "Strata"])
+  } else data[x, "Strata"]
+stratum_plural <- ifelse(data[x, "Strata"] > 1, "strata", "stratum")
+completed.grids <- (data[x, "CompletedGrids"])
+planned.grids <- (data[x, "PlannedGrids"])
+percent.completed <- round((completed.grids/planned.grids)*100)
+
+transect.clause <- if (planned.grids == completed.grids & planned.grids > 2) {
+  paste("all")
+  } else if (planned.grids == completed.grids & planned.grids == 2) {paste("both")
+  } else {paste((completed.grids), 
+             "of", 
+             (planned.grids),
+             sep = " ")}
+
+year <- data[x, "Year"]
+completed.points <- data[x, "CompletedPoints"]
+first.visit <- data[x, "FirstVisit"]
+last.visit <- data[x, "LastVisit"]
+n.species <- data[x, "nBirdSpecies"]
+n.priority <- data[x, "nPriority"]
+n.density <- data[x, "DensitySpeciesCount"]
+n.density.priority <- data[x, "DensityPrioritySpecies"]
+n.density.robust <- data[x, "DensityRobustCV"]
+n.occupancy <- data[x, "OccupancySpeciesCount"]
+n.occupancy.priority <- data[x, "OccupancyPrioritySpecies"]
+n.occupancy.robust <- data[x, "OccupancyRobustCV"]
+type <- if (data[x, "is_superstratum"]) {"Superstratum"} else {"Stratum"}
+super_stratum <- if (data[x, "is_superstratum"]) {data[x, "stratum"]} else {data[x, "LongStratum"]}
+
+p1 <- str_glue("We obtained results for {name} by {compilation} analyzing data from {n.strata} {stratum_plural}.")
+
+p2 <- str_glue("Field technicians completed {transect.clause} planned surveys ({percent.completed}%) in {year}. Technicians conducted {completed.points} point counts within the {completed.grids} surveyed grid cells between {first.visit} and {last.visit}. They detected {n.species} bird species, including {n.priority} priority species.")
+
+p3 <- str_glue("Bird Conservancy estimated densities (birds per square kilometer) for {n.density} species that were detected in any year during which surveys were conducted, {n.density.priority} of which are priority species. The data yielded robust density estimates (CV < 50%) for {n.density.robust} species.")
+
+p4 <- str_glue("Bird Conservancy estimated the proportion of occupied plots throughout {name} for {n.occupancy} species that were detected in any year during which surveys were conducted, {n.occupancy.priority} of which are priority species. The data yielded robust occupancy estimates (CV < 50%) for {n.occupancy.robust} species.")
+
+p5 <- str_glue("To view a map of approximate survey locations, species counts, and density, occupancy, & trend estimates within {name} across all years of the project, visit the [RMADC](https://app.bcr.eco/rmadc/).")
+
+head <- paste("####", name, sep = " ")
+
+```
+
+`r head`
+
+`r p1`
+
+`r p2`
+
+`r p3`
+
+`r p4`
+
+::: {.callout-note appearance="minimal"}
+## View results on the Rocky Mountain Avian Data Center
+`r p5`  
+
+On the Explore the Data tab, select **`r super_stratum`** from the **`r type`** drop-down filter.
+:::
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+# This script should not need to be updated year to year!
+
+# AZ-BCR34-CF is a special value from the heddlr_loop.qmd file
+x <- which(data$stratum == "AZ-BCR34-CF")
+
+name <- data[x, "name"]
+compilation <- ifelse(data[x, "Strata"] > 1, "compiling and jointly", "compiling and")
+n.strata <- if (data[x, "Strata"] <= 10) {numbers_to_words(data[x, "Strata"])
+  } else data[x, "Strata"]
+stratum_plural <- ifelse(data[x, "Strata"] > 1, "strata", "stratum")
+completed.grids <- (data[x, "CompletedGrids"])
+planned.grids <- (data[x, "PlannedGrids"])
+percent.completed <- round((completed.grids/planned.grids)*100)
+
+transect.clause <- if (planned.grids == completed.grids & planned.grids > 2) {
+  paste("all")
+  } else if (planned.grids == completed.grids & planned.grids == 2) {paste("both")
+  } else {paste((completed.grids), 
+             "of", 
+             (planned.grids),
+             sep = " ")}
+
+year <- data[x, "Year"]
+completed.points <- data[x, "CompletedPoints"]
+first.visit <- data[x, "FirstVisit"]
+last.visit <- data[x, "LastVisit"]
+n.species <- data[x, "nBirdSpecies"]
+n.priority <- data[x, "nPriority"]
+n.density <- data[x, "DensitySpeciesCount"]
+n.density.priority <- data[x, "DensityPrioritySpecies"]
+n.density.robust <- data[x, "DensityRobustCV"]
+n.occupancy <- data[x, "OccupancySpeciesCount"]
+n.occupancy.priority <- data[x, "OccupancyPrioritySpecies"]
+n.occupancy.robust <- data[x, "OccupancyRobustCV"]
+type <- if (data[x, "is_superstratum"]) {"Superstratum"} else {"Stratum"}
+super_stratum <- if (data[x, "is_superstratum"]) {data[x, "stratum"]} else {data[x, "LongStratum"]}
+
+p1 <- str_glue("We obtained results for {name} by {compilation} analyzing data from {n.strata} {stratum_plural}.")
+
+p2 <- str_glue("Field technicians completed {transect.clause} planned surveys ({percent.completed}%) in {year}. Technicians conducted {completed.points} point counts within the {completed.grids} surveyed grid cells between {first.visit} and {last.visit}. They detected {n.species} bird species, including {n.priority} priority species.")
+
+p3 <- str_glue("Bird Conservancy estimated densities (birds per square kilometer) for {n.density} species that were detected in any year during which surveys were conducted, {n.density.priority} of which are priority species. The data yielded robust density estimates (CV < 50%) for {n.density.robust} species.")
+
+p4 <- str_glue("Bird Conservancy estimated the proportion of occupied plots throughout {name} for {n.occupancy} species that were detected in any year during which surveys were conducted, {n.occupancy.priority} of which are priority species. The data yielded robust occupancy estimates (CV < 50%) for {n.occupancy.robust} species.")
+
+p5 <- str_glue("To view a map of approximate survey locations, species counts, and density, occupancy, & trend estimates within {name} across all years of the project, visit the [RMADC](https://app.bcr.eco/rmadc/).")
+
+head <- paste("####", name, sep = " ")
+
+```
+
+`r head`
+
+`r p1`
+
+`r p2`
+
+`r p3`
+
+`r p4`
+
+::: {.callout-note appearance="minimal"}
+## View results on the Rocky Mountain Avian Data Center
+`r p5`  
+
+On the Explore the Data tab, select **`r super_stratum`** from the **`r type`** drop-down filter.
+:::
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+# This script should not need to be updated year to year!
+
+# Coronado National Forest is a special value from the heddlr_loop.qmd file
+x <- which(data$stratum == "Coronado National Forest")
+
+name <- data[x, "name"]
+compilation <- ifelse(data[x, "Strata"] > 1, "compiling and jointly", "compiling and")
+n.strata <- if (data[x, "Strata"] <= 10) {numbers_to_words(data[x, "Strata"])
+  } else data[x, "Strata"]
+stratum_plural <- ifelse(data[x, "Strata"] > 1, "strata", "stratum")
+completed.grids <- (data[x, "CompletedGrids"])
+planned.grids <- (data[x, "PlannedGrids"])
+percent.completed <- round((completed.grids/planned.grids)*100)
+
+transect.clause <- if (planned.grids == completed.grids & planned.grids > 2) {
+  paste("all")
+  } else if (planned.grids == completed.grids & planned.grids == 2) {paste("both")
+  } else {paste((completed.grids), 
+             "of", 
+             (planned.grids),
+             sep = " ")}
+
+year <- data[x, "Year"]
+completed.points <- data[x, "CompletedPoints"]
+first.visit <- data[x, "FirstVisit"]
+last.visit <- data[x, "LastVisit"]
+n.species <- data[x, "nBirdSpecies"]
+n.priority <- data[x, "nPriority"]
+n.density <- data[x, "DensitySpeciesCount"]
+n.density.priority <- data[x, "DensityPrioritySpecies"]
+n.density.robust <- data[x, "DensityRobustCV"]
+n.occupancy <- data[x, "OccupancySpeciesCount"]
+n.occupancy.priority <- data[x, "OccupancyPrioritySpecies"]
+n.occupancy.robust <- data[x, "OccupancyRobustCV"]
+type <- if (data[x, "is_superstratum"]) {"Superstratum"} else {"Stratum"}
+super_stratum <- if (data[x, "is_superstratum"]) {data[x, "stratum"]} else {data[x, "LongStratum"]}
+
+p1 <- str_glue("We obtained results for {name} by {compilation} analyzing data from {n.strata} {stratum_plural}.")
+
+p2 <- str_glue("Field technicians completed {transect.clause} planned surveys ({percent.completed}%) in {year}. Technicians conducted {completed.points} point counts within the {completed.grids} surveyed grid cells between {first.visit} and {last.visit}. They detected {n.species} bird species, including {n.priority} priority species.")
+
+p3 <- str_glue("Bird Conservancy estimated densities (birds per square kilometer) for {n.density} species that were detected in any year during which surveys were conducted, {n.density.priority} of which are priority species. The data yielded robust density estimates (CV < 50%) for {n.density.robust} species.")
+
+p4 <- str_glue("Bird Conservancy estimated the proportion of occupied plots throughout {name} for {n.occupancy} species that were detected in any year during which surveys were conducted, {n.occupancy.priority} of which are priority species. The data yielded robust occupancy estimates (CV < 50%) for {n.occupancy.robust} species.")
+
+p5 <- str_glue("To view a map of approximate survey locations, species counts, and density, occupancy, & trend estimates within {name} across all years of the project, visit the [RMADC](https://app.bcr.eco/rmadc/).")
+
+head <- paste("####", name, sep = " ")
+
+```
+
+`r head`
+
+`r p1`
+
+`r p2`
+
+`r p3`
+
+`r p4`
+
+::: {.callout-note appearance="minimal"}
+## View results on the Rocky Mountain Avian Data Center
+`r p5`  
+
+On the Explore the Data tab, select **`r super_stratum`** from the **`r type`** drop-down filter.
+:::
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+# This script should not need to be updated year to year!
+
+# Gila National Forest is a special value from the heddlr_loop.qmd file
+x <- which(data$stratum == "Gila National Forest")
+
+name <- data[x, "name"]
+compilation <- ifelse(data[x, "Strata"] > 1, "compiling and jointly", "compiling and")
+n.strata <- if (data[x, "Strata"] <= 10) {numbers_to_words(data[x, "Strata"])
+  } else data[x, "Strata"]
+stratum_plural <- ifelse(data[x, "Strata"] > 1, "strata", "stratum")
+completed.grids <- (data[x, "CompletedGrids"])
+planned.grids <- (data[x, "PlannedGrids"])
+percent.completed <- round((completed.grids/planned.grids)*100)
+
+transect.clause <- if (planned.grids == completed.grids & planned.grids > 2) {
+  paste("all")
+  } else if (planned.grids == completed.grids & planned.grids == 2) {paste("both")
+  } else {paste((completed.grids), 
+             "of", 
+             (planned.grids),
+             sep = " ")}
+
+year <- data[x, "Year"]
+completed.points <- data[x, "CompletedPoints"]
+first.visit <- data[x, "FirstVisit"]
+last.visit <- data[x, "LastVisit"]
+n.species <- data[x, "nBirdSpecies"]
+n.priority <- data[x, "nPriority"]
+n.density <- data[x, "DensitySpeciesCount"]
+n.density.priority <- data[x, "DensityPrioritySpecies"]
+n.density.robust <- data[x, "DensityRobustCV"]
+n.occupancy <- data[x, "OccupancySpeciesCount"]
+n.occupancy.priority <- data[x, "OccupancyPrioritySpecies"]
+n.occupancy.robust <- data[x, "OccupancyRobustCV"]
+type <- if (data[x, "is_superstratum"]) {"Superstratum"} else {"Stratum"}
+super_stratum <- if (data[x, "is_superstratum"]) {data[x, "stratum"]} else {data[x, "LongStratum"]}
+
+p1 <- str_glue("We obtained results for {name} by {compilation} analyzing data from {n.strata} {stratum_plural}.")
+
+p2 <- str_glue("Field technicians completed {transect.clause} planned surveys ({percent.completed}%) in {year}. Technicians conducted {completed.points} point counts within the {completed.grids} surveyed grid cells between {first.visit} and {last.visit}. They detected {n.species} bird species, including {n.priority} priority species.")
+
+p3 <- str_glue("Bird Conservancy estimated densities (birds per square kilometer) for {n.density} species that were detected in any year during which surveys were conducted, {n.density.priority} of which are priority species. The data yielded robust density estimates (CV < 50%) for {n.density.robust} species.")
+
+p4 <- str_glue("Bird Conservancy estimated the proportion of occupied plots throughout {name} for {n.occupancy} species that were detected in any year during which surveys were conducted, {n.occupancy.priority} of which are priority species. The data yielded robust occupancy estimates (CV < 50%) for {n.occupancy.robust} species.")
+
+p5 <- str_glue("To view a map of approximate survey locations, species counts, and density, occupancy, & trend estimates within {name} across all years of the project, visit the [RMADC](https://app.bcr.eco/rmadc/).")
+
+head <- paste("####", name, sep = " ")
+
+```
+
+`r head`
+
+`r p1`
+
+`r p2`
+
+`r p3`
+
+`r p4`
+
+::: {.callout-note appearance="minimal"}
+## View results on the Rocky Mountain Avian Data Center
+`r p5`  
+
+On the Explore the Data tab, select **`r super_stratum`** from the **`r type`** drop-down filter.
+:::
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+# This script should not need to be updated year to year!
+
+# Kaibab National Forest is a special value from the heddlr_loop.qmd file
+x <- which(data$stratum == "Kaibab National Forest")
+
+name <- data[x, "name"]
+compilation <- ifelse(data[x, "Strata"] > 1, "compiling and jointly", "compiling and")
+n.strata <- if (data[x, "Strata"] <= 10) {numbers_to_words(data[x, "Strata"])
+  } else data[x, "Strata"]
+stratum_plural <- ifelse(data[x, "Strata"] > 1, "strata", "stratum")
+completed.grids <- (data[x, "CompletedGrids"])
+planned.grids <- (data[x, "PlannedGrids"])
+percent.completed <- round((completed.grids/planned.grids)*100)
+
+transect.clause <- if (planned.grids == completed.grids & planned.grids > 2) {
+  paste("all")
+  } else if (planned.grids == completed.grids & planned.grids == 2) {paste("both")
+  } else {paste((completed.grids), 
+             "of", 
+             (planned.grids),
+             sep = " ")}
+
+year <- data[x, "Year"]
+completed.points <- data[x, "CompletedPoints"]
+first.visit <- data[x, "FirstVisit"]
+last.visit <- data[x, "LastVisit"]
+n.species <- data[x, "nBirdSpecies"]
+n.priority <- data[x, "nPriority"]
+n.density <- data[x, "DensitySpeciesCount"]
+n.density.priority <- data[x, "DensityPrioritySpecies"]
+n.density.robust <- data[x, "DensityRobustCV"]
+n.occupancy <- data[x, "OccupancySpeciesCount"]
+n.occupancy.priority <- data[x, "OccupancyPrioritySpecies"]
+n.occupancy.robust <- data[x, "OccupancyRobustCV"]
+type <- if (data[x, "is_superstratum"]) {"Superstratum"} else {"Stratum"}
+super_stratum <- if (data[x, "is_superstratum"]) {data[x, "stratum"]} else {data[x, "LongStratum"]}
+
+p1 <- str_glue("We obtained results for {name} by {compilation} analyzing data from {n.strata} {stratum_plural}.")
+
+p2 <- str_glue("Field technicians completed {transect.clause} planned surveys ({percent.completed}%) in {year}. Technicians conducted {completed.points} point counts within the {completed.grids} surveyed grid cells between {first.visit} and {last.visit}. They detected {n.species} bird species, including {n.priority} priority species.")
+
+p3 <- str_glue("Bird Conservancy estimated densities (birds per square kilometer) for {n.density} species that were detected in any year during which surveys were conducted, {n.density.priority} of which are priority species. The data yielded robust density estimates (CV < 50%) for {n.density.robust} species.")
+
+p4 <- str_glue("Bird Conservancy estimated the proportion of occupied plots throughout {name} for {n.occupancy} species that were detected in any year during which surveys were conducted, {n.occupancy.priority} of which are priority species. The data yielded robust occupancy estimates (CV < 50%) for {n.occupancy.robust} species.")
+
+p5 <- str_glue("To view a map of approximate survey locations, species counts, and density, occupancy, & trend estimates within {name} across all years of the project, visit the [RMADC](https://app.bcr.eco/rmadc/).")
+
+head <- paste("####", name, sep = " ")
+
+```
+
+`r head`
+
+`r p1`
+
+`r p2`
+
+`r p3`
+
+`r p4`
+
+::: {.callout-note appearance="minimal"}
+## View results on the Rocky Mountain Avian Data Center
+`r p5`  
+
+On the Explore the Data tab, select **`r super_stratum`** from the **`r type`** drop-down filter.
+:::
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+# This script should not need to be updated year to year!
+
+# Lincoln National Forest is a special value from the heddlr_loop.qmd file
+x <- which(data$stratum == "Lincoln National Forest")
+
+name <- data[x, "name"]
+compilation <- ifelse(data[x, "Strata"] > 1, "compiling and jointly", "compiling and")
+n.strata <- if (data[x, "Strata"] <= 10) {numbers_to_words(data[x, "Strata"])
+  } else data[x, "Strata"]
+stratum_plural <- ifelse(data[x, "Strata"] > 1, "strata", "stratum")
+completed.grids <- (data[x, "CompletedGrids"])
+planned.grids <- (data[x, "PlannedGrids"])
+percent.completed <- round((completed.grids/planned.grids)*100)
+
+transect.clause <- if (planned.grids == completed.grids & planned.grids > 2) {
+  paste("all")
+  } else if (planned.grids == completed.grids & planned.grids == 2) {paste("both")
+  } else {paste((completed.grids), 
+             "of", 
+             (planned.grids),
+             sep = " ")}
+
+year <- data[x, "Year"]
+completed.points <- data[x, "CompletedPoints"]
+first.visit <- data[x, "FirstVisit"]
+last.visit <- data[x, "LastVisit"]
+n.species <- data[x, "nBirdSpecies"]
+n.priority <- data[x, "nPriority"]
+n.density <- data[x, "DensitySpeciesCount"]
+n.density.priority <- data[x, "DensityPrioritySpecies"]
+n.density.robust <- data[x, "DensityRobustCV"]
+n.occupancy <- data[x, "OccupancySpeciesCount"]
+n.occupancy.priority <- data[x, "OccupancyPrioritySpecies"]
+n.occupancy.robust <- data[x, "OccupancyRobustCV"]
+type <- if (data[x, "is_superstratum"]) {"Superstratum"} else {"Stratum"}
+super_stratum <- if (data[x, "is_superstratum"]) {data[x, "stratum"]} else {data[x, "LongStratum"]}
+
+p1 <- str_glue("We obtained results for {name} by {compilation} analyzing data from {n.strata} {stratum_plural}.")
+
+p2 <- str_glue("Field technicians completed {transect.clause} planned surveys ({percent.completed}%) in {year}. Technicians conducted {completed.points} point counts within the {completed.grids} surveyed grid cells between {first.visit} and {last.visit}. They detected {n.species} bird species, including {n.priority} priority species.")
+
+p3 <- str_glue("Bird Conservancy estimated densities (birds per square kilometer) for {n.density} species that were detected in any year during which surveys were conducted, {n.density.priority} of which are priority species. The data yielded robust density estimates (CV < 50%) for {n.density.robust} species.")
+
+p4 <- str_glue("Bird Conservancy estimated the proportion of occupied plots throughout {name} for {n.occupancy} species that were detected in any year during which surveys were conducted, {n.occupancy.priority} of which are priority species. The data yielded robust occupancy estimates (CV < 50%) for {n.occupancy.robust} species.")
+
+p5 <- str_glue("To view a map of approximate survey locations, species counts, and density, occupancy, & trend estimates within {name} across all years of the project, visit the [RMADC](https://app.bcr.eco/rmadc/).")
+
+head <- paste("####", name, sep = " ")
+
+```
+
+`r head`
+
+`r p1`
+
+`r p2`
+
+`r p3`
+
+`r p4`
+
+::: {.callout-note appearance="minimal"}
+## View results on the Rocky Mountain Avian Data Center
+`r p5`  
+
+On the Explore the Data tab, select **`r super_stratum`** from the **`r type`** drop-down filter.
+:::
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+# This script should not need to be updated year to year!
+
+# Prescott National Forest is a special value from the heddlr_loop.qmd file
+x <- which(data$stratum == "Prescott National Forest")
+
+name <- data[x, "name"]
+compilation <- ifelse(data[x, "Strata"] > 1, "compiling and jointly", "compiling and")
+n.strata <- if (data[x, "Strata"] <= 10) {numbers_to_words(data[x, "Strata"])
+  } else data[x, "Strata"]
+stratum_plural <- ifelse(data[x, "Strata"] > 1, "strata", "stratum")
+completed.grids <- (data[x, "CompletedGrids"])
+planned.grids <- (data[x, "PlannedGrids"])
+percent.completed <- round((completed.grids/planned.grids)*100)
+
+transect.clause <- if (planned.grids == completed.grids & planned.grids > 2) {
+  paste("all")
+  } else if (planned.grids == completed.grids & planned.grids == 2) {paste("both")
+  } else {paste((completed.grids), 
+             "of", 
+             (planned.grids),
+             sep = " ")}
+
+year <- data[x, "Year"]
+completed.points <- data[x, "CompletedPoints"]
+first.visit <- data[x, "FirstVisit"]
+last.visit <- data[x, "LastVisit"]
+n.species <- data[x, "nBirdSpecies"]
+n.priority <- data[x, "nPriority"]
+n.density <- data[x, "DensitySpeciesCount"]
+n.density.priority <- data[x, "DensityPrioritySpecies"]
+n.density.robust <- data[x, "DensityRobustCV"]
+n.occupancy <- data[x, "OccupancySpeciesCount"]
+n.occupancy.priority <- data[x, "OccupancyPrioritySpecies"]
+n.occupancy.robust <- data[x, "OccupancyRobustCV"]
+type <- if (data[x, "is_superstratum"]) {"Superstratum"} else {"Stratum"}
+super_stratum <- if (data[x, "is_superstratum"]) {data[x, "stratum"]} else {data[x, "LongStratum"]}
+
+p1 <- str_glue("We obtained results for {name} by {compilation} analyzing data from {n.strata} {stratum_plural}.")
+
+p2 <- str_glue("Field technicians completed {transect.clause} planned surveys ({percent.completed}%) in {year}. Technicians conducted {completed.points} point counts within the {completed.grids} surveyed grid cells between {first.visit} and {last.visit}. They detected {n.species} bird species, including {n.priority} priority species.")
+
+p3 <- str_glue("Bird Conservancy estimated densities (birds per square kilometer) for {n.density} species that were detected in any year during which surveys were conducted, {n.density.priority} of which are priority species. The data yielded robust density estimates (CV < 50%) for {n.density.robust} species.")
+
+p4 <- str_glue("Bird Conservancy estimated the proportion of occupied plots throughout {name} for {n.occupancy} species that were detected in any year during which surveys were conducted, {n.occupancy.priority} of which are priority species. The data yielded robust occupancy estimates (CV < 50%) for {n.occupancy.robust} species.")
+
+p5 <- str_glue("To view a map of approximate survey locations, species counts, and density, occupancy, & trend estimates within {name} across all years of the project, visit the [RMADC](https://app.bcr.eco/rmadc/).")
+
+head <- paste("####", name, sep = " ")
+
+```
+
+`r head`
+
+`r p1`
+
+`r p2`
+
+`r p3`
+
+`r p4`
+
+::: {.callout-note appearance="minimal"}
+## View results on the Rocky Mountain Avian Data Center
+`r p5`  
+
+On the Explore the Data tab, select **`r super_stratum`** from the **`r type`** drop-down filter.
+:::
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+# This script should not need to be updated year to year!
+
+# NM-BCR16-SF is a special value from the heddlr_loop.qmd file
+x <- which(data$stratum == "NM-BCR16-SF")
+
+name <- data[x, "name"]
+compilation <- ifelse(data[x, "Strata"] > 1, "compiling and jointly", "compiling and")
+n.strata <- if (data[x, "Strata"] <= 10) {numbers_to_words(data[x, "Strata"])
+  } else data[x, "Strata"]
+stratum_plural <- ifelse(data[x, "Strata"] > 1, "strata", "stratum")
+completed.grids <- (data[x, "CompletedGrids"])
+planned.grids <- (data[x, "PlannedGrids"])
+percent.completed <- round((completed.grids/planned.grids)*100)
+
+transect.clause <- if (planned.grids == completed.grids & planned.grids > 2) {
+  paste("all")
+  } else if (planned.grids == completed.grids & planned.grids == 2) {paste("both")
+  } else {paste((completed.grids), 
+             "of", 
+             (planned.grids),
+             sep = " ")}
+
+year <- data[x, "Year"]
+completed.points <- data[x, "CompletedPoints"]
+first.visit <- data[x, "FirstVisit"]
+last.visit <- data[x, "LastVisit"]
+n.species <- data[x, "nBirdSpecies"]
+n.priority <- data[x, "nPriority"]
+n.density <- data[x, "DensitySpeciesCount"]
+n.density.priority <- data[x, "DensityPrioritySpecies"]
+n.density.robust <- data[x, "DensityRobustCV"]
+n.occupancy <- data[x, "OccupancySpeciesCount"]
+n.occupancy.priority <- data[x, "OccupancyPrioritySpecies"]
+n.occupancy.robust <- data[x, "OccupancyRobustCV"]
+type <- if (data[x, "is_superstratum"]) {"Superstratum"} else {"Stratum"}
+super_stratum <- if (data[x, "is_superstratum"]) {data[x, "stratum"]} else {data[x, "LongStratum"]}
+
+p1 <- str_glue("We obtained results for {name} by {compilation} analyzing data from {n.strata} {stratum_plural}.")
+
+p2 <- str_glue("Field technicians completed {transect.clause} planned surveys ({percent.completed}%) in {year}. Technicians conducted {completed.points} point counts within the {completed.grids} surveyed grid cells between {first.visit} and {last.visit}. They detected {n.species} bird species, including {n.priority} priority species.")
+
+p3 <- str_glue("Bird Conservancy estimated densities (birds per square kilometer) for {n.density} species that were detected in any year during which surveys were conducted, {n.density.priority} of which are priority species. The data yielded robust density estimates (CV < 50%) for {n.density.robust} species.")
+
+p4 <- str_glue("Bird Conservancy estimated the proportion of occupied plots throughout {name} for {n.occupancy} species that were detected in any year during which surveys were conducted, {n.occupancy.priority} of which are priority species. The data yielded robust occupancy estimates (CV < 50%) for {n.occupancy.robust} species.")
+
+p5 <- str_glue("To view a map of approximate survey locations, species counts, and density, occupancy, & trend estimates within {name} across all years of the project, visit the [RMADC](https://app.bcr.eco/rmadc/).")
+
+head <- paste("####", name, sep = " ")
+
+```
+
+`r head`
+
+`r p1`
+
+`r p2`
+
+`r p3`
+
+`r p4`
+
+::: {.callout-note appearance="minimal"}
+## View results on the Rocky Mountain Avian Data Center
+`r p5`  
+
+On the Explore the Data tab, select **`r super_stratum`** from the **`r type`** drop-down filter.
+:::
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+# This script should not need to be updated year to year!
+
+# Tonto National Forest is a special value from the heddlr_loop.qmd file
+x <- which(data$stratum == "Tonto National Forest")
+
+name <- data[x, "name"]
+compilation <- ifelse(data[x, "Strata"] > 1, "compiling and jointly", "compiling and")
+n.strata <- if (data[x, "Strata"] <= 10) {numbers_to_words(data[x, "Strata"])
+  } else data[x, "Strata"]
+stratum_plural <- ifelse(data[x, "Strata"] > 1, "strata", "stratum")
+completed.grids <- (data[x, "CompletedGrids"])
+planned.grids <- (data[x, "PlannedGrids"])
+percent.completed <- round((completed.grids/planned.grids)*100)
+
+transect.clause <- if (planned.grids == completed.grids & planned.grids > 2) {
+  paste("all")
+  } else if (planned.grids == completed.grids & planned.grids == 2) {paste("both")
+  } else {paste((completed.grids), 
+             "of", 
+             (planned.grids),
+             sep = " ")}
+
+year <- data[x, "Year"]
+completed.points <- data[x, "CompletedPoints"]
+first.visit <- data[x, "FirstVisit"]
+last.visit <- data[x, "LastVisit"]
+n.species <- data[x, "nBirdSpecies"]
+n.priority <- data[x, "nPriority"]
+n.density <- data[x, "DensitySpeciesCount"]
+n.density.priority <- data[x, "DensityPrioritySpecies"]
+n.density.robust <- data[x, "DensityRobustCV"]
+n.occupancy <- data[x, "OccupancySpeciesCount"]
+n.occupancy.priority <- data[x, "OccupancyPrioritySpecies"]
+n.occupancy.robust <- data[x, "OccupancyRobustCV"]
+type <- if (data[x, "is_superstratum"]) {"Superstratum"} else {"Stratum"}
+super_stratum <- if (data[x, "is_superstratum"]) {data[x, "stratum"]} else {data[x, "LongStratum"]}
+
+p1 <- str_glue("We obtained results for {name} by {compilation} analyzing data from {n.strata} {stratum_plural}.")
+
+p2 <- str_glue("Field technicians completed {transect.clause} planned surveys ({percent.completed}%) in {year}. Technicians conducted {completed.points} point counts within the {completed.grids} surveyed grid cells between {first.visit} and {last.visit}. They detected {n.species} bird species, including {n.priority} priority species.")
+
+p3 <- str_glue("Bird Conservancy estimated densities (birds per square kilometer) for {n.density} species that were detected in any year during which surveys were conducted, {n.density.priority} of which are priority species. The data yielded robust density estimates (CV < 50%) for {n.density.robust} species.")
+
+p4 <- str_glue("Bird Conservancy estimated the proportion of occupied plots throughout {name} for {n.occupancy} species that were detected in any year during which surveys were conducted, {n.occupancy.priority} of which are priority species. The data yielded robust occupancy estimates (CV < 50%) for {n.occupancy.robust} species.")
+
+p5 <- str_glue("To view a map of approximate survey locations, species counts, and density, occupancy, & trend estimates within {name} across all years of the project, visit the [RMADC](https://app.bcr.eco/rmadc/).")
+
+head <- paste("####", name, sep = " ")
+
+```
+
+`r head`
+
+`r p1`
+
+`r p2`
+
+`r p3`
+
+`r p4`
+
+::: {.callout-note appearance="minimal"}
+## View results on the Rocky Mountain Avian Data Center
+`r p5`  
+
+On the Explore the Data tab, select **`r super_stratum`** from the **`r type`** drop-down filter.
+:::
+
+
+## Region 4 
+
+### Region 4 National Forests 
+ 
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+# This script should not need to be updated year to year!
+
+# USFS-Region 4 National Forests is a special value from the heddlr_loop.qmd file
+x <- which(data$stratum == "USFS-Region 4 National Forests")
+
+name <- data[x, "name"]
+compilation <- ifelse(data[x, "Strata"] > 1, "compiling and jointly", "compiling and")
+n.strata <- if (data[x, "Strata"] <= 10) {numbers_to_words(data[x, "Strata"])
+  } else data[x, "Strata"]
+stratum_plural <- ifelse(data[x, "Strata"] > 1, "strata", "stratum")
+completed.grids <- (data[x, "CompletedGrids"])
+planned.grids <- (data[x, "PlannedGrids"])
+percent.completed <- round((completed.grids/planned.grids)*100)
+
+transect.clause <- if (planned.grids == completed.grids & planned.grids > 2) {
+  paste("all")
+  } else if (planned.grids == completed.grids & planned.grids == 2) {paste("both")
+  } else {paste((completed.grids), 
+             "of", 
+             (planned.grids),
+             sep = " ")}
+
+year <- data[x, "Year"]
+completed.points <- data[x, "CompletedPoints"]
+first.visit <- data[x, "FirstVisit"]
+last.visit <- data[x, "LastVisit"]
+n.species <- data[x, "nBirdSpecies"]
+n.priority <- data[x, "nPriority"]
+n.density <- data[x, "DensitySpeciesCount"]
+n.density.priority <- data[x, "DensityPrioritySpecies"]
+n.density.robust <- data[x, "DensityRobustCV"]
+n.occupancy <- data[x, "OccupancySpeciesCount"]
+n.occupancy.priority <- data[x, "OccupancyPrioritySpecies"]
+n.occupancy.robust <- data[x, "OccupancyRobustCV"]
+type <- if (data[x, "is_superstratum"]) {"Superstratum"} else {"Stratum"}
+super_stratum <- if (data[x, "is_superstratum"]) {data[x, "stratum"]} else {data[x, "LongStratum"]}
+
+p1 <- str_glue("We obtained results for {name} by {compilation} analyzing data from {n.strata} {stratum_plural}.")
+
+p2 <- str_glue("Field technicians completed {transect.clause} planned surveys ({percent.completed}%) in {year}. Technicians conducted {completed.points} point counts within the {completed.grids} surveyed grid cells between {first.visit} and {last.visit}. They detected {n.species} bird species, including {n.priority} priority species.")
+
+p3 <- str_glue("Bird Conservancy estimated densities (birds per square kilometer) for {n.density} species that were detected in any year during which surveys were conducted, {n.density.priority} of which are priority species. The data yielded robust density estimates (CV < 50%) for {n.density.robust} species.")
+
+p4 <- str_glue("Bird Conservancy estimated the proportion of occupied plots throughout {name} for {n.occupancy} species that were detected in any year during which surveys were conducted, {n.occupancy.priority} of which are priority species. The data yielded robust occupancy estimates (CV < 50%) for {n.occupancy.robust} species.")
+
+p5 <- str_glue("To view a map of approximate survey locations, species counts, and density, occupancy, & trend estimates within {name} across all years of the project, visit the [RMADC](https://app.bcr.eco/rmadc/).")
+
+head <- paste("####", name, sep = " ")
+
+```
+
+`r head`
+
+`r p1`
+
+`r p2`
+
+`r p3`
+
+`r p4`
+
+::: {.callout-note appearance="minimal"}
+## View results on the Rocky Mountain Avian Data Center
+`r p5`  
+
+On the Explore the Data tab, select **`r super_stratum`** from the **`r type`** drop-down filter.
+:::
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+# This script should not need to be updated year to year!
+
+# Ashley National Forest is a special value from the heddlr_loop.qmd file
+x <- which(data$stratum == "Ashley National Forest")
+
+name <- data[x, "name"]
+compilation <- ifelse(data[x, "Strata"] > 1, "compiling and jointly", "compiling and")
+n.strata <- if (data[x, "Strata"] <= 10) {numbers_to_words(data[x, "Strata"])
+  } else data[x, "Strata"]
+stratum_plural <- ifelse(data[x, "Strata"] > 1, "strata", "stratum")
+completed.grids <- (data[x, "CompletedGrids"])
+planned.grids <- (data[x, "PlannedGrids"])
+percent.completed <- round((completed.grids/planned.grids)*100)
+
+transect.clause <- if (planned.grids == completed.grids & planned.grids > 2) {
+  paste("all")
+  } else if (planned.grids == completed.grids & planned.grids == 2) {paste("both")
+  } else {paste((completed.grids), 
+             "of", 
+             (planned.grids),
+             sep = " ")}
+
+year <- data[x, "Year"]
+completed.points <- data[x, "CompletedPoints"]
+first.visit <- data[x, "FirstVisit"]
+last.visit <- data[x, "LastVisit"]
+n.species <- data[x, "nBirdSpecies"]
+n.priority <- data[x, "nPriority"]
+n.density <- data[x, "DensitySpeciesCount"]
+n.density.priority <- data[x, "DensityPrioritySpecies"]
+n.density.robust <- data[x, "DensityRobustCV"]
+n.occupancy <- data[x, "OccupancySpeciesCount"]
+n.occupancy.priority <- data[x, "OccupancyPrioritySpecies"]
+n.occupancy.robust <- data[x, "OccupancyRobustCV"]
+type <- if (data[x, "is_superstratum"]) {"Superstratum"} else {"Stratum"}
+super_stratum <- if (data[x, "is_superstratum"]) {data[x, "stratum"]} else {data[x, "LongStratum"]}
+
+p1 <- str_glue("We obtained results for {name} by {compilation} analyzing data from {n.strata} {stratum_plural}.")
+
+p2 <- str_glue("Field technicians completed {transect.clause} planned surveys ({percent.completed}%) in {year}. Technicians conducted {completed.points} point counts within the {completed.grids} surveyed grid cells between {first.visit} and {last.visit}. They detected {n.species} bird species, including {n.priority} priority species.")
+
+p3 <- str_glue("Bird Conservancy estimated densities (birds per square kilometer) for {n.density} species that were detected in any year during which surveys were conducted, {n.density.priority} of which are priority species. The data yielded robust density estimates (CV < 50%) for {n.density.robust} species.")
+
+p4 <- str_glue("Bird Conservancy estimated the proportion of occupied plots throughout {name} for {n.occupancy} species that were detected in any year during which surveys were conducted, {n.occupancy.priority} of which are priority species. The data yielded robust occupancy estimates (CV < 50%) for {n.occupancy.robust} species.")
+
+p5 <- str_glue("To view a map of approximate survey locations, species counts, and density, occupancy, & trend estimates within {name} across all years of the project, visit the [RMADC](https://app.bcr.eco/rmadc/).")
+
+head <- paste("####", name, sep = " ")
+
+```
+
+`r head`
+
+`r p1`
+
+`r p2`
+
+`r p3`
+
+`r p4`
+
+::: {.callout-note appearance="minimal"}
+## View results on the Rocky Mountain Avian Data Center
+`r p5`  
+
+On the Explore the Data tab, select **`r super_stratum`** from the **`r type`** drop-down filter.
+:::
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+# This script should not need to be updated year to year!
+
+# Boise National Forest is a special value from the heddlr_loop.qmd file
+x <- which(data$stratum == "Boise National Forest")
+
+name <- data[x, "name"]
+compilation <- ifelse(data[x, "Strata"] > 1, "compiling and jointly", "compiling and")
+n.strata <- if (data[x, "Strata"] <= 10) {numbers_to_words(data[x, "Strata"])
+  } else data[x, "Strata"]
+stratum_plural <- ifelse(data[x, "Strata"] > 1, "strata", "stratum")
+completed.grids <- (data[x, "CompletedGrids"])
+planned.grids <- (data[x, "PlannedGrids"])
+percent.completed <- round((completed.grids/planned.grids)*100)
+
+transect.clause <- if (planned.grids == completed.grids & planned.grids > 2) {
+  paste("all")
+  } else if (planned.grids == completed.grids & planned.grids == 2) {paste("both")
+  } else {paste((completed.grids), 
+             "of", 
+             (planned.grids),
+             sep = " ")}
+
+year <- data[x, "Year"]
+completed.points <- data[x, "CompletedPoints"]
+first.visit <- data[x, "FirstVisit"]
+last.visit <- data[x, "LastVisit"]
+n.species <- data[x, "nBirdSpecies"]
+n.priority <- data[x, "nPriority"]
+n.density <- data[x, "DensitySpeciesCount"]
+n.density.priority <- data[x, "DensityPrioritySpecies"]
+n.density.robust <- data[x, "DensityRobustCV"]
+n.occupancy <- data[x, "OccupancySpeciesCount"]
+n.occupancy.priority <- data[x, "OccupancyPrioritySpecies"]
+n.occupancy.robust <- data[x, "OccupancyRobustCV"]
+type <- if (data[x, "is_superstratum"]) {"Superstratum"} else {"Stratum"}
+super_stratum <- if (data[x, "is_superstratum"]) {data[x, "stratum"]} else {data[x, "LongStratum"]}
+
+p1 <- str_glue("We obtained results for {name} by {compilation} analyzing data from {n.strata} {stratum_plural}.")
+
+p2 <- str_glue("Field technicians completed {transect.clause} planned surveys ({percent.completed}%) in {year}. Technicians conducted {completed.points} point counts within the {completed.grids} surveyed grid cells between {first.visit} and {last.visit}. They detected {n.species} bird species, including {n.priority} priority species.")
+
+p3 <- str_glue("Bird Conservancy estimated densities (birds per square kilometer) for {n.density} species that were detected in any year during which surveys were conducted, {n.density.priority} of which are priority species. The data yielded robust density estimates (CV < 50%) for {n.density.robust} species.")
+
+p4 <- str_glue("Bird Conservancy estimated the proportion of occupied plots throughout {name} for {n.occupancy} species that were detected in any year during which surveys were conducted, {n.occupancy.priority} of which are priority species. The data yielded robust occupancy estimates (CV < 50%) for {n.occupancy.robust} species.")
+
+p5 <- str_glue("To view a map of approximate survey locations, species counts, and density, occupancy, & trend estimates within {name} across all years of the project, visit the [RMADC](https://app.bcr.eco/rmadc/).")
+
+head <- paste("####", name, sep = " ")
+
+```
+
+`r head`
+
+`r p1`
+
+`r p2`
+
+`r p3`
+
+`r p4`
+
+::: {.callout-note appearance="minimal"}
+## View results on the Rocky Mountain Avian Data Center
+`r p5`  
+
+On the Explore the Data tab, select **`r super_stratum`** from the **`r type`** drop-down filter.
+:::
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+# This script should not need to be updated year to year!
+
+# Bridger-Teton National Forest is a special value from the heddlr_loop.qmd file
+x <- which(data$stratum == "Bridger-Teton National Forest")
+
+name <- data[x, "name"]
+compilation <- ifelse(data[x, "Strata"] > 1, "compiling and jointly", "compiling and")
+n.strata <- if (data[x, "Strata"] <= 10) {numbers_to_words(data[x, "Strata"])
+  } else data[x, "Strata"]
+stratum_plural <- ifelse(data[x, "Strata"] > 1, "strata", "stratum")
+completed.grids <- (data[x, "CompletedGrids"])
+planned.grids <- (data[x, "PlannedGrids"])
+percent.completed <- round((completed.grids/planned.grids)*100)
+
+transect.clause <- if (planned.grids == completed.grids & planned.grids > 2) {
+  paste("all")
+  } else if (planned.grids == completed.grids & planned.grids == 2) {paste("both")
+  } else {paste((completed.grids), 
+             "of", 
+             (planned.grids),
+             sep = " ")}
+
+year <- data[x, "Year"]
+completed.points <- data[x, "CompletedPoints"]
+first.visit <- data[x, "FirstVisit"]
+last.visit <- data[x, "LastVisit"]
+n.species <- data[x, "nBirdSpecies"]
+n.priority <- data[x, "nPriority"]
+n.density <- data[x, "DensitySpeciesCount"]
+n.density.priority <- data[x, "DensityPrioritySpecies"]
+n.density.robust <- data[x, "DensityRobustCV"]
+n.occupancy <- data[x, "OccupancySpeciesCount"]
+n.occupancy.priority <- data[x, "OccupancyPrioritySpecies"]
+n.occupancy.robust <- data[x, "OccupancyRobustCV"]
+type <- if (data[x, "is_superstratum"]) {"Superstratum"} else {"Stratum"}
+super_stratum <- if (data[x, "is_superstratum"]) {data[x, "stratum"]} else {data[x, "LongStratum"]}
+
+p1 <- str_glue("We obtained results for {name} by {compilation} analyzing data from {n.strata} {stratum_plural}.")
+
+p2 <- str_glue("Field technicians completed {transect.clause} planned surveys ({percent.completed}%) in {year}. Technicians conducted {completed.points} point counts within the {completed.grids} surveyed grid cells between {first.visit} and {last.visit}. They detected {n.species} bird species, including {n.priority} priority species.")
+
+p3 <- str_glue("Bird Conservancy estimated densities (birds per square kilometer) for {n.density} species that were detected in any year during which surveys were conducted, {n.density.priority} of which are priority species. The data yielded robust density estimates (CV < 50%) for {n.density.robust} species.")
+
+p4 <- str_glue("Bird Conservancy estimated the proportion of occupied plots throughout {name} for {n.occupancy} species that were detected in any year during which surveys were conducted, {n.occupancy.priority} of which are priority species. The data yielded robust occupancy estimates (CV < 50%) for {n.occupancy.robust} species.")
+
+p5 <- str_glue("To view a map of approximate survey locations, species counts, and density, occupancy, & trend estimates within {name} across all years of the project, visit the [RMADC](https://app.bcr.eco/rmadc/).")
+
+head <- paste("####", name, sep = " ")
+
+```
+
+`r head`
+
+`r p1`
+
+`r p2`
+
+`r p3`
+
+`r p4`
+
+::: {.callout-note appearance="minimal"}
+## View results on the Rocky Mountain Avian Data Center
+`r p5`  
+
+On the Explore the Data tab, select **`r super_stratum`** from the **`r type`** drop-down filter.
+:::
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+# This script should not need to be updated year to year!
+
+# Caribou-Targhee National Forest is a special value from the heddlr_loop.qmd file
+x <- which(data$stratum == "Caribou-Targhee National Forest")
+
+name <- data[x, "name"]
+compilation <- ifelse(data[x, "Strata"] > 1, "compiling and jointly", "compiling and")
+n.strata <- if (data[x, "Strata"] <= 10) {numbers_to_words(data[x, "Strata"])
+  } else data[x, "Strata"]
+stratum_plural <- ifelse(data[x, "Strata"] > 1, "strata", "stratum")
+completed.grids <- (data[x, "CompletedGrids"])
+planned.grids <- (data[x, "PlannedGrids"])
+percent.completed <- round((completed.grids/planned.grids)*100)
+
+transect.clause <- if (planned.grids == completed.grids & planned.grids > 2) {
+  paste("all")
+  } else if (planned.grids == completed.grids & planned.grids == 2) {paste("both")
+  } else {paste((completed.grids), 
+             "of", 
+             (planned.grids),
+             sep = " ")}
+
+year <- data[x, "Year"]
+completed.points <- data[x, "CompletedPoints"]
+first.visit <- data[x, "FirstVisit"]
+last.visit <- data[x, "LastVisit"]
+n.species <- data[x, "nBirdSpecies"]
+n.priority <- data[x, "nPriority"]
+n.density <- data[x, "DensitySpeciesCount"]
+n.density.priority <- data[x, "DensityPrioritySpecies"]
+n.density.robust <- data[x, "DensityRobustCV"]
+n.occupancy <- data[x, "OccupancySpeciesCount"]
+n.occupancy.priority <- data[x, "OccupancyPrioritySpecies"]
+n.occupancy.robust <- data[x, "OccupancyRobustCV"]
+type <- if (data[x, "is_superstratum"]) {"Superstratum"} else {"Stratum"}
+super_stratum <- if (data[x, "is_superstratum"]) {data[x, "stratum"]} else {data[x, "LongStratum"]}
+
+p1 <- str_glue("We obtained results for {name} by {compilation} analyzing data from {n.strata} {stratum_plural}.")
+
+p2 <- str_glue("Field technicians completed {transect.clause} planned surveys ({percent.completed}%) in {year}. Technicians conducted {completed.points} point counts within the {completed.grids} surveyed grid cells between {first.visit} and {last.visit}. They detected {n.species} bird species, including {n.priority} priority species.")
+
+p3 <- str_glue("Bird Conservancy estimated densities (birds per square kilometer) for {n.density} species that were detected in any year during which surveys were conducted, {n.density.priority} of which are priority species. The data yielded robust density estimates (CV < 50%) for {n.density.robust} species.")
+
+p4 <- str_glue("Bird Conservancy estimated the proportion of occupied plots throughout {name} for {n.occupancy} species that were detected in any year during which surveys were conducted, {n.occupancy.priority} of which are priority species. The data yielded robust occupancy estimates (CV < 50%) for {n.occupancy.robust} species.")
+
+p5 <- str_glue("To view a map of approximate survey locations, species counts, and density, occupancy, & trend estimates within {name} across all years of the project, visit the [RMADC](https://app.bcr.eco/rmadc/).")
+
+head <- paste("####", name, sep = " ")
+
+```
+
+`r head`
+
+`r p1`
+
+`r p2`
+
+`r p3`
+
+`r p4`
+
+::: {.callout-note appearance="minimal"}
+## View results on the Rocky Mountain Avian Data Center
+`r p5`  
+
+On the Explore the Data tab, select **`r super_stratum`** from the **`r type`** drop-down filter.
+:::
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+# This script should not need to be updated year to year!
+
+# Dixie National Forest is a special value from the heddlr_loop.qmd file
+x <- which(data$stratum == "Dixie National Forest")
+
+name <- data[x, "name"]
+compilation <- ifelse(data[x, "Strata"] > 1, "compiling and jointly", "compiling and")
+n.strata <- if (data[x, "Strata"] <= 10) {numbers_to_words(data[x, "Strata"])
+  } else data[x, "Strata"]
+stratum_plural <- ifelse(data[x, "Strata"] > 1, "strata", "stratum")
+completed.grids <- (data[x, "CompletedGrids"])
+planned.grids <- (data[x, "PlannedGrids"])
+percent.completed <- round((completed.grids/planned.grids)*100)
+
+transect.clause <- if (planned.grids == completed.grids & planned.grids > 2) {
+  paste("all")
+  } else if (planned.grids == completed.grids & planned.grids == 2) {paste("both")
+  } else {paste((completed.grids), 
+             "of", 
+             (planned.grids),
+             sep = " ")}
+
+year <- data[x, "Year"]
+completed.points <- data[x, "CompletedPoints"]
+first.visit <- data[x, "FirstVisit"]
+last.visit <- data[x, "LastVisit"]
+n.species <- data[x, "nBirdSpecies"]
+n.priority <- data[x, "nPriority"]
+n.density <- data[x, "DensitySpeciesCount"]
+n.density.priority <- data[x, "DensityPrioritySpecies"]
+n.density.robust <- data[x, "DensityRobustCV"]
+n.occupancy <- data[x, "OccupancySpeciesCount"]
+n.occupancy.priority <- data[x, "OccupancyPrioritySpecies"]
+n.occupancy.robust <- data[x, "OccupancyRobustCV"]
+type <- if (data[x, "is_superstratum"]) {"Superstratum"} else {"Stratum"}
+super_stratum <- if (data[x, "is_superstratum"]) {data[x, "stratum"]} else {data[x, "LongStratum"]}
+
+p1 <- str_glue("We obtained results for {name} by {compilation} analyzing data from {n.strata} {stratum_plural}.")
+
+p2 <- str_glue("Field technicians completed {transect.clause} planned surveys ({percent.completed}%) in {year}. Technicians conducted {completed.points} point counts within the {completed.grids} surveyed grid cells between {first.visit} and {last.visit}. They detected {n.species} bird species, including {n.priority} priority species.")
+
+p3 <- str_glue("Bird Conservancy estimated densities (birds per square kilometer) for {n.density} species that were detected in any year during which surveys were conducted, {n.density.priority} of which are priority species. The data yielded robust density estimates (CV < 50%) for {n.density.robust} species.")
+
+p4 <- str_glue("Bird Conservancy estimated the proportion of occupied plots throughout {name} for {n.occupancy} species that were detected in any year during which surveys were conducted, {n.occupancy.priority} of which are priority species. The data yielded robust occupancy estimates (CV < 50%) for {n.occupancy.robust} species.")
+
+p5 <- str_glue("To view a map of approximate survey locations, species counts, and density, occupancy, & trend estimates within {name} across all years of the project, visit the [RMADC](https://app.bcr.eco/rmadc/).")
+
+head <- paste("####", name, sep = " ")
+
+```
+
+`r head`
+
+`r p1`
+
+`r p2`
+
+`r p3`
+
+`r p4`
+
+::: {.callout-note appearance="minimal"}
+## View results on the Rocky Mountain Avian Data Center
+`r p5`  
+
+On the Explore the Data tab, select **`r super_stratum`** from the **`r type`** drop-down filter.
+:::
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+# This script should not need to be updated year to year!
+
+# Fishlake National Forest is a special value from the heddlr_loop.qmd file
+x <- which(data$stratum == "Fishlake National Forest")
+
+name <- data[x, "name"]
+compilation <- ifelse(data[x, "Strata"] > 1, "compiling and jointly", "compiling and")
+n.strata <- if (data[x, "Strata"] <= 10) {numbers_to_words(data[x, "Strata"])
+  } else data[x, "Strata"]
+stratum_plural <- ifelse(data[x, "Strata"] > 1, "strata", "stratum")
+completed.grids <- (data[x, "CompletedGrids"])
+planned.grids <- (data[x, "PlannedGrids"])
+percent.completed <- round((completed.grids/planned.grids)*100)
+
+transect.clause <- if (planned.grids == completed.grids & planned.grids > 2) {
+  paste("all")
+  } else if (planned.grids == completed.grids & planned.grids == 2) {paste("both")
+  } else {paste((completed.grids), 
+             "of", 
+             (planned.grids),
+             sep = " ")}
+
+year <- data[x, "Year"]
+completed.points <- data[x, "CompletedPoints"]
+first.visit <- data[x, "FirstVisit"]
+last.visit <- data[x, "LastVisit"]
+n.species <- data[x, "nBirdSpecies"]
+n.priority <- data[x, "nPriority"]
+n.density <- data[x, "DensitySpeciesCount"]
+n.density.priority <- data[x, "DensityPrioritySpecies"]
+n.density.robust <- data[x, "DensityRobustCV"]
+n.occupancy <- data[x, "OccupancySpeciesCount"]
+n.occupancy.priority <- data[x, "OccupancyPrioritySpecies"]
+n.occupancy.robust <- data[x, "OccupancyRobustCV"]
+type <- if (data[x, "is_superstratum"]) {"Superstratum"} else {"Stratum"}
+super_stratum <- if (data[x, "is_superstratum"]) {data[x, "stratum"]} else {data[x, "LongStratum"]}
+
+p1 <- str_glue("We obtained results for {name} by {compilation} analyzing data from {n.strata} {stratum_plural}.")
+
+p2 <- str_glue("Field technicians completed {transect.clause} planned surveys ({percent.completed}%) in {year}. Technicians conducted {completed.points} point counts within the {completed.grids} surveyed grid cells between {first.visit} and {last.visit}. They detected {n.species} bird species, including {n.priority} priority species.")
+
+p3 <- str_glue("Bird Conservancy estimated densities (birds per square kilometer) for {n.density} species that were detected in any year during which surveys were conducted, {n.density.priority} of which are priority species. The data yielded robust density estimates (CV < 50%) for {n.density.robust} species.")
+
+p4 <- str_glue("Bird Conservancy estimated the proportion of occupied plots throughout {name} for {n.occupancy} species that were detected in any year during which surveys were conducted, {n.occupancy.priority} of which are priority species. The data yielded robust occupancy estimates (CV < 50%) for {n.occupancy.robust} species.")
+
+p5 <- str_glue("To view a map of approximate survey locations, species counts, and density, occupancy, & trend estimates within {name} across all years of the project, visit the [RMADC](https://app.bcr.eco/rmadc/).")
+
+head <- paste("####", name, sep = " ")
+
+```
+
+`r head`
+
+`r p1`
+
+`r p2`
+
+`r p3`
+
+`r p4`
+
+::: {.callout-note appearance="minimal"}
+## View results on the Rocky Mountain Avian Data Center
+`r p5`  
+
+On the Explore the Data tab, select **`r super_stratum`** from the **`r type`** drop-down filter.
+:::
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+# This script should not need to be updated year to year!
+
+# Humboldt-Toiyabe National Forest is a special value from the heddlr_loop.qmd file
+x <- which(data$stratum == "Humboldt-Toiyabe National Forest")
+
+name <- data[x, "name"]
+compilation <- ifelse(data[x, "Strata"] > 1, "compiling and jointly", "compiling and")
+n.strata <- if (data[x, "Strata"] <= 10) {numbers_to_words(data[x, "Strata"])
+  } else data[x, "Strata"]
+stratum_plural <- ifelse(data[x, "Strata"] > 1, "strata", "stratum")
+completed.grids <- (data[x, "CompletedGrids"])
+planned.grids <- (data[x, "PlannedGrids"])
+percent.completed <- round((completed.grids/planned.grids)*100)
+
+transect.clause <- if (planned.grids == completed.grids & planned.grids > 2) {
+  paste("all")
+  } else if (planned.grids == completed.grids & planned.grids == 2) {paste("both")
+  } else {paste((completed.grids), 
+             "of", 
+             (planned.grids),
+             sep = " ")}
+
+year <- data[x, "Year"]
+completed.points <- data[x, "CompletedPoints"]
+first.visit <- data[x, "FirstVisit"]
+last.visit <- data[x, "LastVisit"]
+n.species <- data[x, "nBirdSpecies"]
+n.priority <- data[x, "nPriority"]
+n.density <- data[x, "DensitySpeciesCount"]
+n.density.priority <- data[x, "DensityPrioritySpecies"]
+n.density.robust <- data[x, "DensityRobustCV"]
+n.occupancy <- data[x, "OccupancySpeciesCount"]
+n.occupancy.priority <- data[x, "OccupancyPrioritySpecies"]
+n.occupancy.robust <- data[x, "OccupancyRobustCV"]
+type <- if (data[x, "is_superstratum"]) {"Superstratum"} else {"Stratum"}
+super_stratum <- if (data[x, "is_superstratum"]) {data[x, "stratum"]} else {data[x, "LongStratum"]}
+
+p1 <- str_glue("We obtained results for {name} by {compilation} analyzing data from {n.strata} {stratum_plural}.")
+
+p2 <- str_glue("Field technicians completed {transect.clause} planned surveys ({percent.completed}%) in {year}. Technicians conducted {completed.points} point counts within the {completed.grids} surveyed grid cells between {first.visit} and {last.visit}. They detected {n.species} bird species, including {n.priority} priority species.")
+
+p3 <- str_glue("Bird Conservancy estimated densities (birds per square kilometer) for {n.density} species that were detected in any year during which surveys were conducted, {n.density.priority} of which are priority species. The data yielded robust density estimates (CV < 50%) for {n.density.robust} species.")
+
+p4 <- str_glue("Bird Conservancy estimated the proportion of occupied plots throughout {name} for {n.occupancy} species that were detected in any year during which surveys were conducted, {n.occupancy.priority} of which are priority species. The data yielded robust occupancy estimates (CV < 50%) for {n.occupancy.robust} species.")
+
+p5 <- str_glue("To view a map of approximate survey locations, species counts, and density, occupancy, & trend estimates within {name} across all years of the project, visit the [RMADC](https://app.bcr.eco/rmadc/).")
+
+head <- paste("####", name, sep = " ")
+
+```
+
+`r head`
+
+`r p1`
+
+`r p2`
+
+`r p3`
+
+`r p4`
+
+::: {.callout-note appearance="minimal"}
+## View results on the Rocky Mountain Avian Data Center
+`r p5`  
+
+On the Explore the Data tab, select **`r super_stratum`** from the **`r type`** drop-down filter.
+:::
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+# This script should not need to be updated year to year!
+
+# Manti-La Sal National Forest is a special value from the heddlr_loop.qmd file
+x <- which(data$stratum == "Manti-La Sal National Forest")
+
+name <- data[x, "name"]
+compilation <- ifelse(data[x, "Strata"] > 1, "compiling and jointly", "compiling and")
+n.strata <- if (data[x, "Strata"] <= 10) {numbers_to_words(data[x, "Strata"])
+  } else data[x, "Strata"]
+stratum_plural <- ifelse(data[x, "Strata"] > 1, "strata", "stratum")
+completed.grids <- (data[x, "CompletedGrids"])
+planned.grids <- (data[x, "PlannedGrids"])
+percent.completed <- round((completed.grids/planned.grids)*100)
+
+transect.clause <- if (planned.grids == completed.grids & planned.grids > 2) {
+  paste("all")
+  } else if (planned.grids == completed.grids & planned.grids == 2) {paste("both")
+  } else {paste((completed.grids), 
+             "of", 
+             (planned.grids),
+             sep = " ")}
+
+year <- data[x, "Year"]
+completed.points <- data[x, "CompletedPoints"]
+first.visit <- data[x, "FirstVisit"]
+last.visit <- data[x, "LastVisit"]
+n.species <- data[x, "nBirdSpecies"]
+n.priority <- data[x, "nPriority"]
+n.density <- data[x, "DensitySpeciesCount"]
+n.density.priority <- data[x, "DensityPrioritySpecies"]
+n.density.robust <- data[x, "DensityRobustCV"]
+n.occupancy <- data[x, "OccupancySpeciesCount"]
+n.occupancy.priority <- data[x, "OccupancyPrioritySpecies"]
+n.occupancy.robust <- data[x, "OccupancyRobustCV"]
+type <- if (data[x, "is_superstratum"]) {"Superstratum"} else {"Stratum"}
+super_stratum <- if (data[x, "is_superstratum"]) {data[x, "stratum"]} else {data[x, "LongStratum"]}
+
+p1 <- str_glue("We obtained results for {name} by {compilation} analyzing data from {n.strata} {stratum_plural}.")
+
+p2 <- str_glue("Field technicians completed {transect.clause} planned surveys ({percent.completed}%) in {year}. Technicians conducted {completed.points} point counts within the {completed.grids} surveyed grid cells between {first.visit} and {last.visit}. They detected {n.species} bird species, including {n.priority} priority species.")
+
+p3 <- str_glue("Bird Conservancy estimated densities (birds per square kilometer) for {n.density} species that were detected in any year during which surveys were conducted, {n.density.priority} of which are priority species. The data yielded robust density estimates (CV < 50%) for {n.density.robust} species.")
+
+p4 <- str_glue("Bird Conservancy estimated the proportion of occupied plots throughout {name} for {n.occupancy} species that were detected in any year during which surveys were conducted, {n.occupancy.priority} of which are priority species. The data yielded robust occupancy estimates (CV < 50%) for {n.occupancy.robust} species.")
+
+p5 <- str_glue("To view a map of approximate survey locations, species counts, and density, occupancy, & trend estimates within {name} across all years of the project, visit the [RMADC](https://app.bcr.eco/rmadc/).")
+
+head <- paste("####", name, sep = " ")
+
+```
+
+`r head`
+
+`r p1`
+
+`r p2`
+
+`r p3`
+
+`r p4`
+
+::: {.callout-note appearance="minimal"}
+## View results on the Rocky Mountain Avian Data Center
+`r p5`  
+
+On the Explore the Data tab, select **`r super_stratum`** from the **`r type`** drop-down filter.
+:::
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+# This script should not need to be updated year to year!
+
+# ID-BCR10-PA is a special value from the heddlr_loop.qmd file
+x <- which(data$stratum == "ID-BCR10-PA")
+
+name <- data[x, "name"]
+compilation <- ifelse(data[x, "Strata"] > 1, "compiling and jointly", "compiling and")
+n.strata <- if (data[x, "Strata"] <= 10) {numbers_to_words(data[x, "Strata"])
+  } else data[x, "Strata"]
+stratum_plural <- ifelse(data[x, "Strata"] > 1, "strata", "stratum")
+completed.grids <- (data[x, "CompletedGrids"])
+planned.grids <- (data[x, "PlannedGrids"])
+percent.completed <- round((completed.grids/planned.grids)*100)
+
+transect.clause <- if (planned.grids == completed.grids & planned.grids > 2) {
+  paste("all")
+  } else if (planned.grids == completed.grids & planned.grids == 2) {paste("both")
+  } else {paste((completed.grids), 
+             "of", 
+             (planned.grids),
+             sep = " ")}
+
+year <- data[x, "Year"]
+completed.points <- data[x, "CompletedPoints"]
+first.visit <- data[x, "FirstVisit"]
+last.visit <- data[x, "LastVisit"]
+n.species <- data[x, "nBirdSpecies"]
+n.priority <- data[x, "nPriority"]
+n.density <- data[x, "DensitySpeciesCount"]
+n.density.priority <- data[x, "DensityPrioritySpecies"]
+n.density.robust <- data[x, "DensityRobustCV"]
+n.occupancy <- data[x, "OccupancySpeciesCount"]
+n.occupancy.priority <- data[x, "OccupancyPrioritySpecies"]
+n.occupancy.robust <- data[x, "OccupancyRobustCV"]
+type <- if (data[x, "is_superstratum"]) {"Superstratum"} else {"Stratum"}
+super_stratum <- if (data[x, "is_superstratum"]) {data[x, "stratum"]} else {data[x, "LongStratum"]}
+
+p1 <- str_glue("We obtained results for {name} by {compilation} analyzing data from {n.strata} {stratum_plural}.")
+
+p2 <- str_glue("Field technicians completed {transect.clause} planned surveys ({percent.completed}%) in {year}. Technicians conducted {completed.points} point counts within the {completed.grids} surveyed grid cells between {first.visit} and {last.visit}. They detected {n.species} bird species, including {n.priority} priority species.")
+
+p3 <- str_glue("Bird Conservancy estimated densities (birds per square kilometer) for {n.density} species that were detected in any year during which surveys were conducted, {n.density.priority} of which are priority species. The data yielded robust density estimates (CV < 50%) for {n.density.robust} species.")
+
+p4 <- str_glue("Bird Conservancy estimated the proportion of occupied plots throughout {name} for {n.occupancy} species that were detected in any year during which surveys were conducted, {n.occupancy.priority} of which are priority species. The data yielded robust occupancy estimates (CV < 50%) for {n.occupancy.robust} species.")
+
+p5 <- str_glue("To view a map of approximate survey locations, species counts, and density, occupancy, & trend estimates within {name} across all years of the project, visit the [RMADC](https://app.bcr.eco/rmadc/).")
+
+head <- paste("####", name, sep = " ")
+
+```
+
+`r head`
+
+`r p1`
+
+`r p2`
+
+`r p3`
+
+`r p4`
+
+::: {.callout-note appearance="minimal"}
+## View results on the Rocky Mountain Avian Data Center
+`r p5`  
+
+On the Explore the Data tab, select **`r super_stratum`** from the **`r type`** drop-down filter.
+:::
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+# This script should not need to be updated year to year!
+
+# Salmon-Challis National Forest is a special value from the heddlr_loop.qmd file
+x <- which(data$stratum == "Salmon-Challis National Forest")
+
+name <- data[x, "name"]
+compilation <- ifelse(data[x, "Strata"] > 1, "compiling and jointly", "compiling and")
+n.strata <- if (data[x, "Strata"] <= 10) {numbers_to_words(data[x, "Strata"])
+  } else data[x, "Strata"]
+stratum_plural <- ifelse(data[x, "Strata"] > 1, "strata", "stratum")
+completed.grids <- (data[x, "CompletedGrids"])
+planned.grids <- (data[x, "PlannedGrids"])
+percent.completed <- round((completed.grids/planned.grids)*100)
+
+transect.clause <- if (planned.grids == completed.grids & planned.grids > 2) {
+  paste("all")
+  } else if (planned.grids == completed.grids & planned.grids == 2) {paste("both")
+  } else {paste((completed.grids), 
+             "of", 
+             (planned.grids),
+             sep = " ")}
+
+year <- data[x, "Year"]
+completed.points <- data[x, "CompletedPoints"]
+first.visit <- data[x, "FirstVisit"]
+last.visit <- data[x, "LastVisit"]
+n.species <- data[x, "nBirdSpecies"]
+n.priority <- data[x, "nPriority"]
+n.density <- data[x, "DensitySpeciesCount"]
+n.density.priority <- data[x, "DensityPrioritySpecies"]
+n.density.robust <- data[x, "DensityRobustCV"]
+n.occupancy <- data[x, "OccupancySpeciesCount"]
+n.occupancy.priority <- data[x, "OccupancyPrioritySpecies"]
+n.occupancy.robust <- data[x, "OccupancyRobustCV"]
+type <- if (data[x, "is_superstratum"]) {"Superstratum"} else {"Stratum"}
+super_stratum <- if (data[x, "is_superstratum"]) {data[x, "stratum"]} else {data[x, "LongStratum"]}
+
+p1 <- str_glue("We obtained results for {name} by {compilation} analyzing data from {n.strata} {stratum_plural}.")
+
+p2 <- str_glue("Field technicians completed {transect.clause} planned surveys ({percent.completed}%) in {year}. Technicians conducted {completed.points} point counts within the {completed.grids} surveyed grid cells between {first.visit} and {last.visit}. They detected {n.species} bird species, including {n.priority} priority species.")
+
+p3 <- str_glue("Bird Conservancy estimated densities (birds per square kilometer) for {n.density} species that were detected in any year during which surveys were conducted, {n.density.priority} of which are priority species. The data yielded robust density estimates (CV < 50%) for {n.density.robust} species.")
+
+p4 <- str_glue("Bird Conservancy estimated the proportion of occupied plots throughout {name} for {n.occupancy} species that were detected in any year during which surveys were conducted, {n.occupancy.priority} of which are priority species. The data yielded robust occupancy estimates (CV < 50%) for {n.occupancy.robust} species.")
+
+p5 <- str_glue("To view a map of approximate survey locations, species counts, and density, occupancy, & trend estimates within {name} across all years of the project, visit the [RMADC](https://app.bcr.eco/rmadc/).")
+
+head <- paste("####", name, sep = " ")
+
+```
+
+`r head`
+
+`r p1`
+
+`r p2`
+
+`r p3`
+
+`r p4`
+
+::: {.callout-note appearance="minimal"}
+## View results on the Rocky Mountain Avian Data Center
+`r p5`  
+
+On the Explore the Data tab, select **`r super_stratum`** from the **`r type`** drop-down filter.
+:::
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+# This script should not need to be updated year to year!
+
+# Sawtooth National Forest is a special value from the heddlr_loop.qmd file
+x <- which(data$stratum == "Sawtooth National Forest")
+
+name <- data[x, "name"]
+compilation <- ifelse(data[x, "Strata"] > 1, "compiling and jointly", "compiling and")
+n.strata <- if (data[x, "Strata"] <= 10) {numbers_to_words(data[x, "Strata"])
+  } else data[x, "Strata"]
+stratum_plural <- ifelse(data[x, "Strata"] > 1, "strata", "stratum")
+completed.grids <- (data[x, "CompletedGrids"])
+planned.grids <- (data[x, "PlannedGrids"])
+percent.completed <- round((completed.grids/planned.grids)*100)
+
+transect.clause <- if (planned.grids == completed.grids & planned.grids > 2) {
+  paste("all")
+  } else if (planned.grids == completed.grids & planned.grids == 2) {paste("both")
+  } else {paste((completed.grids), 
+             "of", 
+             (planned.grids),
+             sep = " ")}
+
+year <- data[x, "Year"]
+completed.points <- data[x, "CompletedPoints"]
+first.visit <- data[x, "FirstVisit"]
+last.visit <- data[x, "LastVisit"]
+n.species <- data[x, "nBirdSpecies"]
+n.priority <- data[x, "nPriority"]
+n.density <- data[x, "DensitySpeciesCount"]
+n.density.priority <- data[x, "DensityPrioritySpecies"]
+n.density.robust <- data[x, "DensityRobustCV"]
+n.occupancy <- data[x, "OccupancySpeciesCount"]
+n.occupancy.priority <- data[x, "OccupancyPrioritySpecies"]
+n.occupancy.robust <- data[x, "OccupancyRobustCV"]
+type <- if (data[x, "is_superstratum"]) {"Superstratum"} else {"Stratum"}
+super_stratum <- if (data[x, "is_superstratum"]) {data[x, "stratum"]} else {data[x, "LongStratum"]}
+
+p1 <- str_glue("We obtained results for {name} by {compilation} analyzing data from {n.strata} {stratum_plural}.")
+
+p2 <- str_glue("Field technicians completed {transect.clause} planned surveys ({percent.completed}%) in {year}. Technicians conducted {completed.points} point counts within the {completed.grids} surveyed grid cells between {first.visit} and {last.visit}. They detected {n.species} bird species, including {n.priority} priority species.")
+
+p3 <- str_glue("Bird Conservancy estimated densities (birds per square kilometer) for {n.density} species that were detected in any year during which surveys were conducted, {n.density.priority} of which are priority species. The data yielded robust density estimates (CV < 50%) for {n.density.robust} species.")
+
+p4 <- str_glue("Bird Conservancy estimated the proportion of occupied plots throughout {name} for {n.occupancy} species that were detected in any year during which surveys were conducted, {n.occupancy.priority} of which are priority species. The data yielded robust occupancy estimates (CV < 50%) for {n.occupancy.robust} species.")
+
+p5 <- str_glue("To view a map of approximate survey locations, species counts, and density, occupancy, & trend estimates within {name} across all years of the project, visit the [RMADC](https://app.bcr.eco/rmadc/).")
+
+head <- paste("####", name, sep = " ")
+
+```
+
+`r head`
+
+`r p1`
+
+`r p2`
+
+`r p3`
+
+`r p4`
+
+::: {.callout-note appearance="minimal"}
+## View results on the Rocky Mountain Avian Data Center
+`r p5`  
+
+On the Explore the Data tab, select **`r super_stratum`** from the **`r type`** drop-down filter.
+:::
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+# This script should not need to be updated year to year!
+
+# Uinta-Wasatch-Cache National Forest is a special value from the heddlr_loop.qmd file
+x <- which(data$stratum == "Uinta-Wasatch-Cache National Forest")
+
+name <- data[x, "name"]
+compilation <- ifelse(data[x, "Strata"] > 1, "compiling and jointly", "compiling and")
+n.strata <- if (data[x, "Strata"] <= 10) {numbers_to_words(data[x, "Strata"])
+  } else data[x, "Strata"]
+stratum_plural <- ifelse(data[x, "Strata"] > 1, "strata", "stratum")
+completed.grids <- (data[x, "CompletedGrids"])
+planned.grids <- (data[x, "PlannedGrids"])
+percent.completed <- round((completed.grids/planned.grids)*100)
+
+transect.clause <- if (planned.grids == completed.grids & planned.grids > 2) {
+  paste("all")
+  } else if (planned.grids == completed.grids & planned.grids == 2) {paste("both")
+  } else {paste((completed.grids), 
+             "of", 
+             (planned.grids),
+             sep = " ")}
+
+year <- data[x, "Year"]
+completed.points <- data[x, "CompletedPoints"]
+first.visit <- data[x, "FirstVisit"]
+last.visit <- data[x, "LastVisit"]
+n.species <- data[x, "nBirdSpecies"]
+n.priority <- data[x, "nPriority"]
+n.density <- data[x, "DensitySpeciesCount"]
+n.density.priority <- data[x, "DensityPrioritySpecies"]
+n.density.robust <- data[x, "DensityRobustCV"]
+n.occupancy <- data[x, "OccupancySpeciesCount"]
+n.occupancy.priority <- data[x, "OccupancyPrioritySpecies"]
+n.occupancy.robust <- data[x, "OccupancyRobustCV"]
+type <- if (data[x, "is_superstratum"]) {"Superstratum"} else {"Stratum"}
+super_stratum <- if (data[x, "is_superstratum"]) {data[x, "stratum"]} else {data[x, "LongStratum"]}
+
+p1 <- str_glue("We obtained results for {name} by {compilation} analyzing data from {n.strata} {stratum_plural}.")
+
+p2 <- str_glue("Field technicians completed {transect.clause} planned surveys ({percent.completed}%) in {year}. Technicians conducted {completed.points} point counts within the {completed.grids} surveyed grid cells between {first.visit} and {last.visit}. They detected {n.species} bird species, including {n.priority} priority species.")
+
+p3 <- str_glue("Bird Conservancy estimated densities (birds per square kilometer) for {n.density} species that were detected in any year during which surveys were conducted, {n.density.priority} of which are priority species. The data yielded robust density estimates (CV < 50%) for {n.density.robust} species.")
+
+p4 <- str_glue("Bird Conservancy estimated the proportion of occupied plots throughout {name} for {n.occupancy} species that were detected in any year during which surveys were conducted, {n.occupancy.priority} of which are priority species. The data yielded robust occupancy estimates (CV < 50%) for {n.occupancy.robust} species.")
+
+p5 <- str_glue("To view a map of approximate survey locations, species counts, and density, occupancy, & trend estimates within {name} across all years of the project, visit the [RMADC](https://app.bcr.eco/rmadc/).")
+
+head <- paste("####", name, sep = " ")
+
+```
+
+`r head`
+
+`r p1`
+
+`r p2`
+
+`r p3`
+
+`r p4`
+
+::: {.callout-note appearance="minimal"}
+## View results on the Rocky Mountain Avian Data Center
+`r p5`  
+
+On the Explore the Data tab, select **`r super_stratum`** from the **`r type`** drop-down filter.
+:::
+
+
+
+### Region 4 National Grasslands 
+ 
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+# This script should not need to be updated year to year!
+
+# ID-BCR9-CU is a special value from the heddlr_loop.qmd file
+x <- which(data$stratum == "ID-BCR9-CU")
+
+name <- data[x, "name"]
+compilation <- ifelse(data[x, "Strata"] > 1, "compiling and jointly", "compiling and")
+n.strata <- if (data[x, "Strata"] <= 10) {numbers_to_words(data[x, "Strata"])
+  } else data[x, "Strata"]
+stratum_plural <- ifelse(data[x, "Strata"] > 1, "strata", "stratum")
+completed.grids <- (data[x, "CompletedGrids"])
+planned.grids <- (data[x, "PlannedGrids"])
+percent.completed <- round((completed.grids/planned.grids)*100)
+
+transect.clause <- if (planned.grids == completed.grids & planned.grids > 2) {
+  paste("all")
+  } else if (planned.grids == completed.grids & planned.grids == 2) {paste("both")
+  } else {paste((completed.grids), 
+             "of", 
+             (planned.grids),
+             sep = " ")}
+
+year <- data[x, "Year"]
+completed.points <- data[x, "CompletedPoints"]
+first.visit <- data[x, "FirstVisit"]
+last.visit <- data[x, "LastVisit"]
+n.species <- data[x, "nBirdSpecies"]
+n.priority <- data[x, "nPriority"]
+n.density <- data[x, "DensitySpeciesCount"]
+n.density.priority <- data[x, "DensityPrioritySpecies"]
+n.density.robust <- data[x, "DensityRobustCV"]
+n.occupancy <- data[x, "OccupancySpeciesCount"]
+n.occupancy.priority <- data[x, "OccupancyPrioritySpecies"]
+n.occupancy.robust <- data[x, "OccupancyRobustCV"]
+type <- if (data[x, "is_superstratum"]) {"Superstratum"} else {"Stratum"}
+super_stratum <- if (data[x, "is_superstratum"]) {data[x, "stratum"]} else {data[x, "LongStratum"]}
+
+p1 <- str_glue("We obtained results for {name} by {compilation} analyzing data from {n.strata} {stratum_plural}.")
+
+p2 <- str_glue("Field technicians completed {transect.clause} planned surveys ({percent.completed}%) in {year}. Technicians conducted {completed.points} point counts within the {completed.grids} surveyed grid cells between {first.visit} and {last.visit}. They detected {n.species} bird species, including {n.priority} priority species.")
+
+p3 <- str_glue("Bird Conservancy estimated densities (birds per square kilometer) for {n.density} species that were detected in any year during which surveys were conducted, {n.density.priority} of which are priority species. The data yielded robust density estimates (CV < 50%) for {n.density.robust} species.")
+
+p4 <- str_glue("Bird Conservancy estimated the proportion of occupied plots throughout {name} for {n.occupancy} species that were detected in any year during which surveys were conducted, {n.occupancy.priority} of which are priority species. The data yielded robust occupancy estimates (CV < 50%) for {n.occupancy.robust} species.")
+
+p5 <- str_glue("To view a map of approximate survey locations, species counts, and density, occupancy, & trend estimates within {name} across all years of the project, visit the [RMADC](https://app.bcr.eco/rmadc/).")
+
+head <- paste("####", name, sep = " ")
+
+```
+
+`r head`
+
+`r p1`
+
+`r p2`
+
+`r p3`
+
+`r p4`
+
+::: {.callout-note appearance="minimal"}
+## View results on the Rocky Mountain Avian Data Center
+`r p5`  
+
+On the Explore the Data tab, select **`r super_stratum`** from the **`r type`** drop-down filter.
+:::
+
