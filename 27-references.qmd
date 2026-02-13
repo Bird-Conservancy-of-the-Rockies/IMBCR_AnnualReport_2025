@@ -5,6 +5,8 @@
 
 Alexander, J. D., Stephens, J. L., Geupel, G. R., & Will, T. C. 2008. Decision support tools: bridging the gap between science and management. In Proceedings of the Fourth International Partners in Flight Conference: Tundra to Tropics. (p. Pages 283–291). McAllen, Texas, USA. Retrieved from http://www.partnersinflight.org/pubs/McAllenProc/articles/PIF09_Decision Support Tools/Alexander_PIF09.pdf
 
+Amundson, C. L., J. A. Royle, and C. M. Handel. 2014. A hierarchical model combining distance sampling and time removal to estimate detection probability during avian point counts. The Auk 131:476–494.
+
 Arizona Game and Fish Department. 2012. Arizona’s State Wildlife Action Plan: 2012 - 2022. Arizona Game and Fish Department, Phoenix, Arizona. Retrieved from http://www.azgfd.gov/pdfs/w_c/cwcs/downloads/CWCS_Final_May2006.pdf
 
 Baron, J. S., Julius, S. H., West, J. M., Joyce, L. A., Blate, G., Peterson, C. H., … Griffith, B. 2008. Some guidelines for helping natural resources adapt to climate change. International Human Dimensions Programme on Global Environmental Change Update, 2:46–52.
