@@ -49,13 +49,13 @@ This change means that the number of species with density or occupancy estimates
 ```{r planned-completed, echo = F, message = F, warning = FALSE}
 #| column: page-right
 #| label: tbl-planned-completed
-#| tbl-cap: "Planned and completed surveys by strata, 2024"
+#| tbl-cap: "Planned and completed surveys by strata, 2025"
 
 library(tidyverse)
 library(DT)
 library(gt)
 
-plan.comp.strata <- read.csv("data/planned-completed-strata-2024.csv")
+plan.comp.strata <- read.csv("data/planned-completed-strata-2025.csv")
 
 plan.comp.strata <- plan.comp.strata %>%
   select(LongStratum, PlannedGrids, CompletedGrids, percent.completed, State, bcr, Partner, area)
