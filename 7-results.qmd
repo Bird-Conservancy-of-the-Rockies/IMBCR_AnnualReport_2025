@@ -96,7 +96,9 @@ plan.comp.strata %>% gt() %>%
   opt_row_striping()
 
 ```
-##need to repplace MTM w/KBO in 2026!
+
+##need to replace MTM w/KBO in 2026!
+
 ::: column-screen-inset-right
 BCR = Bird Conservancy of the Rockies; DoD = Department of Defense; GBBO = Great Basin Bird Observatory; IBO = Intermountain Bird Observatory; MTM = MTM Environmental, LLC; UDWR = Utah Division of Wildlife Resources; WYNDD = Wyoming Natural Diversity Database.
 :::
@@ -107,9 +109,9 @@ BCR = Bird Conservancy of the Rockies; DoD = Department of Defense; GBBO = Great
 
 ```{r, echo = F, message = F}
 #| label: tbl-reasons
-#| tbl-cap: "Reasons planned surveys were not completed, 2024."
+#| tbl-cap: "Reasons planned surveys were not completed, 2025."
 
-reasons <- read.csv("data/reasons-surveys-not-completed-2024.csv")
+reasons <- read.csv("data/reasons-surveys-not-completed-2025.csv")
 
 datatable(reasons, 
           options = list(pageLength = 10,
@@ -121,7 +123,7 @@ datatable(reasons,
                                                 targets = 1))),
           rownames = FALSE,
           colnames = c("Stratum", "Number not completed", "Reason")) %>%
-          # caption = "Table x. Reasons surveys not completed, 2024.") %>%
+          # caption = "Table x. Reasons surveys not completed, 2025.") %>%
   formatStyle(0:2, fontSize = '12px')
 
 

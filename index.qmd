@@ -69,7 +69,7 @@ label to access the navigation links.
 > determine the "Stratum" or "Superstratum" relevant to you. Click on
 > the relevant agency or geographic region on the sidebar on the left
 > side of this page, then use the "On this page" menu to choose a
-> management unit. The relevant Stratum or Superstratum will be will be
+> management unit. The relevant Stratum or Superstratum will be
 > listed there.
 >
 > ##### **Need some help?**
