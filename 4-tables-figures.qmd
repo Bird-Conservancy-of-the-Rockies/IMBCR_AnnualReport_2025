@@ -1,0 +1,40 @@
+---
+title: "Tables and Figures"
+format: html
+prefer-html: true
+---
+::: {.callout-note}
+Table and figure numbers begin with their respective chapter numbers.
+:::
+
+## Tables {.unnumbered}
+
+@tbl-planned-completed Planned and completed surveys by strata, 2025.
+
+@tbl-reasons Reasons planned surveys were not completed, 2025.
+
+## Figures {.unnumbered}
+
+
+
+@fig-bcr-regions Bird Conservation Regions throughout North America, excluding Hawaii.
+
+@fig-extent Spatial extent of sampled Bird Conservation Regions using the IMBCR design, 2025.
+
+@fig-sampling-unit Example 1 km² sampling unit in the IMBCR design.
+
+@fig-bcr-17 Survey locations and strata in Bird Conservation Region 17, 2025.
+
+@fig-co Survey locations and strata in Colorado, 2025.
+
+@fig-mt Survey locations and strata in Montana, 2025.
+
+@fig-ut Survey locations and strata in Utah, 2025.
+
+@fig-wy Survey locations and strata in Wyoming, 2025.
+
+@fig-trends Strata and superstrata shown for Bobolink trends within increasing trends in blue, decreasing trends in red, and the Bobolink breeding range in cross hatch.
+
+
+
+
