@@ -97,8 +97,6 @@ plan.comp.strata %>% gt() %>%
 
 ```
 
-##need to replace MTM w/KBO in 2026!
-
 ::: column-screen-inset-right
 BCR = Bird Conservancy of the Rockies; DoD = Department of Defense; GBBO = Great Basin Bird Observatory; IBO = Intermountain Bird Observatory; MTM = MTM Environmental, LLC; UDWR = Utah Division of Wildlife Resources; WYNDD = Wyoming Natural Diversity Database.
 :::
