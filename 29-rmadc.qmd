@@ -1,0 +1,77 @@
+---
+title: "Rocky Mountain Avian Data Center Tips"
+---
+
+## Overview {.unnumbered}
+
+All results, including parameter estimates, distribution maps, raw count data and effort, are available online. To view interactive maps showing survey and detection locations, as well as species counts, and density, population and occupancy results using the IMBCR study design please visit the [Rocky Mountain Avian Data Center](https://app.bcr.eco/rmadc/). Click on the "Explore the Data" tab to view IMBCR results.  
+
+Please note that the RMADC 2.0 is new and still in progress. 
+
+### Selecting filters {.unnumbered}
+
+The Rocky Mountain Avian Data Center has been designed to provide information for specific regions and species, and therefore, works best when users select multiple filters for a query. 
+
+For example, to view all IMBCR results for Brewer's sparrow in Colorado, you would select the following filters: Species = Brewer's Sparrow and State = Colorado. Below is an explanation of the different filter types you may choose from.  
+
+::: {.callout-tip}
+## Tip
+
+To navigate the filters, it's helpful to use this report to determine the **Stratum** or **Superstratum** relevant to you. Click on the relevant agency or geographic region on the sidebar on the left side of this page, then use the "On this page" menu to choose a management unit. The relevant Stratum or Superstratum will be listed in a callout block like this one.
+:::
+
+
+#### Geographic filters
+
+**Bird Conservation Region**: Selecting this filter will provide you with results for all strata and superstrata within a particular Bird Conservation Region - see @fig-bcr-regions for a map.  
+
+**State**: Selecting this filter will supply the user with data and results for all strata and superstrata within a particular state.  
+
+**Land Management Agency**: This filter will allow users to select data and results for several land management agencies, such as US Bureau of Land Management (BLM), US Department of Defense (DOD), US Fish and Wildlife Service (USFWS), US Forest Service (USFS), and National Park Service (NPS).   
+
+**Stratum (eg, management unit)**: This filter allows users to select data and results for a geographic unit of analysis, often an individual management unit like Bighorn National Forest.  
+
+**Superstratum (eg, region)**: This filter allows users to select data and results for multiple strata that were analyzed jointly. Superstrata often represent regions or entire states (e.g., the state of Colorado is split into 30 individual strata), but sometimes management units are stratified by management features and analyzed as a superstratum (e.g., Bridger-Teton National Forest is split into two strata reflecting roadless and roaded areas).  
+
+#### Other filters {.unnumbered}
+
+**Species**: This filter allows users to select data and results for a particular or group species. 
+
+**Year**: This filter will allow users to select all data and results for a particular year.  
+
+
+## Viewing Maps and Counts (Map Tab) {.unnumbered}
+
+***What is displayed***
+
+The map displays approximate survey locations corresponding to a set of filters. If you filtered by species, black circles represent survey locations where that species was not detected and pink circles represent survey locations where that species was detected. 
+
+By default, the zoom capability of the maps page is restricted to protect the privacy of private landowners. Funding and/or implementation partners wishing for more precise location information should email [Jennifer Timmer](mailto: jennifer.timmer@birdconservancy.org).
+
+The table below the map displays a count of the number of individuals detected for each individual survey.
+
+***Adding map layers***
+
+Selecting a Bird Conservation Region or a Stratum filter will display the boundary for that geographic extent.
+
+## Viewing Density, Occupancy and Trend Results (Density, Occupancy, and Trend Estimates Tabs) {.unnumbered}
+
+***Viewing Tables***
+
+You may view density, occupancy or trend tables for all appropriate strata (based on the selected filters) for which we have results, by clicking on the tabs above the map labeled "Density", "Occupancy" or "Trend".
+
+The density tables display stratum name, species, year, density (number of birds estimated per km² within the stratum), percent coefficient of variation (% CV, an indicator of reliability for the estimate), the number of independent detections used in analyses, and the total abundance of individuals estimated within the stratum (i.e., density x stratum area). The occupancy tables display stratum name, species, year, occupancy (probability that sampling plots are occupied by at least 1 individual of a species), % CV, and number of surveyed points the species was detected on. We classify density and occupancy estimates as "robust" if the CV is < 50% (these records will be highlighted in gold in the tables).
+
+The trend tables display the stratum name, species, years (i.e., the monitoring period), and then two sets of trend estimates: trend based on the annual density estimates and trend based on the annual occupancy estimates. Trend for density and occupancy is interpreted as the percent change per year of the monitoring period. Increasing trends are shown in blue and decreasing trends are shown in red. The "f" value for both trends is the probability that the trend is in the direction of the reported % change. For example, if a trend estimate is 5.5 and the f value is 0.95, this means the population has increased 5.5% each year of the monitoring period and we are 95% certain the population has increased. Robust trends have an f value > 0.9 and these records are highlighted in yellow in the trend tables. Some partners prefer to use a more stringent cut-off of f > 0.975, and these records are highlighted in gold. The 95% CI is the 95% credible interval, which contains the true population trend with 95% certainty. 95% CIs which do not overlap zero are equivalent to f > 0.975. Note that trend estimates with an f value between 0.9-0.975, although robust, will have 95% CIs that overlap 0. This is because f > 0.9 is equivalent to an 80% CI that does not overlap 0.  
+
+***Stratum and Superstratum Results***
+
+Density, occupancy, and trend estimates will always be displayed by individual strata in the top table and by superstrata that the individual strata contribute to in the bottom table. If you use the “Stratum” filter to select an individual management unit, estimates for all relevant superstrata will be included in the table below for regional context. If you use the “Superstratum” filter to select a region or state, estimates for all individual strata contained within that superstratum will be included in the top table. This provides automatic context for local populations with regional populations. For example, use the Stratum filter to select WY-BCR10-BI: Bighorn National Forest, and the top table will show estimates for Bighorn National Forest. The bottom table will show estimates for 3 main superstrata that Bighorn NF is part of: statewide in Wyoming, the BCR10-portion of WY, and USFS-Region 2 National Forests.
+
+***Download results of your query***
+
+You may easily download the results of your query as a CSV file by clicking the "Download" button below each table. You can also click the "i" button above each table for an explanation of what's shown in that table. If you wish to include a table of estimates in a report, you can copy and paste this information bubble to use as a table caption.
+
+***Viewing the Density Charts***
+
+When viewing the density charts, the point estimate of density for a given year is indicated with a circle, and the error bars represent the 95% credible interval. We will include occupancy charts in future RMADC updates.

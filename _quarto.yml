@@ -39,16 +39,16 @@ book:
         - 24-wy.qmd
     - part: "Discussion"
       chapters:
-        - 24-applications.qmd
-        - 25-special-feature.qmd
-        - 26-conclusion.qmd
-    - 27-references.qmd
+        - 25-applications.qmd
+        - 26-special-feature.qmd
+        - 27-conclusion.qmd
+    - 28-references.qmd
   appendices: 
-    - 28-rmadc.qmd
-    - 29-history.qmd
-    - 30-protocol-changes.qmd
-    - 31-analysis.qmd
-   # - 31-priority-species.qmd
+    - 29-rmadc.qmd
+    - 30-history.qmd
+    - 31-protocol-changes.qmd
+    - 32-analysis.qmd
+   # - 33-priority-species.qmd
         
 
 # bibliography: references.bib
