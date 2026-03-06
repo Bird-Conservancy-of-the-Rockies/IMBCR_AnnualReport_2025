@@ -43,6 +43,8 @@ Dreitz, V. J., Stinson, L. T., Hahn, B. A., Tack, J. D., & Lukacs, P. M. 2017. A
 
 Dyke, S. R., Johnson, S. K., Isakson, P. T. 2015. North Dakota State Wildlife Action Plan. North Dakota Game and Fish Department, Bismarck, ND. 438 pp. Environmental Systems Research Institute. (2017). ArcGIS, version 10.X. Redlands, California, USA: Environmental Systems Research Institute, Incorporated.
 
+Environmental Systems Research Institute. 2017. ArcGIS, version 10.X. Environmental Systems Research Institute, Incorporated, Redlands, California. 
+
 Gelman, A., J. B. Carlin, H. S. Stern, and D. B. Rubin. 2004. Bayesian data analysis. Chapman and Hall/CRC, Boca Raton, Florida, USA.
 
 Green, A. W., Pavlacky, D. C., & George, T. L. 2019. A dynamic multi-scale occupancy model to estimate temporal dynamics and hierarchical habitat use for nomadic species. Ecology and Evolution, 2019:793-803.
